@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-$script:XO_VDI_FIELDS = "name_label,uuid,content_type,size,usage,physical_usage,$SR,sr_uuid,sr_usage"
+$script:XO_VDI_FIELDS = "name_label,uuid,content_type,size,usage,physical_usage,`$SR,sr_usage"
 
 function ConvertTo-XoVdiObject {
     <#
@@ -125,7 +125,7 @@ function Get-XoVdi {
             $filterParts = @()
 
             if ($SrUuid) {
-                $filterParts += "sr_uuid:$SrUuid"
+                $filterParts += "`$SR:$SrUuid"
             }
 
             if ($Filter) {
