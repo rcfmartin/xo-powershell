@@ -1,7 +1,31 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Set-XoSr {
-    [CmdletBinding()]
+function Set-XoSr
+{
+    <#
+    .SYNOPSIS
+    Set XO sr
+
+    .DESCRIPTION
+    Set XO sr
+
+    .PARAMETER SrUuid
+    Target SR uuid
+
+    .PARAMETER Name
+    Target SR name
+
+    .PARAMETER Description
+    Target SR description
+
+    .PARAMETER Tags
+    Target SR tags
+
+    .EXAMPLE
+    Set-XoSr -SrUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name "MySR"
+
+    #>
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param(
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, Position = 0)]
         [Alias("SrId")]
@@ -16,21 +40,32 @@ function Set-XoSr {
         [Parameter()]
         [string[]]$Tags
     )
+    process
+    {
 
-    $params = @{}
+        $params = @{}
 
-    if ($PSBoundParameters.ContainsKey("Name")) {
-        $params["name_label"] = $Name
-    }
-    if ($PSBoundParameters.ContainsKey("Description")) {
-        $params["name_description"] = $Description
-    }
-    if ($PSBoundParameters.ContainsKey("Tags")) {
-        $params["tags"] = $Tags
-    }
+        if ($PSBoundParameters.ContainsKey("Name"))
+        {
+            $params["name_label"] = $Name
+        }
+        if ($PSBoundParameters.ContainsKey("Description"))
+        {
+            $params["name_description"] = $Description
+        }
+        if ($PSBoundParameters.ContainsKey("Tags"))
+        {
+            $params["tags"] = $Tags
+        }
 
-    if ($params.Count -gt 0) {
-        $body = [System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json $params))
-        Invoke-RestMethod -Uri "$script:XoHost/rest/v0/srs/$SrUuid" @script:XoRestParameters -Method Patch -ContentType "application/json" -Body $body
+        if ($params.Count -gt 0)
+        {
+            if ($PSCmdlet.ShouldProcess($SrUuid, "Set SR on target"))
+            {
+
+                $body = [System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json $params))
+                Invoke-RestMethod -Uri "$script:XoHost/rest/v0/srs/$SrUuid" @script:XoRestParameters -Method Patch -ContentType "application/json" -Body $body
+            }
+        }
     }
 }
