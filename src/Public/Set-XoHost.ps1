@@ -59,7 +59,7 @@ function Set-XoHost
 
         if ($params.Count -gt 0)
         {
-            if ($PSCmdlet.ShouldProcess('Set Host', $HostUuid))
+            if ($PSCmdlet.ShouldProcess($HostUuid, 'Set Host'))
             {
 
                 $body = [System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json $params))
