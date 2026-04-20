@@ -2,12 +2,30 @@
 
 $script:XO_SCHEDULE_FIELDS = "cron,enabled,name,timezone,id,jobId"
 
-function ConvertTo-XoScheduleObject {
+function ConvertTo-XoScheduleObject
+{
+    <#
+    .SYNOPSIS
+    Convert api object to powershell xo Schedule object
+
+    .DESCRIPTION
+    Convert api object to powershell xo Schedule object
+
+    .PARAMETER InputObject
+    Input object from the API
+
+    .EXAMPLE
+    ConvertTo-XoScheduleObject -InputObject $object
+
+    #>
+    [Cmdletbinding()]
+    [OutputType("XoPowershell.Schedule")]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject
     )
 
-    process {
+    process
+    {
         $props = @{
             ScheduleId = $InputObject.id
         }

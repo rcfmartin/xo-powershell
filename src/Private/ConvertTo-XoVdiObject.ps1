@@ -2,7 +2,8 @@
 
 $script:XO_VDI_FIELDS = "name_label,uuid,content_type,size,usage,physical_usage,`$SR,sr_usage"
 
-function ConvertTo-XoVdiObject {
+function ConvertTo-XoVdiObject
+{
     <#
     .SYNOPSIS
         Convert a VDI object from the API to a PowerShell object.
@@ -19,7 +20,8 @@ function ConvertTo-XoVdiObject {
     )
 
 
-    process {
+    process
+    {
         $props = @{
             PSTypeName    = "XoPowershell.Vdi"
             VdiUuid       = $InputObject.uuid

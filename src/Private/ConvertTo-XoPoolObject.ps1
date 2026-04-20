@@ -2,12 +2,30 @@
 
 $script:XO_POOL_FIELDS = "auto_poweron,default_SR,HA_enabled,haSrs,master,tags,name_description,name_label,migrationCompression,cpus,zstdSupported,vtpmSupported,platform_version,type,uuid"
 
-function ConvertTo-XoPoolObject {
+function ConvertTo-XoPoolObject
+{
+    <#
+    .SYNOPSIS
+    Convert api object to powershell xo Pool object
+
+    .DESCRIPTION
+    Convert api object to powershell xo Pool object
+
+    .PARAMETER InputObject
+    Input object from the API
+
+    .EXAMPLE
+    ConvertTo-XoPoolObject -InputObject $object
+
+    #>
+    [Cmdletbinding()]
+    [OutputType("XoPowershell.Pool")]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject
     )
 
-    process {
+    process
+    {
         $props = @{
             PoolUuid        = $InputObject.uuid
             Name            = $InputObject.name_label
