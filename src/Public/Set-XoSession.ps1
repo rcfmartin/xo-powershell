@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Set-XoSession {
+function Set-XoSession
+{
     <#
     .SYNOPSIS
         Set the current XO session settings.
@@ -15,14 +16,22 @@ function Set-XoSession {
         Set-XoSession -Limit 0
         Sets cmdlets to return all items by default.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'low')]
     param(
         [Parameter()]
         [int]$Limit
     )
+    process
+    {
 
-    if ($PSBoundParameters.ContainsKey("Limit")) {
-        Write-Verbose "Default limit for XO queries changed from $script:XoSessionLimit to $Limit"
-        $script:XoSessionLimit = $Limit
+        if ($PSBoundParameters.ContainsKey("Limit"))
+        {
+            if ($PSCmdlet.ShouldProcess($Limit, "Set updated limit"))
+            {
+
+                Write-Verbose "Default limit for XO queries changed from $script:XoSessionLimit to $Limit"
+                $script:XoSessionLimit = $Limit
+            }
+        }
     }
 }
