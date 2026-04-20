@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Invoke-XoRestMethod {
+function Invoke-XoRestMethod
+{
     <#
     .SYNOPSIS
         Helper for when Invoke-RestMethod returns unparseable JSON.
@@ -13,10 +14,14 @@ function Invoke-XoRestMethod {
     )
 
     $result = Invoke-RestMethod @script:XoRestParameters -Uri $uri -Body $body
-    if ($result -is [string]) {
+    if ($result -is [string])
+    {
         Write-Verbose "server returned unparseable JSON, retrying with -AsHashtable"
-        return [pscustomobject](ConvertFrom-Json -AsHashtable $result)
-    } else {
+        $json = $result | ConvertFrom-Json -AsHashtable
+        return [pscustomobject]$json
+    }
+    else
+    {
         return $result
     }
 }
