@@ -2,23 +2,48 @@
 
 function Set-XoObject
 {
-    [CmdletBinding()]
+    <#
+    .SYNOPSIS
+    Set Xo Object with custom type
+
+    .DESCRIPTION
+    Set Xo Object with custom type
+
+    .PARAMETER InputObject
+    Target object
+
+    .PARAMETER TypeName
+    Custom Type Name
+
+    .PARAMETER Properties
+    Target object properties
+
+    .EXAMPLE
+    Set-XoObject $InputObject -TypeName XoPowershell.MyCustomType -Properties $props
+    #>
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'low')]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject,
         [Parameter()][string]$TypeName,
         [Parameter()][hashtable]$Properties
     )
-
-    if ($TypeName)
+    process
     {
-        $InputObject.PSObject.TypeNames.Insert(0, $TypeName) > $null
-    }
-    if ($Properties)
-    {
-        foreach ($key in $Properties.Keys)
+        if ($PSCmdlet.ShouldProcess($TypeName, "Setting object "))
         {
-            $InputObject.PSObject.Properties.Add([psnoteproperty]::new($key, $Properties[$key])) > $null
+
+            if ($TypeName)
+            {
+                $InputObject.PSObject.TypeNames.Insert(0, $TypeName) > $null
+            }
+            if ($Properties)
+            {
+                foreach ($key in $Properties.Keys)
+                {
+                    $InputObject.PSObject.Properties.Add([psnoteproperty]::new($key, $Properties[$key])) > $null
+                }
+            }
+            [PSCustomObject]$InputObject
         }
     }
-    [PSCustomObject]$InputObject
 }
