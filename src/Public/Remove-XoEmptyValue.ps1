@@ -15,7 +15,7 @@ function Remove-XoEmptyValue
     .EXAMPLE
     Remove-XoEmptyValue -InputObject $MyObject
     #>
-    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]
         [ValidateNotNull()]
