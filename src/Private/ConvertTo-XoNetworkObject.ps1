@@ -2,12 +2,30 @@
 
 $script:XO_NETWORK_FIELDS = "automatic,defaultIsLocked,MTU,name_description,name_label,tags,PIFs,VIFs,nbd,uuid,`$pool"
 
-function ConvertTo-XoNetworkObject {
+function ConvertTo-XoNetworkObject
+{
+    <#
+    .SYNOPSIS
+    Convert api object to powershell xo network object
+
+    .DESCRIPTION
+    Convert api object to powershell xo network object
+
+    .PARAMETER InputObject
+    Input object from the API
+
+    .EXAMPLE
+    ConvertTo-XoNetworkObject -InputObject $object
+
+    #>
+    [Cmdletbinding()]
+    [OutputType("XoPowershell.Network")]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject
     )
 
-    process {
+    process
+    {
         $props = @{
             NetworkUuid = $InputObject.uuid
             Name        = $InputObject.name_label
