@@ -9,10 +9,10 @@ AfterAll {
     Get-Module -Name $script:dscModuleName -All | Remove-Module -Force
 }
 
-Describe Remove-XoEmptyValues {
+Describe Remove-XoEmptyValue {
     BeforeAll {
-        Mock -CommandName Remove-XoEmptyValues -MockWith {
-            # This return the value passed to the Remove-XoEmptyValues parameter $PrivateData.
+        Mock -CommandName Remove-XoEmptyValue -MockWith {
+            # This return the value passed to the Remove-XoEmptyValue parameter $PrivateData.
             $PrivateData
         } -ModuleName $dscModuleName
     }
@@ -20,14 +20,14 @@ Describe Remove-XoEmptyValues {
     Context 'When passing values using named parameters' {
 
         It 'Should return a single object' {
-            #$return = Remove-XoEmptyValues -Data 'value'
+            #$return = Remove-XoEmptyValue -Data 'value'
 
             #($return | Measure-Object).Count | Should -Be 1
             1 | Should -Be 1
         }
 
         It 'Should return the correct string value' {
-            #$return = Remove-XoEmptyValues -Data 'value'
+            #$return = Remove-XoEmptyValue -Data 'value'
 
             #$return | Should -Be 'value'
             1 | Should -Be 1
@@ -36,21 +36,21 @@ Describe Remove-XoEmptyValues {
 
     Context 'When passing values over the pipeline' {
         It 'Should call the private function two times' {
-            #{ 'value1', 'value2' | Remove-XoEmptyValues } | Should -Not -Throw
+            #{ 'value1', 'value2' | Remove-XoEmptyValue } | Should -Not -Throw
 
-            #Should -Invoke -CommandName Remove-XoEmptyValues -Exactly -Times 2 -Scope It -ModuleName $dscModuleName
+            #Should -Invoke -CommandName Remove-XoEmptyValue -Exactly -Times 2 -Scope It -ModuleName $dscModuleName
             1 | Should -Be 1
         }
 
         It 'Should return an array with two items' {
-            #$return = 'value1', 'value2' | Remove-XoEmptyValues
+            #$return = 'value1', 'value2' | Remove-XoEmptyValue
 
             #$return.Count | Should -Be 2
             1 | Should -Be 1
         }
 
         It 'Should return an array with the correct string values' {
-            #$return = 'value1', 'value2' | Remove-XoEmptyValues
+            #$return = 'value1', 'value2' | Remove-XoEmptyValue
 
             #$return[0] | Should -Be 'value1'
             #$return[1] | Should -Be 'value2'
@@ -63,7 +63,7 @@ Describe Remove-XoEmptyValues {
             #        Data = $_
             #        OtherProperty = 'other'
             #    }
-            #} | Remove-XoEmptyValues
+            #} | Remove-XoEmptyValue
 
             #$return[0] | Should -Be 'value1'
             #$return[1] | Should -Be 'value2'
@@ -73,22 +73,21 @@ Describe Remove-XoEmptyValues {
 
     Context 'When passing WhatIf' {
         It 'Should support the parameter WhatIf' {
-            #(Get-Command -Name 'Remove-XoEmptyValues').Parameters.ContainsKey('WhatIf') | Should -Be $true
+            #(Get-Command -Name 'Remove-XoEmptyValue').Parameters.ContainsKey('WhatIf') | Should -Be $true
             1 | Should -Be 1
         }
 
         It 'Should not call the private function' {
-            #{ Remove-XoEmptyValues -Data 'value' -WhatIf } | Should -Not -Throw
+            #{ Remove-XoEmptyValue -Data 'value' -WhatIf } | Should -Not -Throw
 
-            #Should -Invoke -CommandName Remove-XoEmptyValues -Exactly -Times 0 -Scope It -ModuleName $dscModuleName
+            #Should -Invoke -CommandName Remove-XoEmptyValue -Exactly -Times 0 -Scope It -ModuleName $dscModuleName
             1 | Should -Be 1
         }
 
         It 'Should return $null' {
-            #$return = Remove-XoEmptyValues -Data 'value' -WhatIf
+            #$return = Remove-XoEmptyValue -Data 'value' -WhatIf
 
             #$return | Should -BeNullOrEmpty
         }
     }
 }
-
