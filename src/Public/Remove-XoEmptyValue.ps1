@@ -16,6 +16,7 @@ function Remove-XoEmptyValue
     Remove-XoEmptyValue -InputObject $MyObject
     #>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
+    [OutputType([hashtable])]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]
         [ValidateNotNull()]
