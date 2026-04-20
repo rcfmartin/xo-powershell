@@ -116,9 +116,10 @@
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData          = @{
         PSData = @{
-            LicenseUri = 'https://spdx.org/licenses/Apache-2.0.html'
-            ProjectUri = 'https://github.com/vatesfr/xo-powershell'
-            Prerelease = 'beta'
+            LicenseUri   = 'https://spdx.org/licenses/Apache-2.0.html'
+            ProjectUri   = 'https://github.com/vatesfr/xo-powershell'
+            Prerelease   = 'beta'
+            ReleaseNotes = ''
         }
     }
 
