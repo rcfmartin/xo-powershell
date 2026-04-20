@@ -1,17 +1,36 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function ConvertFrom-XoSecureString {
+function ConvertFrom-XoSecureString
+{
+    <#
+    .SYNOPSIS
+    Convert secure string into string
+
+    .DESCRIPTION
+    Convert secure string into string
+
+    .PARAMETER SecureString
+    Target secure string
+
+    .EXAMPLE
+    ConvertFrom-XoSecureString -SecureString 'MySecretString'
+    #>
     [CmdletBinding()]
+    [OutputType([string])]
     param (
-        [Parameter(Mandatory, Position = 0, ValueFromPipeline)][securestring]$SecureString
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+        [securestring]$SecureString
     )
 
-    process {
+    process
+    {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
-        try {
+        try
+        {
             return [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         }
-        finally {
+        finally
+        {
             [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
         }
     }
