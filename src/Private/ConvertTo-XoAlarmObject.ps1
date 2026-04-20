@@ -17,6 +17,8 @@ function ConvertTo-XoAlarmObject
     .EXAMPLE
     ConvertTo-XoAlarmObject -InputObject $Object
     #>
+    [CmdletBinding()]
+    [OutputType("XoPowershell.Alarm")]
     param(
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject
     )
