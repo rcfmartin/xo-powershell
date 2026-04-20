@@ -1,7 +1,28 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Set-XoVdi {
-    [CmdletBinding()]
+function Set-XoVdi
+{
+    <#
+    .SYNOPSIS
+    Set XO VDI
+
+    .DESCRIPTION
+    Set XO VDI
+
+    .PARAMETER VdiUuid
+    Target VDI uuid
+
+    .PARAMETER Name
+    Target VDI name
+
+    .PARAMETER Description
+    Target VDI description
+
+    .EXAMPLE
+    Set-XoVdi -VdiUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name 'MyVdi'
+
+    #>
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param(
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, Position = 0)]
         [Alias("VdiId")]
@@ -13,18 +34,28 @@ function Set-XoVdi {
         [Parameter()]
         [string]$Description
     )
+    process
+    {
 
-    $params = @{}
+        $params = @{}
 
-    if ($PSBoundParameters.ContainsKey("Name")) {
-        $params["name_label"] = $Name
-    }
-    if ($PSBoundParameters.ContainsKey("Description")) {
-        $params["name_description"] = $Description
-    }
+        if ($PSBoundParameters.ContainsKey("Name"))
+        {
+            $params["name_label"] = $Name
+        }
+        if ($PSBoundParameters.ContainsKey("Description"))
+        {
+            $params["name_description"] = $Description
+        }
 
-    if ($params.Count -gt 0) {
-        $body = [System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json $params))
-        Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vdis/$VdiUuid" @script:XoRestParameters -Method Patch -ContentType "application/json" -Body $body
+        if ($params.Count -gt 0)
+        {
+            if ($PSCmdlet.ShouldProcess($VdiUuid, "Set VDI on target"))
+            {
+
+                $body = [System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json $params))
+                Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vdis/$VdiUuid" @script:XoRestParameters -Method Patch -ContentType "application/json" -Body $body
+            }
+        }
     }
 }
