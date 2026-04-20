@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Connect-XoSession {
+function Connect-XoSession
+{
     <#
     .SYNOPSIS
         Connect to a Xen Orchestra instance.
@@ -24,6 +25,7 @@ function Connect-XoSession {
         Prompts for a token and connects to the specified Xen Orchestra instance.
     #>
     [CmdletBinding(DefaultParameterSetName = "Token")]
+    [OutputType([bool])]
     param (
         [Parameter(Mandatory, Position = 0)]
         [string]$HostName,
@@ -47,10 +49,12 @@ function Connect-XoSession {
     $script:XoHost = $HostName.TrimEnd("/")
     Write-Verbose "Connecting to Xen Orchestra at $script:XoHost"
 
-    if ($PSBoundParameters.ContainsKey('Limit')) {
+    if ($PSBoundParameters.ContainsKey('Limit'))
+    {
         $script:XoSessionLimit = $Limit
     }
-    else {
+    else
+    {
         Write-Warning "No limit specified. Using default limit of $script:XO_DEFAULT_LIMIT. Use -Limit 0 for unlimited results."
         # Reset session limit to default value on new connection
         $script:XoSessionLimit = $script:XO_DEFAULT_LIMIT
@@ -58,15 +62,19 @@ function Connect-XoSession {
 
     $needsSave = $SaveCredentials
 
-    if ($PSCmdlet.ParameterSetName -eq "Credential") {
+    if ($PSCmdlet.ParameterSetName -eq "Credential")
+    {
         throw [System.NotImplementedException]::new("TODO: implement username/password login")
     }
-    elseif ($PSCmdlet.ParameterSetName -eq "Token" -and !$Token) {
+    elseif ($PSCmdlet.ParameterSetName -eq "Token" -and !$Token)
+    {
         # TODO: load saved token
-        if ($Token) {
+        if ($Token)
+        {
             $needsSave = $false
         }
-        else {
+        else
+        {
             $secureToken = Read-Host -AsSecureString -Prompt "Enter XO API token"
             $Token = [System.Net.NetworkCredential]::new("", $secureToken).Password
         }
@@ -78,13 +86,17 @@ function Connect-XoSession {
         }
     }
 
-    if ($SkipCertificateCheck) {
-        if ($PSVersionTable.PSVersion.Major -ge 6) {
+    if ($SkipCertificateCheck)
+    {
+        if ($PSVersionTable.PSVersion.Major -ge 6)
+        {
             $script:XoRestParameters["SkipCertificateCheck"] = $true
         }
-        else {
+        else
+        {
             Write-Warning "Certificate check skipping is only supported in PowerShell 6+. Using insecure handling method."
-            if (-not ([System.Management.Automation.PSTypeName]'TrustAllCertsPolicy').Type) {
+            if (-not ([System.Management.Automation.PSTypeName]'TrustAllCertsPolicy').Type)
+            {
                 Add-Type @"
                     using System.Net;
                     using System.Security.Cryptography.X509Certificates;
@@ -103,18 +115,21 @@ function Connect-XoSession {
     }
 
     # Save credentials if requested
-    if ($needsSave) {
+    if ($needsSave)
+    {
         # TODO: Implement credential saving
     }
 
     $connectionSuccessful = Test-XoSession
 
-    if ($connectionSuccessful) {
+    if ($connectionSuccessful)
+    {
         Write-Verbose "XoHost value: $script:XoHost"
         Write-Verbose "XoRestParameters: $($script:XoRestParameters.Headers | ConvertTo-Json -Compress)"
         return $true
     }
-    else {
+    else
+    {
         Write-Error "Failed to connect to Xen Orchestra at $script:XoHost"
         $script:XoHost = $null
         $script:XoRestParameters = $null
