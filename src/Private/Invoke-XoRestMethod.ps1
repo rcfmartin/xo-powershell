@@ -7,10 +7,22 @@ function Invoke-XoRestMethod
         Helper for when Invoke-RestMethod returns unparseable JSON.
     .DESCRIPTION
         Helper for when Invoke-RestMethod returns unparseable JSON (e.g. due to duplicate keys). $script:XoRestParameters is already included.
+
+    .PARAMETER Uri
+    Target xo url
+
+    .PARAMETER Body
+    Web request body
+
+    .EXAMPLE
+    Invoke-XoRestMethod -Uri $Url -Body $body
     #>
     param(
-        [Parameter(Mandatory)][string]$Uri,
-        [Parameter()][object]$Body
+        [Parameter(Mandatory)]
+        [string]$Uri,
+
+        [Parameter()]
+        [object]$Body
     )
 
     $result = Invoke-RestMethod @script:XoRestParameters -Uri $uri -Body $body
