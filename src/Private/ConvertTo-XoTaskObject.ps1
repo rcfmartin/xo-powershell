@@ -38,11 +38,11 @@ function ConvertTo-XoTaskObject
 
         $type = if ($InputObject.properties.type)
         {
-            $InputObject.properties.type 
+            $InputObject.properties.type
         }
         else
         {
-            "" 
+            ""
         }
 
         $startTime = if ($InputObject.start -and $InputObject.start -gt 0)
@@ -84,11 +84,11 @@ function ConvertTo-XoTaskObject
             Status     = $InputObject.status
             Progress   = if ($null -ne $InputObject.progress)
             {
-                $InputObject.progress 
+                $InputObject.progress
             }
             else
             {
-                0 
+                0
             }
             StartTime  = $startTime
             EndTime    = $endTime
