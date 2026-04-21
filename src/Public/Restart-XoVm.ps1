@@ -31,11 +31,11 @@ function Restart-XoVm
     {
         $action = if ($Force)
         {
-            "hard_reboot" 
+            "hard_reboot"
         }
         else
         {
-            "clean_reboot" 
+            "clean_reboot"
         }
     }
 
