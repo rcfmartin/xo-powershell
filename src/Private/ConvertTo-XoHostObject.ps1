@@ -2,7 +2,8 @@
 
 $script:XO_HOST_FIELDS = "uuid,name_label,name_description,power_state,memory,address,hostname,version,productBrand,build,startTime,tags,bios_strings,license_params,license_server,license_expiry,residentVms,PIFs,PCIs,PGPUs,poolId,CPUs"
 
-function ConvertTo-XoHostObject {
+function ConvertTo-XoHostObject
+{
     <#
     .SYNOPSIS
         Convert a host object from the API to a PowerShell object.
@@ -11,6 +12,8 @@ function ConvertTo-XoHostObject {
         This function creates a flat object using the raw values from the API response.
     .PARAMETER InputObject
         The host object from the API.
+    .EXAMPLE
+        ConvertTo-XoHostObject -InputObject $object
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Host")]
@@ -18,7 +21,8 @@ function ConvertTo-XoHostObject {
         [Parameter(Mandatory, ValueFromPipeline, Position = 0)]$InputObject
     )
 
-    process {
+    process
+    {
         $props = @{
             HostUuid      = $InputObject.uuid
             Name          = $InputObject.name_label
