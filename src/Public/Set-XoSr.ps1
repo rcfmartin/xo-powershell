@@ -7,7 +7,7 @@ function Set-XoSr
     Set XO sr
 
     .DESCRIPTION
-    Set XO sr
+    Update properties of a storage repository in XO.
 
     .PARAMETER SrUuid
     Target SR uuid

@@ -7,7 +7,7 @@ function Get-XoSingleSrById
     Get single SR by ID
 
     .DESCRIPTION
-    Get single SR by ID
+    Get a single storage repository by its UUID.
 
     .PARAMETER SrUuid
     Target SR uuid

@@ -7,7 +7,7 @@ function Get-XoSingleVdiById
     Get VDI by ID
 
     .DESCRIPTION
-    Get VDI by ID
+    Get a single VDI from Xen Orchestra by UUID.
 
     .PARAMETER VdiUuid
     Target VDI uuid

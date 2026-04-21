@@ -7,7 +7,7 @@ function Set-XoVdi
     Set XO VDI
 
     .DESCRIPTION
-    Set XO VDI
+    Update properties of a VDI in Xen Orchestra.
 
     .PARAMETER VdiUuid
     Target VDI uuid

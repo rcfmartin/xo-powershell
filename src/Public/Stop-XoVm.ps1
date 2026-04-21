@@ -31,11 +31,11 @@ function Stop-XoVm
     {
         $action = if ($Force)
         {
-            "hard_shutdown" 
+            "hard_shutdown"
         }
         else
         {
-            "clean_shutdown" 
+            "clean_shutdown"
         }
     }
 

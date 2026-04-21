@@ -9,7 +9,7 @@ function ConvertTo-XoAlarmObject
     Convert object to Alarm Object
 
     .DESCRIPTION
-    Convert object to Alarm Object
+    Convert an API response to an XO alarm object.
 
     .PARAMETER InputObject
     Target object

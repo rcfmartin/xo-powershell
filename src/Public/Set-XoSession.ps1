@@ -6,7 +6,7 @@ function Set-XoSession
     .SYNOPSIS
         Set the current XO session settings.
     .DESCRIPTION
-        Set the current XO session settings.
+        Set the current Xen Orchestra session settings.
     .PARAMETER Limit
         Sets the current XO query limit for all Get-Xo* cmdlets that support a -Limit parameter.
     .EXAMPLE

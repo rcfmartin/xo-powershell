@@ -6,7 +6,7 @@ function Suspend-XoVm
     .SYNOPSIS
         Suspend one or more VMs.
     .DESCRIPTION
-        Suspends the specified VMs.
+        Suspends the specified Xen Orchestra VMs.
     .PARAMETER VmUuid
         The UUID(s) of the VM(s) to suspend.
     .EXAMPLE

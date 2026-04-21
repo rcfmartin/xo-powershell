@@ -7,7 +7,7 @@ function Remove-XoEmptyValue
     Removes XO empty values
 
     .DESCRIPTION
-    Removes XO empty values
+    Removes null or empty entries from a hashtable.
 
     .PARAMETER InputObject
     Target object

@@ -7,7 +7,7 @@ function Set-XoVm
     Set Vm
 
     .DESCRIPTION
-    Set Vm
+    Update properties of a VM in Xen Orchestra.
 
     .PARAMETER VmUuid
     Target Vm UUID

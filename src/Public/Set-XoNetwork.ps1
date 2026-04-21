@@ -7,7 +7,7 @@ function Set-XoNetwork
     Set XO Network
 
     .DESCRIPTION
-    Set XO Network
+    Update properties of a network in Xen Orchestra.
 
     .PARAMETER NetworkUuid
     Target network UUID

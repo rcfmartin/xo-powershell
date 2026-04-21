@@ -7,7 +7,7 @@ function ConvertFrom-XoUuidHref
     Convert Href to URI
 
     .DESCRIPTION
-    Convert Href to URI
+    Convert an API href into a UUID segment value.
 
     .PARAMETER Uri
     Target uri

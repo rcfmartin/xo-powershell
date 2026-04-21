@@ -7,7 +7,7 @@ function ConvertFrom-XoSecureString
     Convert secure string into string
 
     .DESCRIPTION
-    Convert secure string into string
+    Convert a SecureString to a plain string value.
 
     .PARAMETER SecureString
     Target secure string

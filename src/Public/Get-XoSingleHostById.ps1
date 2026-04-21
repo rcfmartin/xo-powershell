@@ -7,7 +7,7 @@ function Get-XoSingleHostById
     Get a single host by ID
 
     .DESCRIPTION
-    Get a single host by ID
+    Get a single host from Xen Orchestra by its UUID.
 
     .PARAMETER HostUuid
     Target host UUID

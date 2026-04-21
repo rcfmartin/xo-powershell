@@ -7,7 +7,7 @@ function Format-XoSize
     Converts size into a readable format
 
     .DESCRIPTION
-    Converts size into a readable format
+    Converts a byte size into a human-readable format.
 
     .PARAMETER Value
     Target size

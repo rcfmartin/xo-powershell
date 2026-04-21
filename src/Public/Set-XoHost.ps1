@@ -7,7 +7,7 @@ function Set-XoHost
     Set Host
 
     .DESCRIPTION
-    Set Host
+    Update properties of a host in Xen Orchestra.
 
     .PARAMETER HostUuid
     Target host UUID

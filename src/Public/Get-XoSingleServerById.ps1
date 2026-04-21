@@ -7,7 +7,7 @@ function Get-XoSingleServerById
     Get single server by ID
 
     .DESCRIPTION
-    Get single server by ID
+    Get a single server from Xen Orchestra by its ID.
 
     .PARAMETER ServerUuid
     Target server uuid

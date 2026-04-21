@@ -7,7 +7,7 @@ function Get-XoPoolMessage
     Get Pool message
 
     .DESCRIPTION
-    Get Pool message
+    Retrieves messages associated with a Xen Orchestra pool.
 
     .PARAMETER PoolUuid
     Target pool uuid

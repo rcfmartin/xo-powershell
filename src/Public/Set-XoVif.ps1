@@ -7,7 +7,7 @@ function Set-XoVif
     Set Vif
 
     .DESCRIPTION
-    Set Vif
+    Update properties of a VIF in Xen Orchestra.
 
     .PARAMETER VifUuid
     Target Vif UUID

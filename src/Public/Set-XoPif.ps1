@@ -7,7 +7,7 @@ function Set-XoPif
     Set Pif
 
     .DESCRIPTION
-    Set Pif
+    Update properties of a PIF in Xen Orchestra.
 
     .PARAMETER PifUuid
     Target Pif uuid

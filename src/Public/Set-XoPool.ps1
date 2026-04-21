@@ -7,7 +7,7 @@ function Set-XoPool
     Set XO pool
 
     .DESCRIPTION
-    Set XO pool
+    Update properties of a pool in Xen Orchestra.
 
     .PARAMETER PoolUuid
     Target Pool uuid

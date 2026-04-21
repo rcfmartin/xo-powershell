@@ -7,7 +7,7 @@ function Set-XoObject
     Set Xo Object with custom type
 
     .DESCRIPTION
-    Set Xo Object with custom type
+    Sets an object's PSTypeName and adds custom properties.
 
     .PARAMETER InputObject
     Target object

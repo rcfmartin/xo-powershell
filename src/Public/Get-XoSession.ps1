@@ -6,7 +6,7 @@ function Get-XoSession
     .SYNOPSIS
         Get the current XO session settings.
     .DESCRIPTION
-        Get the current XO session settings.
+        Get the current Xen Orchestra session settings.
     #>
     [CmdletBinding()]
     param()
