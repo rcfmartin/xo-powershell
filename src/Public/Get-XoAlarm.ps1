@@ -7,6 +7,8 @@ function Get-XoAlarm
         List or query alarms.
     .DESCRIPTION
         Get Xen Orchestra alarms by UUID or list all existing alarms.
+    .EXAMPLE
+        Get-XoAlarm -AlarmUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     param (

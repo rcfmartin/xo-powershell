@@ -9,6 +9,8 @@ function Restart-XoPool
         Restart the specified pools using a rolling pool reboot.
     .PARAMETER PoolUuid
         The UUID(s) of the pools(s) to restart.
+    .EXAMPLE
+        Restart-XoPool -PoolUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     param (

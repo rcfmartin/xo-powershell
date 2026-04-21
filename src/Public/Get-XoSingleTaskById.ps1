@@ -11,6 +11,8 @@ function Get-XoSingleTaskById
         The ID of the task to retrieve
     .PARAMETER Params
         Additional parameters to pass to the API
+    .EXAMPLE
+        Get-XoSingleTaskById -TaskId "0m8k2zkzi"
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]

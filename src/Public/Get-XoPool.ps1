@@ -7,6 +7,8 @@ function Get-XoPool
         Query pools by UUID or condition.
     .DESCRIPTION
         Get pool details. You can specify pools by their UUIDs or properties.
+    .EXAMPLE
+        Get-XoPool -PoolUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     param (

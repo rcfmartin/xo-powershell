@@ -11,6 +11,8 @@ function Stop-XoPool
         The UUID(s) of the pools(s) to stop.
     .PARAMETER Force
         Perform an emergency shutdown.
+    .EXAMPLE
+        Stop-XoPool -PoolUuid "12345678-abcd-1234-abcd-1234567890ab" -Force
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     param (

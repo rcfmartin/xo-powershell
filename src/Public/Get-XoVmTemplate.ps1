@@ -7,6 +7,8 @@ function Get-XoVmTemplate
         List or query VM templates.
     .DESCRIPTION
         Get Xen Orchestra VM templates by UUID or list all existing VM templates.
+    .EXAMPLE
+        Get-XoVmTemplate -VmTemplateUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.VmTemplate")]

@@ -7,6 +7,8 @@ function Get-XoMessage
         List or query messages.
     .DESCRIPTION
         Get Xen Orchestra messages by UUID or list all existing messages.
+    .EXAMPLE
+        Get-XoMessage -MessageUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     param (

@@ -9,6 +9,8 @@ function Update-XoPool
         Update the specified pools using a rolling pool update.
     .PARAMETER PoolUuid
         The UUID(s) of the pools(s) to update.
+    .EXAMPLE
+        Update-XoPool -PoolUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     param (

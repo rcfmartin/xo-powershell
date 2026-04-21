@@ -7,6 +7,8 @@ function Get-XoVif
         Query VIFs by UUID or condition.
     .DESCRIPTION
         Get VIF details. You can specify VIFs by their UUIDs or properties.
+    .EXAMPLE
+        Get-XoVif -VifUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     param (

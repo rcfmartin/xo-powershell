@@ -7,6 +7,8 @@ function Get-XoVbd
         Query VBDs by UUID or condition.
     .DESCRIPTION
         Get VBD details. You can specify VBDs by their UUIDs or properties.
+    .EXAMPLE
+        Get-XoVbd -VbdUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     param (
