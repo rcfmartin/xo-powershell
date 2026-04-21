@@ -6,7 +6,7 @@ function Get-XoEvent
     .SYNOPSIS
         List events.
     .DESCRIPTION
-        Retrieve Xen Orchestra events entries.
+        Retrieve Xen Orchestra events with optional filter and limit.
     .PARAMETER Filter
         Custom filter expression for the query.
     .PARAMETER Limit
