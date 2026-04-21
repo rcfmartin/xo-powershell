@@ -8,7 +8,7 @@ function Get-XoHostAudit
     .DESCRIPTION
         Download the plain-text audit log for a specific host.
     .PARAMETER HostUuid
-        The UUID of the host.
+        The UUID of the host whose audit log to download.
     .PARAMETER OutFile
         Path to save the downloaded content to. If omitted, content is returned.
     .EXAMPLE
