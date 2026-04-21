@@ -14,7 +14,7 @@ function Get-XoSm
     .PARAMETER Limit
         Maximum number of results to return.
     .EXAMPLE
-        Get-XoSm
+        Get-XoSm -SmUuid '812b59e1-2682-43ef-acd4-808d3551b907'
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Sm")]
@@ -57,8 +57,14 @@ function Get-XoSm
     {
         if ($PSCmdlet.ParameterSetName -eq "Filter")
         {
-            if ($Filter) { $params["filter"] = $Filter }
-            if ($Limit)  { $params["limit"] = $Limit }
+            if ($Filter)
+            {
+                $params["filter"] = $Filter
+            }
+            if ($Limit)
+            {
+                $params["limit"] = $Limit
+            }
 
             $uri = "$script:XoHost/rest/v0/sms"
             # the parentheses forces the resulting array to unpack, don't remove them!
