@@ -1,13 +1,14 @@
-# SPDX-License-Identifier: Apache-2.0
-
-function ConvertFrom-XoTaskHref {
+function ConvertFrom-XoTaskHref
+{
     <#
     .SYNOPSIS
         Convert a task URL to a task object
     .DESCRIPTION
         Extracts the task ID from a URL and retrieves the task from the API
     .PARAMETER Uri
-        The task href URL to convert to an object.
+        The task URL to convert
+    .EXAMPLE
+        ConvertFrom-XoTaskHref -Uri $uri
     #>
     [CmdletBinding()]
     param(
@@ -15,8 +16,10 @@ function ConvertFrom-XoTaskHref {
         [string]$Uri
     )
 
-    process {
-        if ($Uri -notmatch "\/rest\/v0\/tasks\/([0-9a-z]+)") {
+    process
+    {
+        if ($Uri -notmatch "\/rest\/v0\/tasks\/([0-9a-z]+)")
+        {
             throw ("Bad task href format: {0}" -f $Uri)
         }
 
