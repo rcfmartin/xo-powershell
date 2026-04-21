@@ -8,7 +8,7 @@ function Get-XoHostLogBundle
     .DESCRIPTION
         Download the compressed log bundle for a specific host.
     .PARAMETER HostUuid
-        The UUID of the host.
+        The UUID of the host whose log bundle to download.
     .PARAMETER OutFile
         Path to save the downloaded content to. If omitted, content is returned.
     .EXAMPLE
