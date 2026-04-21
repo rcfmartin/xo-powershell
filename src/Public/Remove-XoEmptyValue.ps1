@@ -10,7 +10,7 @@ function Remove-XoEmptyValue
     Removes null or empty entries from a hashtable.
 
     .PARAMETER InputObject
-    Target object
+    Target hashtable to filter entries.
 
     .EXAMPLE
     Remove-XoEmptyValue -InputObject $MyObject

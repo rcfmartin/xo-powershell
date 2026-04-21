@@ -12,7 +12,7 @@ function ConvertTo-XoVbdObject
     Convert api object to powershell xo Vbd object
 
     .PARAMETER InputObject
-    Input object from the API
+    VBD input object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoVbdObject -InputObject $object

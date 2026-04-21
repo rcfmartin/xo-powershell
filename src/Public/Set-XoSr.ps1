@@ -10,16 +10,16 @@ function Set-XoSr
     Update properties of a storage repository in XO.
 
     .PARAMETER SrUuid
-    Target SR uuid
+    UUID of the storage repository to update.
 
     .PARAMETER Name
-    Target SR name
+    New name label for the SR.
 
     .PARAMETER Description
-    Target SR description
+    New description for the SR.
 
     .PARAMETER Tags
-    Target SR tags
+    Tags to assign to the target SR.
 
     .EXAMPLE
     Set-XoSr -SrUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name "MySR"

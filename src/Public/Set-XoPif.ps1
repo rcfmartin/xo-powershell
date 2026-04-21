@@ -10,16 +10,16 @@ function Set-XoPif
     Update properties of a PIF in Xen Orchestra.
 
     .PARAMETER PifUuid
-    Target Pif uuid
+    UUID of the PIF to update.
 
     .PARAMETER Name
-    Target Pif Name
+    New name label for the PIF.
 
     .PARAMETER Description
-    Target Pif description
+    New description for the PIF.
 
     .PARAMETER Tags
-    Target tags
+    Tags to assign to the target PIF.
 
     .EXAMPLE
     Set-XoPif -PifUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name 'New Name'

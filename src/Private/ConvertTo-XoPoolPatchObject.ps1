@@ -10,7 +10,7 @@ function ConvertTo-XoPoolPatchObject
     Convert api object to powershell xo PoolPatch object
 
     .PARAMETER InputObject
-    Input object from the API
+    Pool patch input object from the API.
 
     .EXAMPLE
     ConvertTo-XoPoolPatchObject -InputObject $object

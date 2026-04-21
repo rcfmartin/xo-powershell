@@ -10,16 +10,16 @@ function Set-XoVif
     Update properties of a VIF in Xen Orchestra.
 
     .PARAMETER VifUuid
-    Target Vif UUID
+    UUID of the VIF to update.
 
     .PARAMETER Name
-    Target Vif Name
+    New name label for the VIF.
 
     .PARAMETER Description
-    Target Vif Description
+    New description for the VIF.
 
     .PARAMETER Tags
-    Target Vif Tags
+    Tags to assign to the target VIF.
 
     .EXAMPLE
     Set-XoVif -VifUuid '812b59e1-2682-43ef-acd4-808d3551b907' -Name 'MyVif'

@@ -8,7 +8,7 @@ function Get-XoPoolPatch
     .DESCRIPTION
         Query pending patches for a Xen Orchestra pool.
     .PARAMETER PoolUuid
-        Target pool uuid
+        Target Xen Orchestra pool UUID.
     .EXAMPLE
      Get-XoPoolPatch -PoolUuid '011ccf6a-c5ad-48ec-a255-d056584686f0'
     #>

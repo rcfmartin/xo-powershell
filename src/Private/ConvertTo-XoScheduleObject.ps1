@@ -12,7 +12,7 @@ function ConvertTo-XoScheduleObject
     Convert api object to powershell xo Schedule object
 
     .PARAMETER InputObject
-    Input object from the API
+    Schedule input object from the API.
 
     .EXAMPLE
     ConvertTo-XoScheduleObject -InputObject $object

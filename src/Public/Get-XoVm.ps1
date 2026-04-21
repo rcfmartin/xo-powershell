@@ -13,7 +13,7 @@ function Get-XoVm
     .PARAMETER PowerState
         Filter VMs by power state. Valid values: Running, Halted, Suspended.
     .PARAMETER Tag
-        Filter VMs by tag.
+        Filter VMs by one or more tags.
     .PARAMETER Filter
         Custom filter to apply to the VM query.
     .PARAMETER Limit

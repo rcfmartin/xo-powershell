@@ -10,16 +10,16 @@ function Set-XoHost
     Update properties of a host in Xen Orchestra.
 
     .PARAMETER HostUuid
-    Target host UUID
+    UUID of the host to update.
 
     .PARAMETER Name
-    Target host name
+    New name label for the host.
 
     .PARAMETER Description
-    Target host description
+    New description for the host.
 
     .PARAMETER Tags
-    Host tags
+    Tags to assign to the target host.
 
     .EXAMPLE
     Set-XoHost -HostUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name 'MyHost' -Description 'First Host' -Tags @('Critical','Backups')

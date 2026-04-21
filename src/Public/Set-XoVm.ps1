@@ -10,16 +10,16 @@ function Set-XoVm
     Update properties of a VM in Xen Orchestra.
 
     .PARAMETER VmUuid
-    Target Vm UUID
+    UUID of the target VM to update.
 
     .PARAMETER Name
-    Target Vm Name
+    New name label for the VM.
 
     .PARAMETER Description
-    Target Vm Description
+    New description for the VM.
 
     .PARAMETER Tags
-    Target Vm Tags
+    Tags to assign to the target VM.
 
     .EXAMPLE
     Set-XoVm -VmUuid '812b59e1-2682-43ef-acd4-808d3551b907' -Name 'MyVm'

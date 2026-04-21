@@ -12,7 +12,7 @@ function ConvertTo-XoAlarmObject
     Convert an API response to an XO alarm object.
 
     .PARAMETER InputObject
-    Target object
+    Alarm object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoAlarmObject -InputObject $Object

@@ -12,7 +12,7 @@ function ConvertTo-XoPoolObject
     Convert api object to powershell xo Pool object
 
     .PARAMETER InputObject
-    Input object from the API
+    Pool input object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoPoolObject -InputObject $object

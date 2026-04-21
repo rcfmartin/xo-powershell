@@ -10,10 +10,10 @@ function Get-XoSingleHostById
     Get a single host from Xen Orchestra by its UUID.
 
     .PARAMETER HostUuid
-    Target host UUID
+    Target host UUID to retrieve.
 
     .PARAMETER Params
-    Hashtable with parameters
+    Hashtable with request parameters.
 
     .EXAMPLE
     Get-XoSingleHostById -HostUuid '812b59e1-2682-43ef-acd4-808d3551b907'

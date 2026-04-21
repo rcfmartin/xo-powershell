@@ -10,13 +10,13 @@ function Set-XoObject
     Sets an object's PSTypeName and adds custom properties.
 
     .PARAMETER InputObject
-    Target object
+    Target object to decorate with properties.
 
     .PARAMETER TypeName
-    Custom Type Name
+    Custom PSTypeName for the object.
 
     .PARAMETER Properties
-    Target object properties
+    Properties to add to the target object.
 
     .EXAMPLE
     Set-XoObject $InputObject -TypeName XoPowershell.MyCustomType -Properties $props

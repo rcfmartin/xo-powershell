@@ -12,7 +12,7 @@ function ConvertTo-XoVmTemplateObject
     Convert api object to powershell xo VmTemplate object
 
     .PARAMETER InputObject
-    Input object from the API
+    VM template input object from the API.
 
     .EXAMPLE
     ConvertTo-XoVmTemplateObject -InputObject $object

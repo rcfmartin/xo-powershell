@@ -10,16 +10,16 @@ function Set-XoPool
     Update properties of a pool in Xen Orchestra.
 
     .PARAMETER PoolUuid
-    Target Pool uuid
+    UUID of the pool to update.
 
     .PARAMETER Name
-    Target pool name
+    New name label for the pool.
 
     .PARAMETER Description
-    target pool description
+    New description for the pool.
 
     .PARAMETER Tags
-    Target pool tags
+    Tags to assign to the target pool.
 
     .EXAMPLE
     Set-XoPool -PoolUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name 'New Pool Name'

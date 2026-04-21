@@ -9,10 +9,10 @@ function Invoke-XoRestMethod
         Helper for when Invoke-RestMethod returns unparseable JSON (e.g. due to duplicate keys). $script:XoRestParameters is already included.
 
     .PARAMETER Uri
-    Target xo url
+    Target Xen Orchestra REST URL.
 
     .PARAMETER Body
-    Web request body
+    Body content for the REST request.
 
     .EXAMPLE
     Invoke-XoRestMethod -Uri $Url -Body $body

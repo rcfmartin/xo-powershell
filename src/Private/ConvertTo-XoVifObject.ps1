@@ -12,7 +12,7 @@ function ConvertTo-XoVifObject
     Convert api object to powershell xo Vif object
 
     .PARAMETER InputObject
-    Input object from the API
+    VIF input object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoVifObject -InputObject $object

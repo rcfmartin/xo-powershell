@@ -10,10 +10,10 @@ function Get-XoSingleVdiById
     Get a single VDI from Xen Orchestra by UUID.
 
     .PARAMETER VdiUuid
-    Target VDI uuid
+    Target VDI UUID to retrieve.
 
     .PARAMETER Params
-    Target VDI parameters
+    Target VDI request parameters hash.
 
     .EXAMPLE
     Get-XoSingleVdiById -VdiUuid '812b59e1-2682-43ef-acd4-808d3551b907'

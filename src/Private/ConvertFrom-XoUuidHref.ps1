@@ -10,7 +10,7 @@ function ConvertFrom-XoUuidHref
     Convert an API href into a UUID segment value.
 
     .PARAMETER Uri
-    Target uri
+    Target href URI to convert to UUID.
 
     .EXAMPLE
     ConvertFrom-XoUuidHref -Uri $uri

@@ -10,13 +10,13 @@ function Set-XoVdi
     Update properties of a VDI in Xen Orchestra.
 
     .PARAMETER VdiUuid
-    Target VDI uuid
+    UUID of the VDI to update.
 
     .PARAMETER Name
-    Target VDI name
+    New name label for the VDI.
 
     .PARAMETER Description
-    Target VDI description
+    New description for the target VDI.
 
     .EXAMPLE
     Set-XoVdi -VdiUuid '011ccf6a-c5ad-48ec-a255-d056584686f0' -Name 'MyVdi'

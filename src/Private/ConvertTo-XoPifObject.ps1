@@ -12,7 +12,7 @@ function ConvertTo-XoPifObject
     Convert api object to powershell xo Pif object
 
     .PARAMETER InputObject
-    Input object from the API
+    PIF input object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoPifObject -InputObject $object

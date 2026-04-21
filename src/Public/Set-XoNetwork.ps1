@@ -10,16 +10,16 @@ function Set-XoNetwork
     Update properties of a network in Xen Orchestra.
 
     .PARAMETER NetworkUuid
-    Target network UUID
+    UUID of the network to update.
 
     .PARAMETER Name
-    Target network name
+    New name label for the network.
 
     .PARAMETER Description
     Target network description
 
     .PARAMETER Tags
-    Target network Tags
+    Tags to assign to the target network.
 
     .EXAMPLE
     $params = @{

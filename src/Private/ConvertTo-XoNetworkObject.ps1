@@ -12,7 +12,7 @@ function ConvertTo-XoNetworkObject
     Convert api object to powershell xo network object
 
     .PARAMETER InputObject
-    Input object from the API
+    Network input object from the API.
 
     .EXAMPLE
     ConvertTo-XoNetworkObject -InputObject $object

@@ -10,7 +10,7 @@ function ConvertFrom-XoSecureString
     Convert a SecureString to a plain string value.
 
     .PARAMETER SecureString
-    Target secure string
+    SecureString to convert to plain text.
 
     .EXAMPLE
     ConvertFrom-XoSecureString -SecureString 'MySecretString'

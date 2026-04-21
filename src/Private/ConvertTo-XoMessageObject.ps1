@@ -12,7 +12,7 @@ function ConvertTo-XoMessageObject
     Convert Message object into powershell object
 
     .PARAMETER InputObject
-    Target input object
+    Message object returned from the API.
 
     .EXAMPLE
     ConvertTo-XoMessageObject -InputObject $object

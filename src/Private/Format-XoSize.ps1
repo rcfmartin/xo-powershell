@@ -10,7 +10,7 @@ function Format-XoSize
     Converts a byte size into a human-readable format.
 
     .PARAMETER Value
-    Target size
+    Target size in bytes to format.
 
     .EXAMPLE
     291843908213409 | Format-XoSize

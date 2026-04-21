@@ -10,10 +10,10 @@ function Get-XoSingleSrById
     Get a single storage repository by its UUID.
 
     .PARAMETER SrUuid
-    Target SR uuid
+    Target storage repository UUID.
 
     .PARAMETER Params
-    Target SR parameters
+    Target SR request parameters hash.
 
     .EXAMPLE
     Get-XoSingleSrById -SrUuid '812b59e1-2682-43ef-acd4-808d3551b907'
