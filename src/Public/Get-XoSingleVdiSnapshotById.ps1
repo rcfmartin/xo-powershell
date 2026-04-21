@@ -9,14 +9,14 @@ function Get-XoSingleVdiSnapshotById
     .DESCRIPTION
     Get a single VDI Snapshot from Xen Orchestra by UUID.
 
-    .PARAMETER VdiUuid
+    .PARAMETER VdiSnapshotUuid
     Target VDI Snapshot UUID to retrieve.
 
     .PARAMETER Params
     Target VDI Snapshot request parameters hash.
 
     .EXAMPLE
-    Get-XoSingleVdiSnapshotById -VdiUuid '812b59e1-2682-43ef-acd4-808d3551b907'
+    Get-XoSingleVdiSnapshotById -VdiSnapshotUuid '812b59e1-2682-43ef-acd4-808d3551b907'
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.VdiSnapshot")]

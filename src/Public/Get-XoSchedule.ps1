@@ -7,6 +7,12 @@ function Get-XoSchedule
         List or query schedules.
     .DESCRIPTION
         Get Xen Orchestra schedules by UUID or list all existing schedules.
+    .PARAMETER ScheduleUuid
+        The UUID(s) of the schedule(s) to retrieve.
+    .PARAMETER Filter
+        Custom filter expression for the schedule query.
+    .PARAMETER Limit
+        Maximum number of schedules to return.
     .EXAMPLE
         Get-XoSchedule -ScheduleUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

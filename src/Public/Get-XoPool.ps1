@@ -7,6 +7,16 @@ function Get-XoPool
         Query pools by UUID or condition.
     .DESCRIPTION
         Get pool details. You can specify pools by their UUIDs or properties.
+    .PARAMETER PoolUuid
+        The UUID(s) of the pool(s) to retrieve.
+    .PARAMETER Name
+        Filter pools matching the specified name.
+    .PARAMETER Filter
+        Custom filter expression for the pool query.
+    .PARAMETER Tag
+        Filter pools matching any of the specified tags.
+    .PARAMETER Limit
+        Maximum number of pools to return.
     .EXAMPLE
         Get-XoPool -PoolUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

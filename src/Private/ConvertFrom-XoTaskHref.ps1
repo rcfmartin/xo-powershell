@@ -6,7 +6,7 @@ function ConvertFrom-XoTaskHref
     .DESCRIPTION
         Extracts the task ID from a URL and retrieves the task from the API
     .PARAMETER Uri
-        The task URL to convert
+        The task href URL to convert to an object.
     .EXAMPLE
         ConvertFrom-XoTaskHref -Uri $uri
     #>

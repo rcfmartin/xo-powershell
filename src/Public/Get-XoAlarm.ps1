@@ -7,6 +7,16 @@ function Get-XoAlarm
         List or query alarms.
     .DESCRIPTION
         Get Xen Orchestra alarms by UUID or list all existing alarms.
+    .PARAMETER AlarmUuid
+        The UUID(s) of the alarm(s) to retrieve.
+    .PARAMETER BodyName
+        Filter alarms matching the specified body name.
+    .PARAMETER Filter
+        Custom filter expression for the alarm query.
+    .PARAMETER PoolUuid
+        UUID of the pool whose alarms to retrieve.
+    .PARAMETER Limit
+        Maximum number of alarms to return.
     .EXAMPLE
         Get-XoAlarm -AlarmUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

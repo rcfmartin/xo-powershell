@@ -16,6 +16,10 @@ function Get-XoVm
         Filter VMs by one or more tags.
     .PARAMETER Filter
         Custom filter to apply to the VM query.
+    .PARAMETER PoolUuid
+        UUID of the pool whose VMs to retrieve.
+    .PARAMETER HostUuid
+        UUID of the host whose VMs to retrieve.
     .PARAMETER Limit
         Maximum number of results to return. Default is 25 if not specified.
     .EXAMPLE

@@ -7,6 +7,16 @@ function Get-XoNetwork
         Query networks by UUID or condition.
     .DESCRIPTION
         Get network details. You can specify networks by their UUIDs or properties.
+    .PARAMETER NetworkUuid
+        The UUID(s) of the network(s) to retrieve.
+    .PARAMETER Name
+        Filter networks matching the specified name.
+    .PARAMETER Filter
+        Custom filter expression for the network query.
+    .PARAMETER Tag
+        Filter networks matching any of the specified tags.
+    .PARAMETER Limit
+        Maximum number of networks to return.
     .EXAMPLE
         Get-XoNetwork -NetworkUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

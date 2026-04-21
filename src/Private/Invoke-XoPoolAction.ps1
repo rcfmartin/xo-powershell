@@ -34,7 +34,7 @@ function Invoke-XoPoolAction
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [ArgumentCompleter( # Using argument completer instead of validate set because I don't know if I'm missing any parameters
+        [ValidateSet(
             "create_bonded_network",
             "create_internal_network",
             "create_network",

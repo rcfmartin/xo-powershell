@@ -7,6 +7,16 @@ function Get-XoVmTemplate
         List or query VM templates.
     .DESCRIPTION
         Get Xen Orchestra VM templates by UUID or list all existing VM templates.
+    .PARAMETER VmTemplateUuid
+        The UUID(s) of the VM template(s) to retrieve.
+    .PARAMETER Default
+        Only return default VM templates when set.
+    .PARAMETER PoolUuid
+        UUID of the pool whose templates to retrieve.
+    .PARAMETER Filter
+        Custom filter expression for the template query.
+    .PARAMETER Limit
+        Maximum number of VM templates to return.
     .EXAMPLE
         Get-XoVmTemplate -VmTemplateUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

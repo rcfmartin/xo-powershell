@@ -13,6 +13,8 @@ function Connect-XoSession
         Credentials for authentication (not currently implemented).
     .PARAMETER Token
         API token for authentication.
+    .PARAMETER Limit
+        Default page size limit for query cmdlets.
     .PARAMETER SaveCredentials
         Save credentials for future sessions.
     .PARAMETER SkipCertificateCheck

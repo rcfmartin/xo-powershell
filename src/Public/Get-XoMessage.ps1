@@ -7,6 +7,18 @@ function Get-XoMessage
         List or query messages.
     .DESCRIPTION
         Get Xen Orchestra messages by UUID or list all existing messages.
+    .PARAMETER MessageUuid
+        The UUID(s) of the message(s) to retrieve.
+    .PARAMETER Name
+        Filter messages matching the specified name.
+    .PARAMETER Filter
+        Custom filter expression for the message query.
+    .PARAMETER PoolUuid
+        UUID of the pool whose messages to retrieve.
+    .PARAMETER VmUuid
+        UUID of the VM whose messages to retrieve.
+    .PARAMETER Limit
+        Maximum number of messages to return.
     .EXAMPLE
         Get-XoMessage -MessageUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

@@ -9,14 +9,11 @@ function Get-XoSingleVmById
     .DESCRIPTION
     Get a single VM from Xen Orchestra by UUID.
 
-    .PARAMETER VdiUuid
+    .PARAMETER VmUuid
     Target VM UUID to retrieve.
 
-    .PARAMETER Params
-    Target VM request parameters hash.
-
     .EXAMPLE
-    Get-XoSingleVmById -VdiUuid '812b59e1-2682-43ef-acd4-808d3551b907'
+    Get-XoSingleVmById -VmUuid '812b59e1-2682-43ef-acd4-808d3551b907'
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Vm")]

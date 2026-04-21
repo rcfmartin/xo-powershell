@@ -7,6 +7,16 @@ function Get-XoPif
         Query PIFs by UUID or condition.
     .DESCRIPTION
         Get PIF details. You can specify PIFs by their UUIDs or properties.
+    .PARAMETER PifUuid
+        The UUID(s) of the PIF(s) to retrieve.
+    .PARAMETER Name
+        Filter PIFs matching the specified name.
+    .PARAMETER Filter
+        Custom filter expression for the PIF query.
+    .PARAMETER Tag
+        Filter PIFs matching any of the specified tags.
+    .PARAMETER Limit
+        Maximum number of PIFs to return.
     .EXAMPLE
         Get-XoPif -PifUuid "12345678-abcd-1234-abcd-1234567890ab"
     #>

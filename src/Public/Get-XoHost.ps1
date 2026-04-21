@@ -12,6 +12,8 @@ function Get-XoHost
         The UUID(s) of the host(s) to retrieve.
     .PARAMETER Filter
         Filter to apply to the host query.
+    .PARAMETER PoolUuid
+        UUID of the pool whose hosts to retrieve.
     .PARAMETER Limit
         Maximum number of results to return. Default is 25 if not specified.
     .EXAMPLE
