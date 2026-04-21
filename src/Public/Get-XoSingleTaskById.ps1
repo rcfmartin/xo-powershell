@@ -13,25 +13,29 @@ function Get-XoSingleTaskById
         Additional parameters to pass to the API
     #>
     [CmdletBinding()]
+    [OutputType("XoPowershell.Task")]
     param (
         [string]$TaskId,
         [hashtable]$Params
     )
-
-    try
+    process
     {
-        Write-Verbose "Getting task with ID $TaskId"
-        $uri = "$script:XoHost/rest/v0/tasks/$TaskId"
-        $taskData = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $Params
 
-        if ($taskData)
+        try
         {
-            return ConvertTo-XoTaskObject -InputObject $taskData
+            Write-Verbose "Getting task with ID $TaskId"
+            $uri = "$script:XoHost/rest/v0/tasks/$TaskId"
+            $taskData = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $Params
+
+            if ($taskData)
+            {
+                return ConvertTo-XoTaskObject -InputObject $taskData
+            }
         }
+        catch
+        {
+            throw ("Failed to retrieve task with ID {0}: {1}" -f $TaskId, $_)
+        }
+        return $null
     }
-    catch
-    {
-        throw ("Failed to retrieve task with ID {0}: {1}" -f $TaskId, $_)
-    }
-    return $null
 }

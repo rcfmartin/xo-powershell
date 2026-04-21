@@ -9,6 +9,7 @@ function Get-XoVmTemplate
         Get Xen Orchestra VM templates by UUID or list all existing VM templates.
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
+    [OutputType("XoPowershell.VmTemplate")]
     param (
         # UUIDs of VM templates to query.
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = "VmTemplateUuid")]

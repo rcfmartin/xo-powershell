@@ -27,6 +27,7 @@ function Get-XoSr
         Returns the first 5 SRs.
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
+    [OutputType("XoPowershell.Sr")]
     # Parameter sets:
     # - "Filter": Gets SRs with optional filtering criteria (with optional limit)
     # - "SrUuid": Gets specific SRs by UUID

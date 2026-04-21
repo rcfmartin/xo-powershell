@@ -3,6 +3,25 @@
 # For convenience. Internal use only.
 function Invoke-XoPoolAction
 {
+    <#
+    .SYNOPSIS
+    Short description
+
+    .DESCRIPTION
+    Long description
+
+    .PARAMETER PoolUuid
+    Parameter description
+
+    .PARAMETER Action
+    Parameter description
+
+    .EXAMPLE
+    An example
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
@@ -11,6 +30,7 @@ function Invoke-XoPoolAction
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter()]
         [string]$Action
     )
 

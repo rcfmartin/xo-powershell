@@ -28,6 +28,7 @@ function Get-XoVmSnapshot
         Returns VM snapshots with "backup" in their name (up to default limit).
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
+    [OutputType("XoPowershell.VmSnapshot")]
     param(
         [Parameter(Mandatory, ValueFromPipelineByPropertyName, Position = 0, ParameterSetName = "VmSnapshotUuid")]
         [ValidateNotNullOrEmpty()]
