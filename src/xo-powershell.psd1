@@ -83,6 +83,21 @@
         "formats/schedule.ps1xml"
         "formats/vm-template.ps1xml"
         "formats/backup-job.ps1xml"
+        "formats/backup-archive.ps1xml"
+        "formats/backup-log.ps1xml"
+        "formats/backup-repository.ps1xml"
+        "formats/dashboard.ps1xml"
+        "formats/event.ps1xml"
+        "formats/group.ps1xml"
+        "formats/pbd.ps1xml"
+        "formats/pci.ps1xml"
+        "formats/pgpu.ps1xml"
+        "formats/proxy.ps1xml"
+        "formats/restore-log.ps1xml"
+        "formats/sm.ps1xml"
+        "formats/user.ps1xml"
+        "formats/user-authentication-token.ps1xml"
+        "formats/vm-controller.ps1xml"
     )
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
