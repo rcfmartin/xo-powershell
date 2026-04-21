@@ -24,20 +24,23 @@ function Get-XoSingleHostById
         [string]$HostUuid,
         [hashtable]$Params
     )
-
-    try
+    process
     {
-        $uri = "$script:XoHost/rest/v0/hosts/$HostUuid"
-        $params = @{ fields = $script:XO_HOST_FIELDS }
-        $hostData = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-        if ($hostData)
+        try
         {
-            return ConvertTo-XoHostObject -InputObject $hostData
+            $uri = "$script:XoHost/rest/v0/hosts/$HostUuid"
+            $params = @{ fields = $script:XO_HOST_FIELDS }
+            $hostData = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
+
+            if ($hostData)
+            {
+                return ConvertTo-XoHostObject -InputObject $hostData
+            }
         }
-    }
-    catch
-    {
-        throw ("Failed to retrieve host with UUID {0}: {1}" -f $HostUuid, $_)
+        catch
+        {
+            throw ("Failed to retrieve host with UUID {0}: {1}" -f $HostUuid, $_)
+        }
     }
 }
