@@ -10,24 +10,35 @@ AfterAll {
 }
 
 Describe ConvertTo-XoVifObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical VIF API object' {
+        It 'Should produce a decorated XoPowershell.Vif object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoVifObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid             = 'vif-1'
+                    name_label       = 'vif-eth0'
+                    name_description = 'Primary VIF'
+                    MAC              = 'aa:bb:cc:11:22:33'
+                    device           = '0'
+                    attached         = $true
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoVifObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.Vif'
+                $result.VifUuid | Should -Be 'vif-1'
+                $result.Name | Should -Be 'vif-eth0'
+                $result.Description | Should -Be 'Primary VIF'
+                $result.MAC | Should -Be 'aa:bb:cc:11:22:33'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoVifObject -PrivateData 'string'
+                $result = [pscustomobject]@{ uuid = 'u'; name_label = 'n' } | ConvertTo-XoVifObject
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result.VifUuid | Should -Be 'u'
+                $result.Name | Should -Be 'n'
             }
         }
     }
 }
-

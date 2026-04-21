@@ -10,24 +10,36 @@ AfterAll {
 }
 
 Describe ConvertTo-XoVbdObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical VBD API object' {
+        It 'Should produce a decorated XoPowershell.Vbd object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoVbdObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid        = 'vbd-1'
+                    is_cd_drive = $true
+                    read_only   = $false
+                    attached    = $true
+                    device      = 'xvda'
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoVbdObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.Vbd'
+                $result.VbdUuid | Should -Be 'vbd-1'
+                $result.IsCdDrive | Should -BeTrue
+                $result.ReadOnly | Should -BeFalse
+                $result.attached | Should -BeTrue
+                $result.device | Should -Be 'xvda'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoVbdObject -PrivateData 'string'
+                $result = [pscustomobject]@{ uuid = 'u'; is_cd_drive = $false; read_only = $true } | ConvertTo-XoVbdObject
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result.VbdUuid | Should -Be 'u'
+                $result.IsCdDrive | Should -BeFalse
+                $result.ReadOnly | Should -BeTrue
             }
         }
     }
 }
-

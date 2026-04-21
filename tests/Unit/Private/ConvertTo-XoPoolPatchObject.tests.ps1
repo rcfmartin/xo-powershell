@@ -10,24 +10,37 @@ AfterAll {
 }
 
 Describe ConvertTo-XoPoolPatchObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical pool patch API object' {
+        It 'Should produce a decorated XoPowershell.PoolPatch object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoPoolPatchObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid      = 'patch-1'
+                    changelog = [pscustomobject]@{
+                        date        = 1700000000
+                        description = 'Security fix for XSA-XYZ'
+                    }
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoPoolPatchObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.PoolPatch'
+                $result.Date | Should -BeOfType ([System.DateTimeOffset])
+                $result.Date.ToUnixTimeSeconds() | Should -Be 1700000000
+                $result.Description | Should -Be 'Security fix for XSA-XYZ'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoPoolPatchObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid      = 'p'
+                    changelog = [pscustomobject]@{ date = 0; description = 'd' }
+                }
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result = $apiObject | ConvertTo-XoPoolPatchObject
+
+                $result.Description | Should -Be 'd'
             }
         }
     }
 }
-

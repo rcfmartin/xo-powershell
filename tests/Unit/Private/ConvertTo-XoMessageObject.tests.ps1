@@ -10,24 +10,34 @@ AfterAll {
 }
 
 Describe ConvertTo-XoMessageObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical message API object' {
+        It 'Should produce a decorated XoPowershell.Message object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoMessageObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid = 'msg-1'
+                    name = 'VM_STARTED'
+                    type = 'informational'
+                    time = 1700000000
+                    body = 'VM has started'
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoMessageObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.Message'
+                $result.MessageUuid | Should -Be 'msg-1'
+                $result.MessageTime | Should -BeOfType ([System.DateTimeOffset])
+                $result.MessageTime.ToUnixTimeSeconds() | Should -Be 1700000000
+                $result.name | Should -Be 'VM_STARTED'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoMessageObject -PrivateData 'string'
+                $result = [pscustomobject]@{ uuid = 'u'; time = 0 } | ConvertTo-XoMessageObject
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result.MessageUuid | Should -Be 'u'
+                $result.MessageTime.ToUnixTimeSeconds() | Should -Be 0
             }
         }
     }
 }
-

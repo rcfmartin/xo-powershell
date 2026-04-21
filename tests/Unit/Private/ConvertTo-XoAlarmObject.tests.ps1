@@ -10,24 +10,44 @@ AfterAll {
 }
 
 Describe ConvertTo-XoAlarmObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical alarm API object' {
+        It 'Should produce a decorated XoPowershell.Alarm object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoAlarmObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid = 'a1b2c3d4'
+                    type = 'ALARM'
+                    time = 1700000000
+                    name = 'MyAlarm'
+                    body = [pscustomobject]@{
+                        name  = 'HIGH_CPU'
+                        value = '95%'
+                    }
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoAlarmObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.Alarm'
+                $result.BodyName | Should -Be 'HIGH_CPU'
+                $result.BodyValue | Should -Be '95%'
+                $result.AlarmTime | Should -BeOfType ([System.DateTimeOffset])
+                $result.AlarmTime.ToUnixTimeSeconds() | Should -Be 1700000000
+                $result.uuid | Should -Be 'a1b2c3d4'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoAlarmObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    uuid = 'x'
+                    time = 0
+                    body = [pscustomobject]@{ name = 'X'; value = 'Y' }
+                }
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result = $apiObject | ConvertTo-XoAlarmObject
+
+                $result.BodyName | Should -Be 'X'
+                $result.BodyValue | Should -Be 'Y'
             }
         }
     }
 }
-

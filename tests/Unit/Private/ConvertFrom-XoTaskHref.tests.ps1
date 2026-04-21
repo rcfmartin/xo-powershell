@@ -10,24 +10,35 @@ AfterAll {
 }
 
 Describe ConvertFrom-XoTaskHref {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When the URL matches the task href pattern' {
+        It 'Should extract the task ID and call Get-XoTask with it' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertFrom-XoTaskHref -PrivateData 'string'
+                Mock -CommandName Get-XoTask -MockWith { return [pscustomobject]@{ TaskId = $TaskId } }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertFrom-XoTaskHref -Uri 'https://xo.example.com/rest/v0/tasks/0m8k2zkzi'
+
+                Should -Invoke -CommandName Get-XoTask -Times 1 -Exactly -ParameterFilter { $TaskId -eq '0m8k2zkzi' }
+                $result.TaskId | Should -Be '0m8k2zkzi'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertFrom-XoTaskHref -PrivateData 'string'
+                Mock -CommandName Get-XoTask -MockWith { return [pscustomobject]@{ TaskId = $TaskId } }
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result = '/rest/v0/tasks/abc123' | ConvertFrom-XoTaskHref
+
+                $result.TaskId | Should -Be 'abc123'
+            }
+        }
+    }
+
+    Context 'When the URL does not match the task href pattern' {
+        It 'Should throw a descriptive error' {
+            InModuleScope -ModuleName $dscModuleName {
+                { ConvertFrom-XoTaskHref -Uri 'https://example.com/not-a-task' } |
+                    Should -Throw -ExpectedMessage 'Bad task href format*'
             }
         }
     }
 }
-

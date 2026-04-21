@@ -10,24 +10,47 @@ AfterAll {
 }
 
 Describe ConvertTo-XoServerObject {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
+    Context 'When called with a typical server API object' {
+        It 'Should produce a decorated XoPowershell.Server object' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoServerObject -PrivateData 'string'
+                $apiObject = [pscustomobject]@{
+                    id                 = 'srv-1'
+                    label              = 'primary-xo'
+                    host               = 'xo-host-01'
+                    address            = '10.0.0.1'
+                    status             = 'connected'
+                    version            = '5.100.0'
+                    enabled            = $true
+                    readOnly           = $false
+                    username           = 'admin'
+                    error              = ''
+                    allowUnauthorized  = $false
+                }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+                $result = ConvertTo-XoServerObject -InputObject $apiObject
+
+                $result.PSObject.TypeNames[0] | Should -Be 'XoPowershell.Server'
+                $result.ServerUuid | Should -Be 'srv-1'
+                $result.Name | Should -Be 'primary-xo'
+                $result.NameHost | Should -Be 'xo-host-01'
+                $result.Address | Should -Be '10.0.0.1'
+                $result.Status | Should -Be 'connected'
+                $result.Version | Should -Be '5.100.0'
+                $result.Enabled | Should -BeTrue
+                $result.ReadOnly | Should -BeFalse
+                $result.Username | Should -Be 'admin'
+                $result.Error | Should -Be ''
+                $result.AllowUnauthorized | Should -BeFalse
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should accept pipeline input' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertTo-XoServerObject -PrivateData 'string'
+                $result = [pscustomobject]@{ id = 'x'; label = 'y' } | ConvertTo-XoServerObject
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result.ServerUuid | Should -Be 'x'
+                $result.Name | Should -Be 'y'
             }
         }
     }
 }
-

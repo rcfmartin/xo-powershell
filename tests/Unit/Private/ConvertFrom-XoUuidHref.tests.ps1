@@ -10,24 +10,44 @@ AfterAll {
 }
 
 Describe ConvertFrom-XoUuidHref {
-    Context 'When calling the function with string value' {
-        It 'Should return a single object' {
-            InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertFrom-XoUuidHref -PrivateData 'string'
+    BeforeAll {
+        InModuleScope -ModuleName $dscModuleName {
+            $script:XoHost = 'https://xo.example.com'
+        }
+    }
 
-                #($return | Measure-Object).Count | Should -Be 1
-                1 | Should -Be 1
+    Context 'When the href matches the expected REST pattern' {
+        It 'Should return the last URL segment' {
+            InModuleScope -ModuleName $dscModuleName {
+                $result = ConvertFrom-XoUuidHref -Uri '/rest/v0/pools/011ccf6a-c5ad-48ec-a255-d056584686f0'
+
+                $result | Should -Be '011ccf6a-c5ad-48ec-a255-d056584686f0'
             }
         }
 
-        It 'Should return a string based on the parameter PrivateData' {
+        It 'Should work with an absolute URL' {
             InModuleScope -ModuleName $dscModuleName {
-                #$return = ConvertFrom-XoUuidHref -PrivateData 'string'
+                $result = ConvertFrom-XoUuidHref -Uri 'https://xo.example.com/rest/v0/vms/abc-123'
 
-                #$return | Should -Be 'string'
-                1 | Should -Be 1
+                $result | Should -Be 'abc-123'
+            }
+        }
+
+        It 'Should accept pipeline input' {
+            InModuleScope -ModuleName $dscModuleName {
+                $result = '/rest/v0/hosts/deadbeef' | ConvertFrom-XoUuidHref
+
+                $result | Should -Be 'deadbeef'
+            }
+        }
+    }
+
+    Context 'When the href is malformed' {
+        It 'Should throw the "Bad href format" error' {
+            InModuleScope -ModuleName $dscModuleName {
+                { ConvertFrom-XoUuidHref -Uri '/not/an/api/path' } |
+                    Should -Throw -ExpectedMessage 'Bad href format'
             }
         }
     }
 }
-
