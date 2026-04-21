@@ -82,6 +82,7 @@
         "formats/alarm.ps1xml"
         "formats/schedule.ps1xml"
         "formats/vm-template.ps1xml"
+        "formats/backup-job.ps1xml"
     )
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
