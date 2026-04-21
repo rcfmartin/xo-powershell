@@ -53,6 +53,8 @@ BuildWorkflow:
     - Move_Formats_To_Output
     - Build_NestedModules_ModuleBuilder
     - Create_changelog_release_output
+    - BuildHelpFiles
+
 
 
   pack:
