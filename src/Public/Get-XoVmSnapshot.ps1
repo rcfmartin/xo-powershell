@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVmSnapshot {
+function Get-XoVmSnapshot
+{
     <#
     .SYNOPSIS
         Get VM snapshots.
@@ -40,57 +41,72 @@ function Get-XoVmSnapshot {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_VM_SNAPSHOT_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VmSnapshotUuid") {
-            foreach ($id in $VmSnapshotUuid) {
-                try {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VmSnapshotUuid")
+        {
+            foreach ($id in $VmSnapshotUuid)
+            {
+                try
+                {
                     Write-Verbose "Getting VM snapshot with UUID $id"
                     $snapshotData = Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vm-snapshots/$id" @script:XoRestParameters
                     ConvertTo-XoVmSnapshotObject $snapshotData
                 }
-                catch {
+                catch
+                {
                     throw ("Failed to retrieve VM snapshot with UUID {0}: {1}" -f $id, $_)
                 }
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
-            if ($Filter) {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
+            if ($Filter)
+            {
                 $params["filter"] = $Filter
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
-            try {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/vm-snapshots"
                 Write-Verbose "Getting VM snapshots from $uri with parameters: $($params | ConvertTo-Json -Compress)"
 
                 $snapshotsResponse = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$snapshotsResponse -or $snapshotsResponse.Count -eq 0) {
+                if (!$snapshotsResponse -or $snapshotsResponse.Count -eq 0)
+                {
                     Write-Verbose "No VM snapshots found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($snapshotsResponse.Count) VM snapshots"
 
-                foreach ($snapshotItem in $snapshotsResponse) {
+                foreach ($snapshotItem in $snapshotsResponse)
+                {
                     ConvertTo-XoVmSnapshotObject $snapshotItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list VM snapshots. Error: {0}" -f $_)
             }
         }

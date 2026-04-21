@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function New-XoVmSnapshot {
+function New-XoVmSnapshot
+{
     <#
     .SYNOPSIS
         Create a snapshot of one or more VMs.
@@ -37,15 +38,19 @@ function New-XoVmSnapshot {
         [string]$SnapshotName
     )
 
-    begin {
+    begin
+    {
         $params = Remove-XoEmptyValues @{
             name_label = $SnapshotName
         }
     }
 
-    process {
-        foreach ($id in $VmUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "snapshot")) {
+    process
+    {
+        foreach ($id in $VmUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, "snapshot"))
+            {
                 Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$id/actions/snapshot" -Method Post @script:XoRestParameters -Body $params | ForEach-Object {
                     ConvertFrom-XoTaskHref $_
                 }

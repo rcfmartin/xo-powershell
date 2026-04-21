@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoMessage {
+function Get-XoMessage
+{
     <#
     .SYNOPSIS
         List or query messages.
@@ -36,45 +37,56 @@ function Get-XoMessage {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_MESSAGE_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "MessageUuid") {
-            foreach ($id in $MessageUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "MessageUuid")
+        {
+            foreach ($id in $MessageUuid)
+            {
                 ConvertTo-XoMessageObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/messages/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name:`"$Name`""
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
             # having $Limit be in ParameterSetName = "MessageUuid" is quite nonsensical, but hopefully better than having
             # a ton of ParameterSetNames.
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
             # the parentheses forces the resulting array to unpack, don't remove them!
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/messages" @script:XoRestParameters -Body $params) | ConvertTo-XoMessageObject
         }
-        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid") {
+        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid")
+        {
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/messages" @script:XoRestParameters -Body $params) | ConvertTo-XoMessageObject
         }
-        elseif ($PSCmdlet.ParameterSetName -eq "VmUuid") {
+        elseif ($PSCmdlet.ParameterSetName -eq "VmUuid")
+        {
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$VmUuid/messages" @script:XoRestParameters -Body $params) | ConvertTo-XoMessageObject
         }
     }

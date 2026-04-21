@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoServer {
+function Get-XoServer
+{
     <#
     .SYNOPSIS
         Get servers from Xen Orchestra.
@@ -42,51 +43,64 @@ function Get-XoServer {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_SERVER_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "ServerUuid") {
-            foreach ($id in $ServerUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "ServerUuid")
+        {
+            foreach ($id in $ServerUuid)
+            {
                 Get-XoSingleServerById -ServerUuid $id -Params $params
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
-            try {
+            try
+            {
                 Write-Verbose "Getting servers with parameters: $($params | ConvertTo-Json -Compress)"
                 $uri = "$script:XoHost/rest/v0/servers"
                 $response = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$response -or $response.Count -eq 0) {
+                if (!$response -or $response.Count -eq 0)
+                {
                     Write-Verbose "No servers found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($response.Count) servers"
 
-                foreach ($serverItem in $response) {
+                foreach ($serverItem in $response)
+                {
                     ConvertTo-XoServerObject -InputObject $serverItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list servers. Error: {0}" -f $_)
             }
         }

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoPif {
+function Get-XoPif
+{
     <#
     .SYNOPSIS
         Query PIFs by UUID or condition.
@@ -33,38 +34,48 @@ function Get-XoPif {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_PIF_FIELDS
         }
 
-        if ($Limit) {
+        if ($Limit)
+        {
             $params["limit"] = $Limit
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "PifUuid") {
-            foreach ($id in $PifUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "PifUuid")
+        {
+            foreach ($id in $PifUuid)
+            {
                 ConvertTo-XoPifObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pifs/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name_label:`"$Name`""
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $tags = ($tag | ForEach-Object { "`"$_`"" }) -join " "
                 $AllFilters = "$AllFilters tags:($tags)"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 

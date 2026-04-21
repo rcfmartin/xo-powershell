@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoHost {
+function Get-XoHost
+{
     <#
     .SYNOPSIS
         Get physical hosts from Xen Orchestra.
@@ -49,53 +50,67 @@ function Get-XoHost {
 
     # use Invoke-XoRestMethod with JSON hashtable fallback in this cmdlet since server may send JSON object with multiple "cpus" keys, which confuses PowerShell when outputting PSObjects
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_HOST_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "HostUuid") {
-            foreach ($id in $HostUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "HostUuid")
+        {
+            foreach ($id in $HostUuid)
+            {
                 ConvertTo-XoHostObject (Invoke-XoRestMethod -Uri "$script:XoHost/rest/v0/hosts/$id" -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($PoolUuid) {
+            if ($PoolUuid)
+            {
                 $AllFilters = "$AllFilters `$pool:$PoolUuid"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 Write-Verbose "Filter: $AllFilters"
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
-            try {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/hosts"
                 $hostsResponse = Invoke-XoRestMethod -Uri $uri -Body $params
 
-                if (!$hostsResponse -or $hostsResponse.Count -eq 0) {
+                if (!$hostsResponse -or $hostsResponse.Count -eq 0)
+                {
                     Write-Verbose "No hosts found"
                     return
                 }
 
-                foreach ($hostItem in $hostsResponse) {
+                foreach ($hostItem in $hostsResponse)
+                {
                     ConvertTo-XoHostObject -InputObject $hostItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list hosts. Error: {0}" -f $_)
             }
         }

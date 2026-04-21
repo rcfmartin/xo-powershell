@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVdi {
+function Get-XoVdi
+{
     <#
     .SYNOPSIS
         Get VDIs from Xen Orchestra.
@@ -47,59 +48,74 @@ function Get-XoVdi {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_VDI_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VdiUuid") {
-            foreach ($id in $VdiUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VdiUuid")
+        {
+            foreach ($id in $VdiUuid)
+            {
                 Get-XoSingleVdiById -VdiUuid $id -Params $params
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $filterParts = @()
 
-            if ($SrUuid) {
+            if ($SrUuid)
+            {
                 $filterParts += "`$SR:$SrUuid"
             }
 
-            if ($Filter) {
+            if ($Filter)
+            {
                 $filterParts += $Filter
             }
 
-            if ($filterParts.Count -gt 0) {
+            if ($filterParts.Count -gt 0)
+            {
                 $params['filter'] = $filterParts -join " "
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params['limit'] = $Limit
             }
 
-            try {
+            try
+            {
                 Write-Verbose "Getting VDIs with parameters: $($params | ConvertTo-Json -Compress)"
                 $uri = "$script:XoHost/rest/v0/vdis"
                 $response = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$response -or $response.Count -eq 0) {
+                if (!$response -or $response.Count -eq 0)
+                {
                     Write-Verbose "No VDIs found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($response.Count) VDIs"
 
-                foreach ($vdiItem in $response) {
+                foreach ($vdiItem in $response)
+                {
                     ConvertTo-XoVdiObject -InputObject $vdiItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list VDIs. Error: {0}" -f $_)
             }
         }

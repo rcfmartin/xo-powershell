@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoSession {
+function Get-XoSession
+{
     <#
     .SYNOPSIS
         Get the current XO session settings.

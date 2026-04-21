@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoAlarm {
+function Get-XoAlarm
+{
     <#
     .SYNOPSIS
         List or query alarms.
@@ -31,40 +32,50 @@ function Get-XoAlarm {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_ALARM_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "AlarmUuid") {
-            foreach ($id in $AlarmUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "AlarmUuid")
+        {
+            foreach ($id in $AlarmUuid)
+            {
                 ConvertTo-XoAlarmObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/alarms/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($BodyName) {
+            if ($BodyName)
+            {
                 $AllFilters = "$AllFilters body:name:`"$BodyName`""
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
             # the parentheses forces the resulting array to unpack, don't remove them!
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/alarms" @script:XoRestParameters -Body $params) | ConvertTo-XoAlarmObject
         }
-        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid") {
+        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid")
+        {
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/alarms" @script:XoRestParameters -Body $params) | ConvertTo-XoAlarmObject
         }
     }

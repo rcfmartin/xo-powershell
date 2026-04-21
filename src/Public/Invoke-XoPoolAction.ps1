@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # For convenience. Internal use only.
-function Invoke-XoPoolAction {
+function Invoke-XoPoolAction
+{
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
@@ -13,8 +14,10 @@ function Invoke-XoPoolAction {
         [string]$Action
     )
 
-    process {
-        foreach ($id in $PoolUuid) {
+    process
+    {
+        foreach ($id in $PoolUuid)
+        {
             Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/actions/$Action" -Method Post @script:XoRestParameters | ForEach-Object {
                 ConvertFrom-XoTaskHref $_
             }

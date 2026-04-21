@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoPool {
+function Get-XoPool
+{
     <#
     .SYNOPSIS
         Query pools by UUID or condition.
@@ -32,38 +33,48 @@ function Get-XoPool {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_POOL_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "PoolUuid") {
-            foreach ($id in $PoolUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "PoolUuid")
+        {
+            foreach ($id in $PoolUuid)
+            {
                 ConvertTo-XoPoolObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name_label:`"$Name`""
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $tags = ($tag | ForEach-Object { "`"$_`"" }) -join " "
                 $AllFilters = "$AllFilters tags:($tags)"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 

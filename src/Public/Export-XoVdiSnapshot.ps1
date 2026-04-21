@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Export-XoVdiSnapshot {
+function Export-XoVdiSnapshot
+{
     <#
     .SYNOPSIS
         Export a VDI snapshot.
@@ -41,21 +42,26 @@ function Export-XoVdiSnapshot {
     )
 
 
-    process {
+    process
+    {
         $resolvedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutFile)
 
-        if ($PSCmdlet.ShouldProcess($VdiSnapshotUuid, "export to $resolvedPath in $Format format")) {
-            try {
+        if ($PSCmdlet.ShouldProcess($VdiSnapshotUuid, "export to $resolvedPath in $Format format"))
+        {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/vdi-snapshots/$VdiSnapshotUuid/export"
                 $params = @{ format = $Format }
 
                 Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params -OutFile $resolvedPath
 
-                if ($PassThru) {
+                if ($PassThru)
+                {
                     Get-Item $resolvedPath
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to export VDI snapshot with UUID {0}: {1}" -f $VdiSnapshotUuid, $_)
             }
         }

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoSr {
+function Get-XoSr
+{
     <#
     .SYNOPSIS
         Get storage repositories from Xen Orchestra.
@@ -39,8 +40,10 @@ function Get-XoSr {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
@@ -49,37 +52,47 @@ function Get-XoSr {
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "SrUuid") {
-            foreach ($id in $SrUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "SrUuid")
+        {
+            foreach ($id in $SrUuid)
+            {
                 Get-XoSingleSrById -SrUuid $id -Params $params
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
-            if ($Limit) {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
+            if ($Limit)
+            {
                 $params['limit'] = $Limit
             }
 
-            try {
+            try
+            {
                 Write-Verbose "Getting SRs with parameters: $($params | ConvertTo-Json -Compress)"
                 $uri = "$script:XoHost/rest/v0/srs"
                 $response = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$response -or $response.Count -eq 0) {
+                if (!$response -or $response.Count -eq 0)
+                {
                     Write-Verbose "No SRs found"
                     return
                 }
 
                 Write-Verbose "Found $($response.Count) SRs"
 
-                foreach ($srItem in $response) {
+                foreach ($srItem in $response)
+                {
                     ConvertTo-XoSrObject -InputObject $srItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list SRs. Error: {0}" -f $_)
             }
         }

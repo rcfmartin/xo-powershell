@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Restart-XoPool {
+function Restart-XoPool
+{
     <#
     .SYNOPSIS
         Restart a running pool.
@@ -16,9 +17,12 @@ function Restart-XoPool {
         [string[]]$PoolUuid
     )
 
-    process {
-        foreach ($id in $PoolUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "Rolling pool reboot")) {
+    process
+    {
+        foreach ($id in $PoolUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, "Rolling pool reboot"))
+            {
                 Invoke-XoPoolAction -PoolUuid $id -Action "rolling_reboot"
             }
         }

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Suspend-XoVm {
+function Suspend-XoVm
+{
     <#
     .SYNOPSIS
         Suspend one or more VMs.
@@ -22,9 +23,12 @@ function Suspend-XoVm {
         [string[]]$VmUuid
     )
 
-    process {
-        foreach ($id in $VmUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "suspend")) {
+    process
+    {
+        foreach ($id in $VmUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, "suspend"))
+            {
                 Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$id/actions/suspend" -Method Post @script:XoRestParameters | ForEach-Object {
                     ConvertFrom-XoTaskHref $_
                 }

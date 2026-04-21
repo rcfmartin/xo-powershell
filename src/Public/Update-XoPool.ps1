@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Update-XoPool {
+function Update-XoPool
+{
     <#
     .SYNOPSIS
         Update a running pool.
@@ -16,9 +17,12 @@ function Update-XoPool {
         [string[]]$PoolUuid
     )
 
-    process {
-        foreach ($id in $PoolUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "Rolling pool update")) {
+    process
+    {
+        foreach ($id in $PoolUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, "Rolling pool update"))
+            {
                 Invoke-XoPoolAction -PoolUuid $id -Action "rolling_update"
             }
         }

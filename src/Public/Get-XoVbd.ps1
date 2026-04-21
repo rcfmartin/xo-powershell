@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVbd {
+function Get-XoVbd
+{
     <#
     .SYNOPSIS
         Query VBDs by UUID or condition.
@@ -33,38 +34,48 @@ function Get-XoVbd {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_VBD_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VbdUuid") {
-            foreach ($id in $VbdUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VbdUuid")
+        {
+            foreach ($id in $VbdUuid)
+            {
                 ConvertTo-XoVbdObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vbds/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name_label:`"$Name`""
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $tags = ($tag | ForEach-Object { "`"$_`"" }) -join " "
                 $AllFilters = "$AllFilters tags:($tags)"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoTask {
+function Get-XoTask
+{
     <#
     .SYNOPSIS
         Get tasks from Xen Orchestra.
@@ -40,8 +41,10 @@ function Get-XoTask {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
@@ -50,45 +53,58 @@ function Get-XoTask {
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "TaskId") {
-            foreach ($id in $TaskId) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "TaskId")
+        {
+            foreach ($id in $TaskId)
+            {
                 Get-XoSingleTaskById -TaskId $id -Params $params
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
-            if ($Status) {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
+            if ($Status)
+            {
                 $params['filter'] = $Status
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params['limit'] = $Limit
             }
 
-            try {
+            try
+            {
                 Write-Verbose "Getting tasks with parameters: $($params | ConvertTo-Json -Compress)"
                 $uri = "$script:XoHost/rest/v0/tasks"
                 $tasksResponse = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if ($null -eq $tasksResponse -or $tasksResponse.Count -eq 0) {
+                if ($null -eq $tasksResponse -or $tasksResponse.Count -eq 0)
+                {
                     Write-Verbose "No tasks found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($tasksResponse.Count) tasks"
 
-                foreach ($taskItem in $tasksResponse) {
+                foreach ($taskItem in $tasksResponse)
+                {
                     ConvertTo-XoTaskObject -InputObject $taskItem
                 }
             }
-            catch {
-                if ($PSBoundParameters.ContainsKey('Status')) {
+            catch
+            {
+                if ($PSBoundParameters.ContainsKey('Status'))
+                {
                     throw ("Failed to retrieve tasks with status {0}: {1}" -f $Status, $_)
                 }
-                else {
+                else
+                {
                     throw ("Failed to retrieve tasks: {0}" -f $_)
                 }
             }

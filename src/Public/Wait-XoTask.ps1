@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Wait-XoTask {
+function Wait-XoTask
+{
     <#
     .SYNOPSIS
         Wait for task completion.
@@ -27,7 +28,8 @@ function Wait-XoTask {
         [switch]$PassThru
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_TASK_FIELDS
             wait   = "result"
@@ -35,21 +37,27 @@ function Wait-XoTask {
         $ids = @()
     }
 
-    process {
+    process
+    {
         $ids += $TaskId
     }
 
-    end {
-        foreach ($id in $ids) {
-            try {
+    end
+    {
+        foreach ($id in $ids)
+        {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/tasks/$id"
                 $result = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if ($PassThru -and $result) {
+                if ($PassThru -and $result)
+                {
                     ConvertTo-XoTaskObject -InputObject $result
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Error waiting for task {0}: {1}" -f $id, $_)
             }
         }

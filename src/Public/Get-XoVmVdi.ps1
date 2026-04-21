@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVmVdi {
+function Get-XoVmVdi
+{
     <#
     .SYNOPSIS
         Get virtual disks attached to a VM.
@@ -22,14 +23,17 @@ function Get-XoVmVdi {
         [string[]]$VmUuid
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_VDI_FIELDS
         }
     }
 
-    process {
-        foreach ($id in $VmUuid) {
+    process
+    {
+        foreach ($id in $VmUuid)
+        {
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$id/vdis" @script:XoRestParameters -Body $params) | ConvertTo-XoVdiObject
         }
     }

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoSchedule {
+function Get-XoSchedule
+{
     <#
     .SYNOPSIS
         List or query schedules.
@@ -23,36 +24,45 @@ function Get-XoSchedule {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_SCHEDULE_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "ScheduleUuid") {
-            foreach ($id in $ScheduleUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "ScheduleUuid")
+        {
+            foreach ($id in $ScheduleUuid)
+            {
                 ConvertTo-XoScheduleObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/schedules/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 
             # the parentheses forces the resulting array to unpack, don't remove them!
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/schedules" @script:XoRestParameters -Body $params) | ConvertTo-XoScheduleObject
         }
-        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid") {
+        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid")
+        {
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/schedules" @script:XoRestParameters -Body $params) | ConvertTo-XoScheduleObject
         }
     }

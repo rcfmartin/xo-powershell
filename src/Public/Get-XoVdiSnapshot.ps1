@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVdiSnapshot {
+function Get-XoVdiSnapshot
+{
     <#
     .SYNOPSIS
         Get VDI snapshots from Xen Orchestra.
@@ -39,49 +40,62 @@ function Get-XoVdiSnapshot {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_VDI_SNAPSHOT_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VdiSnapshotUuid") {
-            foreach ($id in $VdiSnapshotUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VdiSnapshotUuid")
+        {
+            foreach ($id in $VdiSnapshotUuid)
+            {
                 Get-XoSingleVdiSnapshotById -VdiSnapshotUuid $id -Params $params
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
-            if ($Filter) {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
+            if ($Filter)
+            {
                 $params['filter'] = $Filter
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params['limit'] = $Limit
             }
 
-            try {
+            try
+            {
                 Write-Verbose "Getting VDI snapshots with parameters: $($params | ConvertTo-Json -Compress)"
                 $uri = "$script:XoHost/rest/v0/vdi-snapshots"
                 $response = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$response -or $response.Count -eq 0) {
+                if (!$response -or $response.Count -eq 0)
+                {
                     Write-Verbose "No VDI snapshots found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($response.Count) VDI snapshots"
 
-                foreach ($snapshotItem in $response) {
+                foreach ($snapshotItem in $response)
+                {
                     ConvertTo-XoVdiSnapshotObject -InputObject $snapshotItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list VDI snapshots. Error: {0}" -f $_)
             }
         }

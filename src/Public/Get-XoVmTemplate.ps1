@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVmTemplate {
+function Get-XoVmTemplate
+{
     <#
     .SYNOPSIS
         List or query VM templates.
@@ -30,41 +31,52 @@ function Get-XoVmTemplate {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_VM_TEMPLATE_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VmTemplateUuid") {
-            foreach ($id in $VmTemplateUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VmTemplateUuid")
+        {
+            foreach ($id in $VmTemplateUuid)
+            {
                 ConvertTo-XoVmTemplateObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vm-templates/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             Write-Verbose $script:XO_VM_TEMPLATE_FIELDS
             $AllFilters = $Filter
 
-            if ($Default) {
+            if ($Default)
+            {
                 $AllFilters = "$AllFilters isDefaultTemplate?"
             }
-            elseif ($PSBoundParameters.ContainsKey("Default")) {
+            elseif ($PSBoundParameters.ContainsKey("Default"))
+            {
                 $AllFilters = "$AllFilters !isDefaultTemplate?"
             }
 
-            if ($PoolUuid) {
+            if ($PoolUuid)
+            {
                 $AllFilters = "$AllFilters `$pool:$PoolUuid"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 

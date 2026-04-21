@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVm {
+function Get-XoVm
+{
     <#
     .SYNOPSIS
         Get VMs from Xen Orchestra.
@@ -65,69 +66,86 @@ function Get-XoVm {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
-        if (-not $script:XoHost -or -not $script:XoRestParameters) {
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
             throw ("Not connected to Xen Orchestra. Call Connect-XoSession first.")
         }
 
         $params = @{ fields = $script:XO_VM_FIELDS }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VmUuid") {
-            foreach ($id in $VmUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VmUuid")
+        {
+            foreach ($id in $VmUuid)
+            {
                 Get-XoSingleVmById -VmUuid $id
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($PowerState) {
+            if ($PowerState)
+            {
                 $AllFilters = "$AllFilters power_state:($($PowerState -join '|'))"
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $AllFilters = "$AllFilters tags:($($Tag -join '&'))"
             }
 
-            if ($PoolUuid) {
+            if ($PoolUuid)
+            {
                 $AllFilters = "$AllFilters `$pool:$PoolUuid"
             }
 
-            if ($HostUuid) {
+            if ($HostUuid)
+            {
                 $AllFilters = "$AllFilters `$container:$HostUuid"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 Write-Verbose "Filter: $AllFilters"
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params['limit'] = $Limit
             }
 
-            try {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/vms"
                 Write-Verbose "Getting VMs from $uri with parameters: $($params | ConvertTo-Json -Compress)"
 
                 $response = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params
 
-                if (!$response -or $response.Count -eq 0) {
+                if (!$response -or $response.Count -eq 0)
+                {
                     Write-Verbose "No VMs found matching criteria"
                     return
                 }
 
                 Write-Verbose "Found $($response.Count) VMs"
 
-                foreach ($vmItem in $response) {
+                foreach ($vmItem in $response)
+                {
                     ConvertTo-XoVmObject -InputObject $vmItem
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to list VMs. Error: {0}" -f $_)
             }
         }

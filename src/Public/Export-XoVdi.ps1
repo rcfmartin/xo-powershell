@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Export-XoVdi {
+function Export-XoVdi
+{
     <#
     .SYNOPSIS
         Export a VDI.
@@ -40,19 +41,24 @@ function Export-XoVdi {
         [switch]$PassThru
     )
 
-    process {
-        if ($PSCmdlet.ShouldProcess($VdiUuid, "export to $OutFile in $Format format")) {
-            try {
+    process
+    {
+        if ($PSCmdlet.ShouldProcess($VdiUuid, "export to $OutFile in $Format format"))
+        {
+            try
+            {
                 $uri = "$script:XoHost/rest/v0/vdis/$VdiUuid/export"
                 $params = @{ format = $Format }
 
                 Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params -OutFile $OutFile
 
-                if ($PassThru) {
+                if ($PassThru)
+                {
                     Get-Item $OutFile
                 }
             }
-            catch {
+            catch
+            {
                 throw ("Failed to export VDI with UUID {0}: {1}" -f $VdiUuid, $_)
             }
         }

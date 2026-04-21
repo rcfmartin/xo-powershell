@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Disconnect-XoSession {
+function Disconnect-XoSession
+{
     <#
     .SYNOPSIS
         Disconnect from a Xen Orchestra instance.
@@ -19,7 +20,8 @@ function Disconnect-XoSession {
     param (
         [Parameter()][switch]$ClearCredentials
     )
-    if ($ClearCredentials -and $script:XoHost) {
+    if ($ClearCredentials -and $script:XoHost)
+    {
         # TODO: clear saved token
     }
     $script:XoHost = $null

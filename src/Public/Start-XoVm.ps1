@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Start-XoVm {
+function Start-XoVm
+{
     <#
     .SYNOPSIS
         Start one or more VMs.
@@ -23,9 +24,12 @@ function Start-XoVm {
         [string[]]$VmUuid
     )
 
-    process {
-        foreach ($id in $VmUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "start")) {
+    process
+    {
+        foreach ($id in $VmUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, "start"))
+            {
                 Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$id/actions/start" -Method Post @script:XoRestParameters | ForEach-Object {
                     ConvertFrom-XoTaskHref $_
                 }

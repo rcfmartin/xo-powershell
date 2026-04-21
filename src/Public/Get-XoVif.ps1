@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoVif {
+function Get-XoVif
+{
     <#
     .SYNOPSIS
         Query VIFs by UUID or condition.
@@ -33,38 +34,48 @@ function Get-XoVif {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_VIF_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "VifUuid") {
-            foreach ($id in $VifUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "VifUuid")
+        {
+            foreach ($id in $VifUuid)
+            {
                 ConvertTo-XoVifObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vifs/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name_label:`"$Name`""
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $tags = ($tag | ForEach-Object { "`"$_`"" }) -join " "
                 $AllFilters = "$AllFilters tags:($tags)"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 

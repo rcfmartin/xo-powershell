@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoNetwork {
+function Get-XoNetwork
+{
     <#
     .SYNOPSIS
         Query networks by UUID or condition.
@@ -32,38 +33,48 @@ function Get-XoNetwork {
         [int]$Limit = $script:XoSessionLimit
     )
 
-    begin {
+    begin
+    {
         $params = @{
             fields = $script:XO_NETWORK_FIELDS
         }
     }
 
-    process {
-        if ($PSCmdlet.ParameterSetName -eq "NetworkUuid") {
-            foreach ($id in $NetworkUuid) {
+    process
+    {
+        if ($PSCmdlet.ParameterSetName -eq "NetworkUuid")
+        {
+            foreach ($id in $NetworkUuid)
+            {
                 ConvertTo-XoNetworkObject (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/networks/$id" @script:XoRestParameters -Body $params)
             }
         }
     }
 
-    end {
-        if ($PSCmdlet.ParameterSetName -eq "Filter") {
+    end
+    {
+        if ($PSCmdlet.ParameterSetName -eq "Filter")
+        {
             $AllFilters = $Filter
 
-            if ($Name) {
+            if ($Name)
+            {
                 $AllFilters = "$AllFilters name_label:`"$Name`""
             }
 
-            if ($Tag) {
+            if ($Tag)
+            {
                 $tags = ($tag | ForEach-Object { "`"$_`"" }) -join " "
                 $AllFilters = "$AllFilters tags:($tags)"
             }
 
-            if ($AllFilters) {
+            if ($AllFilters)
+            {
                 $params["filter"] = $AllFilters
             }
 
-            if ($Limit) {
+            if ($Limit)
+            {
                 $params["limit"] = $Limit
             }
 

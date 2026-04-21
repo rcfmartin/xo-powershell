@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Restart-XoVm {
+function Restart-XoVm
+{
     <#
     .SYNOPSIS
         Restart one or more VMs.
@@ -26,13 +27,24 @@ function Restart-XoVm {
         [Parameter()][switch]$Force
     )
 
-    begin {
-        $action = if ($Force) { "hard_reboot" } else { "clean_reboot" }
+    begin
+    {
+        $action = if ($Force)
+        {
+            "hard_reboot" 
+        }
+        else
+        {
+            "clean_reboot" 
+        }
     }
 
-    process {
-        foreach ($id in $VmUuid) {
-            if ($PSCmdlet.ShouldProcess($id, $action)) {
+    process
+    {
+        foreach ($id in $VmUuid)
+        {
+            if ($PSCmdlet.ShouldProcess($id, $action))
+            {
                 Invoke-RestMethod -Uri "$script:XoHost/rest/v0/vms/$id/actions/$action" -Method Post @script:XoRestParameters | ForEach-Object {
                     ConvertFrom-XoTaskHref $_
                 }

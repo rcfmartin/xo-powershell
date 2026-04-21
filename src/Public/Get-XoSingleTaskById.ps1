@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Get-XoSingleTaskById {
+function Get-XoSingleTaskById
+{
     <#
     .SYNOPSIS
         Get a single task by ID
@@ -17,16 +18,19 @@ function Get-XoSingleTaskById {
         [hashtable]$Params
     )
 
-    try {
+    try
+    {
         Write-Verbose "Getting task with ID $TaskId"
         $uri = "$script:XoHost/rest/v0/tasks/$TaskId"
         $taskData = Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $Params
 
-        if ($taskData) {
+        if ($taskData)
+        {
             return ConvertTo-XoTaskObject -InputObject $taskData
         }
     }
-    catch {
+    catch
+    {
         throw ("Failed to retrieve task with ID {0}: {1}" -f $TaskId, $_)
     }
     return $null
