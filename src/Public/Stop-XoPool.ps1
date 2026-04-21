@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
-function Stop-XoPool {
+function Stop-XoPool
+{
     <#
     .SYNOPSIS
         Stop a running pool.
@@ -21,12 +22,21 @@ function Stop-XoPool {
         [switch]$Force
     )
 
-    process {
+    process
+    {
         # Note: "Stop" is quite different from "emergency shutdown", thus the "-Force" parameter being mandatory for now.
-
-        foreach ($id in $PoolUuid) {
-            if ($PSCmdlet.ShouldProcess($id, "Emergency shutdown")) {
-                Invoke-XoPoolAction -PoolUuid $id -Action "emergency_shutdown"
+        # Added splatting to make it more flexible in the future.
+        $params = @{}
+        foreach ($id in $PoolUuid)
+        {
+            $params["PoolUuid"] = $id
+            if ($PSBoundParameters.ContainsKey('Force'))
+            {
+                $params["Action"] = "emergency_shutdown"
+            }
+            if ($PSCmdlet.ShouldProcess($id, "Emergency shutdown"))
+            {
+                Invoke-XoPoolAction @params
             }
         }
     }
