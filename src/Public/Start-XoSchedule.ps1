@@ -27,7 +27,7 @@ function Start-XoSchedule
         {
             if ($PSCmdlet.ShouldProcess($id, "start"))
             {
-                Invoke-RestMethod -Uri "$script:XoHost/rest/v0/schedules/$id/run" -Method Post @script:XoRestParameters | ForEach-Object {
+                Invoke-RestMethod -Uri "$script:XoHost/rest/v0/schedules/$id/actions/run" -Method Post @script:XoRestParameters | ForEach-Object {
                     ConvertFrom-XoTaskHref $_
                 }
             }
