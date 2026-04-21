@@ -2,7 +2,8 @@
 
 $script:XO_SERVER_FIELDS = "id,host,label,address,version,status,enabled,error,username,readOnly,allowUnauthorized"
 
-function ConvertTo-XoServerObject {
+function ConvertTo-XoServerObject
+{
     <#
     .SYNOPSIS
         Convert a server object from the API to a PowerShell object.
@@ -10,6 +11,8 @@ function ConvertTo-XoServerObject {
         Convert a server object from the API to a PowerShell object with proper properties.
     .PARAMETER InputObject
         The server object from the API.
+    .EXAMPLE
+        ConvertTo-XoServerObject -InputObject $object
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Server")]
@@ -18,7 +21,8 @@ function ConvertTo-XoServerObject {
         $InputObject
     )
 
-    process {
+    process
+    {
         $props = @{
             ServerUuid        = $InputObject.id  # API returns 'id' field, not 'uuid' for servers
             Name              = $InputObject.label

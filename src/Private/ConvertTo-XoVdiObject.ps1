@@ -11,6 +11,8 @@ function ConvertTo-XoVdiObject
         Convert a VDI object from the API to a PowerShell object with proper properties and types.
     .PARAMETER InputObject
         The VDI object from the API.
+    .EXAMPLE
+        ConvertTo-XoVdiObject -InputObject $object
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Vdi")]
