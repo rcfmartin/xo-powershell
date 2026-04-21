@@ -116,7 +116,7 @@ function Invoke-XoPoolAction
 
         foreach ($id in $PoolUuid)
         {
-            Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/actions/$Action?sync=$($Sync.IsPresent.ToString().ToLower())" -Method Post @script:XoRestParameters -Body $($ActionParameters | ConvertTo-Json -Depth 99) | ForEach-Object {
+            Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$id/actions/${Action}?sync=$($Sync.IsPresent.ToString().ToLower())" -Method Post @script:XoRestParameters -Body $($ActionParameters | ConvertTo-Json -Depth 99) | ForEach-Object {
                 ConvertFrom-XoTaskHref $_
             }
         }
