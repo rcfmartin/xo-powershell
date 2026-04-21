@@ -16,6 +16,7 @@ function Get-XoBackupJobMetadata
     .EXAMPLE
         Get-XoBackupJobMetadata
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.BackupJob")]
     param (
@@ -57,8 +58,14 @@ function Get-XoBackupJobMetadata
     {
         if ($PSCmdlet.ParameterSetName -eq "Filter")
         {
-            if ($Filter) { $params["filter"] = $Filter }
-            if ($Limit)  { $params["limit"] = $Limit }
+            if ($Filter)
+            {
+                $params["filter"] = $Filter
+            }
+            if ($Limit)
+            {
+                $params["limit"] = $Limit
+            }
 
             $uri = "$script:XoHost/rest/v0/backup/jobs/metadata"
             # the parentheses forces the resulting array to unpack, don't remove them!
