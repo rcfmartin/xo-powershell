@@ -4,13 +4,15 @@ function Get-XoHostSmt
 {
     <#
     .SYNOPSIS
-        List smt for a Host.
+        Get SMT status scoped to a specific host.
     .DESCRIPTION
-        Retrieve smt associated with a specific Xen Orchestra Host.
+        Retrieves SMT status attached to the specified Xen Orchestra host. Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER HostUuid
-        The UUID of the Host whose smt to retrieve.
+        The UUID(s) of the host whose SMT status should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoHostSmt -HostUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoHostSmt -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+    .EXAMPLE
+        Get-XoHost | Get-XoHostSmt
     #>
     [CmdletBinding()]
     [OutputType("System.Management.Automation.PSCustomObject")]
@@ -40,3 +42,4 @@ function Get-XoHostSmt
         }
     }
 }
+
