@@ -4,13 +4,15 @@ function Get-XoVifAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Vif.
+        Get alarms scoped to a specific VIF.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Vif.
+        Retrieves alarms attached to the specified Xen Orchestra VIF. Accepts one or more VIF UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VifUuid
-        The UUID of the Vif whose alarms to retrieve.
+        The UUID(s) of the VIF whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVifAlarm -VifUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVif | Get-XoVifAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoVifAlarm
         }
     }
 }
+
