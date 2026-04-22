@@ -1,0 +1,75 @@
+# SPDX-License-Identifier: Apache-2.0
+
+function Set-XoUser
+{
+    <#
+    .SYNOPSIS
+        Update a Xen Orchestra user.
+    .DESCRIPTION
+        Edits an existing user via PATCH /users/{id}. Any combination of Name, Password, Permission, or Preferences may be supplied; omitted fields are left unchanged.
+    .PARAMETER UserId
+        The UUID of the user to update.
+    .PARAMETER Name
+        New name for the user.
+    .PARAMETER Password
+        New password for the user (plain-text).
+    .PARAMETER Permission
+        New permission level: 'none', 'viewer', or 'admin'.
+    .PARAMETER Preferences
+        Hashtable of preference key/values to store on the user.
+    .EXAMPLE
+        Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
+    .EXAMPLE
+        Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Password "newPa55"
+    #>
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
+    param (
+        [Parameter(Mandatory, ValueFromPipelineByPropertyName, Position = 0)]
+        [ValidatePattern("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")]
+        [ValidateNotNullOrEmpty()]
+        [string]$UserId,
+
+        [Parameter()]
+        [string]$Name,
+
+        [Parameter()]
+        [string]$Password,
+
+        [Parameter()]
+        [ValidateSet("none", "viewer", "admin")]
+        [string]$Permission,
+
+        [Parameter()]
+        [hashtable]$Preferences
+    )
+
+    begin
+    {
+        if (-not $script:XoHost -or -not $script:XoRestParameters)
+        {
+            throw "Not connected to Xen Orchestra. Call Connect-XoSession first."
+        }
+    }
+
+    process
+    {
+        $params = @{}
+        if ($PSBoundParameters.ContainsKey("Name"))        { $params["name"]        = $Name }
+        if ($PSBoundParameters.ContainsKey("Password"))    { $params["password"]    = $Password }
+        if ($PSBoundParameters.ContainsKey("Permission"))  { $params["permission"]  = $Permission }
+        if ($PSBoundParameters.ContainsKey("Preferences")) { $params["preferences"] = $Preferences }
+
+        if ($params.Count -eq 0) { return }
+
+        if (-not $PSCmdlet.ShouldProcess($UserId, "update user"))
+        {
+            return
+        }
+
+        $bodyJson  = ConvertTo-Json -InputObject $params -Depth 10 -Compress
+        $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes($bodyJson)
+
+        $uri = "$script:XoHost/rest/v0/users/$UserId"
+        Invoke-RestMethod -Uri $uri -Method Patch @script:XoRestParameters -ContentType "application/json" -Body $bodyBytes
+    }
+}
