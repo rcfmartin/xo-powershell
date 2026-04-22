@@ -4,13 +4,15 @@ function Get-XoHostAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Host.
+        Get alarms scoped to a specific host.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Host.
+        Retrieves alarms attached to the specified Xen Orchestra host. Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER HostUuid
-        The UUID of the Host whose alarms to retrieve.
+        The UUID(s) of the host whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoHostAlarm -HostUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoHostAlarm -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+    .EXAMPLE
+        Get-XoHost | Get-XoHostAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoHostAlarm
         }
     }
 }
+
