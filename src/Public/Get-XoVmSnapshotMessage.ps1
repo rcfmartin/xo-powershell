@@ -4,13 +4,15 @@ function Get-XoVmSnapshotMessage
 {
     <#
     .SYNOPSIS
-        List messages for a VmSnapshot.
+        Get messages scoped to a specific VM snapshot.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra VmSnapshot.
+        Retrieves messages attached to the specified Xen Orchestra VM snapshot. Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmSnapshotUuid
-        The UUID of the VmSnapshot whose messages to retrieve.
+        The UUID(s) of the VM snapshot whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmSnapshotMessage -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmSnapshot | Get-XoVmSnapshotMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVmSnapshotMessage
         }
     }
 }
+
