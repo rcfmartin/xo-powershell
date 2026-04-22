@@ -4,13 +4,15 @@ function Get-XoHostStat
 {
     <#
     .SYNOPSIS
-        List stats for a Host.
+        Get performance statistics scoped to a specific host.
     .DESCRIPTION
-        Retrieve stats associated with a specific Xen Orchestra Host.
+        Retrieves performance statistics attached to the specified Xen Orchestra host. Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER HostUuid
-        The UUID of the Host whose stats to retrieve.
+        The UUID(s) of the host whose performance statistics should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoHostStat -HostUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoHostStat -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+    .EXAMPLE
+        Get-XoHost | Get-XoHostStat
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Stat")]
@@ -40,3 +42,4 @@ function Get-XoHostStat
         }
     }
 }
+
