@@ -4,13 +4,15 @@ function Get-XoPoolDashboard
 {
     <#
     .SYNOPSIS
-        List dashboard for a Pool.
+        Get dashboard summary scoped to a specific pool.
     .DESCRIPTION
-        Retrieve dashboard associated with a specific Xen Orchestra Pool.
+        Retrieves dashboard summary attached to the specified Xen Orchestra pool. Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER PoolUuid
-        The UUID of the Pool whose dashboard to retrieve.
+        The UUID(s) of the pool whose dashboard summary should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoPoolDashboard -PoolUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoPoolDashboard -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
+    .EXAMPLE
+        Get-XoPool | Get-XoPoolDashboard
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Dashboard")]
@@ -40,3 +42,4 @@ function Get-XoPoolDashboard
         }
     }
 }
+
