@@ -4,13 +4,15 @@ function Invoke-XoVmUnpause
 {
     <#
     .SYNOPSIS
-        unpause one or more vms.
+        Unpause one or more Xen Orchestra VMs.
     .DESCRIPTION
-        unpause the specified Xen Orchestra vms. Returns a task object that can be used to monitor the operation.
+        Resumes CPU execution of a paused VM (previously paused with Invoke-XoVmPause).
     .PARAMETER VmUuid
-        The UUID(s) of the vm to act on.
+        The UUID(s) of the VM to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Invoke-XoVmUnpause -VmUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoVmUnpause -VmUuid "<uuid>"
+    .EXAMPLE
+        Invoke-XoVmUnpause -VmUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Low")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Invoke-XoVmUnpause
         }
     }
 }
+
