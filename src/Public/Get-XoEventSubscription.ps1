@@ -4,15 +4,17 @@ function Get-XoEventSubscription
 {
     <#
     .SYNOPSIS
-        List or query event subscriptions.
+        List or query subscriptions for a specific Xen Orchestra event.
     .DESCRIPTION
-        Retrieve subscriptions registered for a specific Xen Orchestra event.
+        Retrieves webhook/API subscriptions attached to a given event. A subscription describes where and how Xen Orchestra should notify an external endpoint when the event fires. Supply -SubscriptionId to fetch a single subscription.
     .PARAMETER EventId
         The ID of the event whose subscriptions to retrieve.
     .PARAMETER SubscriptionId
-        The ID of a specific subscription to retrieve.
+        Optional ID of a specific subscription to retrieve instead of listing them all.
     .EXAMPLE
-        Get-XoEventSubscription -EventId "event-id"
+        Get-XoEventSubscription -EventId 'vm-started'
+    .EXAMPLE
+        Get-XoEventSubscription -EventId 'vm-started' -SubscriptionId 'sub-123'
     #>
     [CmdletBinding(DefaultParameterSetName = "All")]
     param (
@@ -42,3 +44,4 @@ function Get-XoEventSubscription
         Invoke-RestMethod -Uri $uri @script:XoRestParameters
     }
 }
+
