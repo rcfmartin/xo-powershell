@@ -4,13 +4,15 @@ function Get-XoVbdMessage
 {
     <#
     .SYNOPSIS
-        List messages for a Vbd.
+        Get messages scoped to a specific VBD.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra Vbd.
+        Retrieves messages attached to the specified Xen Orchestra VBD. Accepts one or more VBD UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VbdUuid
-        The UUID of the Vbd whose messages to retrieve.
+        The UUID(s) of the VBD whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVbdMessage -VbdUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVbd | Get-XoVbdMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVbdMessage
         }
     }
 }
+
