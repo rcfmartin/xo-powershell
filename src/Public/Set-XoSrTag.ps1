@@ -4,19 +4,19 @@ function Set-XoSrTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a sr.
+        Attach or detach a single tag on a Xen Orchestra storage repository.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra sr. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified storage repository using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER SrUuid
-        The UUID of the sr to tag.
+        The UUID of the storage repository to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoSrTag -SrUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoSrTag -SrUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoSrTag -SrUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoSrTag -SrUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoSrTag
         }
     }
 }
+
