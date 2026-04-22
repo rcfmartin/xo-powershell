@@ -4,13 +4,15 @@ function Connect-XoPbd
 {
     <#
     .SYNOPSIS
-        plug one or more pbds.
+        Plug one or more Xen Orchestra PBDs.
     .DESCRIPTION
-        plug the specified Xen Orchestra pbds. Returns a task object that can be used to monitor the operation.
+        Attaches the PBD to its host, making the underlying SR available. Returns a task that can be passed to Wait-XoTask.
     .PARAMETER PbdUuid
-        The UUID(s) of the pbd to act on.
+        The UUID(s) of the PBD to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Connect-XoPbd -PbdUuid "00000000-0000-0000-0000-000000000000"
+        Connect-XoPbd -PbdUuid "<uuid>"
+    .EXAMPLE
+        Connect-XoPbd -PbdUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Connect-XoPbd
         }
     }
 }
+
