@@ -4,13 +4,15 @@ function Get-XoPifAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Pif.
+        Get alarms scoped to a specific PIF.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Pif.
+        Retrieves alarms attached to the specified Xen Orchestra PIF. Accepts one or more PIF UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER PifUuid
-        The UUID of the Pif whose alarms to retrieve.
+        The UUID(s) of the PIF whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoPifAlarm -PifUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoPif | Get-XoPifAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoPifAlarm
         }
     }
 }
+
