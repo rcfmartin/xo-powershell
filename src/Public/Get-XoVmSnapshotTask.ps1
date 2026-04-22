@@ -4,13 +4,15 @@ function Get-XoVmSnapshotTask
 {
     <#
     .SYNOPSIS
-        List tasks for a VmSnapshot.
+        Get tasks scoped to a specific VM snapshot.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra VmSnapshot.
+        Retrieves tasks attached to the specified Xen Orchestra VM snapshot. Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmSnapshotUuid
-        The UUID of the VmSnapshot whose tasks to retrieve.
+        The UUID(s) of the VM snapshot whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmSnapshotTask -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmSnapshot | Get-XoVmSnapshotTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoVmSnapshotTask
         }
     }
 }
+
