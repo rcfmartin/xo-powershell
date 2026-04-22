@@ -4,13 +4,15 @@ function Get-XoNetworkAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Network.
+        Get alarms scoped to a specific network.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Network.
+        Retrieves alarms attached to the specified Xen Orchestra network. Accepts one or more network UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER NetworkUuid
-        The UUID of the Network whose alarms to retrieve.
+        The UUID(s) of the network whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoNetworkAlarm -NetworkUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoNetwork | Get-XoNetworkAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoNetworkAlarm
         }
     }
 }
+
