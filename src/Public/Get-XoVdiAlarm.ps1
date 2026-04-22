@@ -4,13 +4,15 @@ function Get-XoVdiAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Vdi.
+        Get alarms scoped to a specific VDI.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Vdi.
+        Retrieves alarms attached to the specified Xen Orchestra VDI. Accepts one or more VDI UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VdiUuid
-        The UUID of the Vdi whose alarms to retrieve.
+        The UUID(s) of the VDI whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVdiAlarm -VdiUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVdi | Get-XoVdiAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoVdiAlarm
         }
     }
 }
+
