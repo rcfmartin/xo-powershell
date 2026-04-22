@@ -4,17 +4,19 @@ function Get-XoVmController
 {
     <#
     .SYNOPSIS
-        List or query vm-controllers.
+        List or query Xen Orchestra VM controllers.
     .DESCRIPTION
-        Get Xen Orchestra vm-controllers by ID or list existing entries.
+        Retrieves VM controllers (dom0 control-domain VMs) from Xen Orchestra. These are the privileged VMs that run on each host to manage guest VMs. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -VmControllerUuid to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER VmControllerUuid
-        The ID(s) of the VmController to retrieve.
+        One or more IDs of the VM controllers to retrieve. When omitted, the cmdlet enumerates VM controllers using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of VM controllers to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoVmController
+    .EXAMPLE
+        Get-XoVmController -VmControllerUuid "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.VmController")]
@@ -66,3 +68,4 @@ function Get-XoVmController
         }
     }
 }
+
