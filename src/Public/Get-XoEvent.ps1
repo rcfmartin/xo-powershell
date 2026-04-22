@@ -4,15 +4,17 @@ function Get-XoEvent
 {
     <#
     .SYNOPSIS
-        List events.
+        List Xen Orchestra events.
     .DESCRIPTION
-        Retrieve Xen Orchestra events with optional filter and limit.
+        Retrieves entries from the Xen Orchestra event log. Events represent system-level occurrences (object changes, connection events, user actions). Useful for audit/troubleshooting. Supports XO filter expressions and paging.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (e.g. `type:host`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of events to return. Defaults to the session limit.
     .EXAMPLE
-        Get-XoEvent
+        Get-XoEvent -Limit 100
+    .EXAMPLE
+        Get-XoEvent -Filter 'type:connection-lost'
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Event")]
@@ -40,3 +42,4 @@ function Get-XoEvent
         (Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params) | ConvertTo-XoEventObject
     }
 }
+
