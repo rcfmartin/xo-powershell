@@ -4,15 +4,15 @@ function Copy-XoVm
 {
     <#
     .SYNOPSIS
-        Clone a VM.
+        Clone a Xen Orchestra VM.
     .DESCRIPTION
-        Clone the specified Xen Orchestra VM. Pass additional options via -Parameters.
+        Clones the specified VM. Use -Parameters to pass optional clone options (e.g. ``@{ name = "copy"; full_copy = $true }``). Returns a task object.
     .PARAMETER VmUuid
-        The UUID of the vm to act on.
+        The UUID of the VM to act on.
     .PARAMETER Parameters
-        Hashtable of parameters to pass in the action body. See the Xen Orchestra REST API docs for required fields.
+        Hashtable of action body parameters. See the linked XO REST documentation for the expected fields.
     .EXAMPLE
-        Copy-XoVm -VmUuid "00000000-0000-0000-0000-000000000000"
+        Copy-XoVm -VmUuid "<uuid>" -Parameters @{ }
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -46,3 +46,4 @@ function Copy-XoVm
         }
     }
 }
+
