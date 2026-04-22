@@ -4,13 +4,15 @@ function Get-XoVdiMessage
 {
     <#
     .SYNOPSIS
-        List messages for a Vdi.
+        Get messages scoped to a specific VDI.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra Vdi.
+        Retrieves messages attached to the specified Xen Orchestra VDI. Accepts one or more VDI UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VdiUuid
-        The UUID of the Vdi whose messages to retrieve.
+        The UUID(s) of the VDI whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVdiMessage -VdiUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVdi | Get-XoVdiMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVdiMessage
         }
     }
 }
+
