@@ -4,13 +4,15 @@ function Disconnect-XoPbd
 {
     <#
     .SYNOPSIS
-        unplug one or more pbds.
+        Unplug one or more Xen Orchestra PBDs.
     .DESCRIPTION
-        unplug the specified Xen Orchestra pbds. Returns a task object that can be used to monitor the operation.
+        Detaches the PBD from its host, taking the SR offline on that host. All VMs/VDIs using the SR from this host must be detached or migrated first.
     .PARAMETER PbdUuid
-        The UUID(s) of the pbd to act on.
+        The UUID(s) of the PBD to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Disconnect-XoPbd -PbdUuid "00000000-0000-0000-0000-000000000000"
+        Disconnect-XoPbd -PbdUuid "<uuid>"
+    .EXAMPLE
+        Disconnect-XoPbd -PbdUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Disconnect-XoPbd
         }
     }
 }
+
