@@ -6,13 +6,13 @@ function Invoke-XoHostManagementReconfigure
     .SYNOPSIS
         Reconfigure the management network on a host.
     .DESCRIPTION
-        Reconfigure the management network of the specified host. Provide the new address via -Parameters.
+        Points the host management interface at a different network/PIF. Pass the target as -Parameters (e.g. ``@{ pif = <pif-uuid> }``). Returns a task.
     .PARAMETER HostUuid
         The UUID of the host to act on.
     .PARAMETER Parameters
-        Hashtable of parameters to pass in the action body. See the Xen Orchestra REST API docs for required fields.
+        Hashtable of action body parameters. See the linked XO REST documentation for the expected fields.
     .EXAMPLE
-        Invoke-XoHostManagementReconfigure -HostUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoHostManagementReconfigure -HostUuid "<uuid>" -Parameters @{ }
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     [OutputType("XoPowershell.Task")]
@@ -46,3 +46,4 @@ function Invoke-XoHostManagementReconfigure
         }
     }
 }
+
