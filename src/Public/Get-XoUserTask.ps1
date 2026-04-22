@@ -4,13 +4,15 @@ function Get-XoUserTask
 {
     <#
     .SYNOPSIS
-        List tasks for a User.
+        Get tasks scoped to a specific user.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra User.
+        Retrieves tasks attached to the specified Xen Orchestra user. Accepts one or more user UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER UserId
-        The UUID of the User whose tasks to retrieve.
+        The UUID(s) of the user whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoUserTask -UserId "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoUser | Get-XoUserTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoUserTask
         }
     }
 }
+
