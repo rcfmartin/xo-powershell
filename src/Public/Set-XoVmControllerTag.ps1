@@ -4,19 +4,19 @@ function Set-XoVmControllerTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a vmcontroller.
+        Attach or detach a single tag on a Xen Orchestra VM controller.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra vmcontroller. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified VM controller using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER VmControllerUuid
-        The UUID of the vmcontroller to tag.
+        The UUID of the VM controller to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoVmControllerTag -VmControllerUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoVmControllerTag -VmControllerUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoVmControllerTag -VmControllerUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoVmControllerTag -VmControllerUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoVmControllerTag
         }
     }
 }
+
