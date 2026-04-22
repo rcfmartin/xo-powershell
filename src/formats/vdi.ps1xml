@@ -37,7 +37,7 @@
                 </TableRowEntries>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>ID</Label>
+                        <Label>VdiUuid</Label>
                         <Width>36</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
