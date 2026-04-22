@@ -4,19 +4,19 @@ function Set-XoHostTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a host.
+        Attach or detach a single tag on a Xen Orchestra host.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra host. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified host using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER HostUuid
         The UUID of the host to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoHostTag -HostUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoHostTag -HostUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoHostTag -HostUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoHostTag -HostUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoHostTag
         }
     }
 }
+
