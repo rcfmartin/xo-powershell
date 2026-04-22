@@ -4,17 +4,19 @@ function Get-XoGroup
 {
     <#
     .SYNOPSIS
-        List or query groups.
+        List or query Xen Orchestra groups.
     .DESCRIPTION
-        Get Xen Orchestra groups by ID or list existing entries.
+        Retrieves user groups configured in Xen Orchestra. Groups are used to grant permissions to collections of users. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -GroupId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER GroupId
-        The ID(s) of the Group to retrieve.
+        One or more IDs of the groups to retrieve. When omitted, the cmdlet enumerates groups using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of groups to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoGroup
+    .EXAMPLE
+        Get-XoGroup -GroupId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Group")]
@@ -66,3 +68,4 @@ function Get-XoGroup
         }
     }
 }
+
