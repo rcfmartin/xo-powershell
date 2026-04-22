@@ -4,13 +4,15 @@ function Get-XoSrMessage
 {
     <#
     .SYNOPSIS
-        List messages for a Sr.
+        Get messages scoped to a specific storage repository.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra Sr.
+        Retrieves messages attached to the specified Xen Orchestra storage repository. Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER SrUuid
-        The UUID of the Sr whose messages to retrieve.
+        The UUID(s) of the storage repository whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoSrMessage -SrUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoSr | Get-XoSrMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoSrMessage
         }
     }
 }
+
