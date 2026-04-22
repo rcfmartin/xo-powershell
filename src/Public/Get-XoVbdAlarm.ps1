@@ -4,13 +4,15 @@ function Get-XoVbdAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Vbd.
+        Get alarms scoped to a specific VBD.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Vbd.
+        Retrieves alarms attached to the specified Xen Orchestra VBD. Accepts one or more VBD UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VbdUuid
-        The UUID of the Vbd whose alarms to retrieve.
+        The UUID(s) of the VBD whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVbdAlarm -VbdUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVbd | Get-XoVbdAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoVbdAlarm
         }
     }
 }
+
