@@ -4,13 +4,15 @@ function Get-XoVmSnapshotAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a VmSnapshot.
+        Get alarms scoped to a specific VM snapshot.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra VmSnapshot.
+        Retrieves alarms attached to the specified Xen Orchestra VM snapshot. Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmSnapshotUuid
-        The UUID of the VmSnapshot whose alarms to retrieve.
+        The UUID(s) of the VM snapshot whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmSnapshotAlarm -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmSnapshot | Get-XoVmSnapshotAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoVmSnapshotAlarm
         }
     }
 }
+
