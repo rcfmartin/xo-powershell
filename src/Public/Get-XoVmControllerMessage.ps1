@@ -4,13 +4,15 @@ function Get-XoVmControllerMessage
 {
     <#
     .SYNOPSIS
-        List messages for a VmController.
+        Get messages scoped to a specific VM controller.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra VmController.
+        Retrieves messages attached to the specified Xen Orchestra VM controller. Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmControllerUuid
-        The UUID of the VmController whose messages to retrieve.
+        The UUID(s) of the VM controller whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmControllerMessage -VmControllerUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmController | Get-XoVmControllerMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVmControllerMessage
         }
     }
 }
+
