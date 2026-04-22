@@ -99,7 +99,8 @@ function New-XoVm
         }
         if ($PSBoundParameters.ContainsKey("CPUs"))
         {
-            $params["CPUs"] = $CPUs
+            # swagger expects lowercase "cpus" in the create_vm body
+            $params["cpus"] = $CPUs
         }
         if ($PSBoundParameters.ContainsKey("MemoryBytes"))
         {
