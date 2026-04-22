@@ -4,13 +4,15 @@ function Get-XoHostTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Host.
+        Get tasks scoped to a specific host.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Host.
+        Retrieves tasks attached to the specified Xen Orchestra host. Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER HostUuid
-        The UUID of the Host whose tasks to retrieve.
+        The UUID(s) of the host whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoHostTask -HostUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoHostTask -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+    .EXAMPLE
+        Get-XoHost | Get-XoHostTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoHostTask
         }
     }
 }
+
