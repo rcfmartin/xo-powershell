@@ -34,8 +34,11 @@ function Set-XoVdi
         [Parameter()]
         [string]$Description
     )
-    process
-    {
+    process {
+    # NOTE: the current Xen Orchestra REST API does not expose a PATCH endpoint at /vdis/{id}.
+    # This cmdlet is kept for backwards compatibility but will fail against modern XO releases.
+    Write-Warning "Set-XoVdi targets PATCH /vdis/{id}, which the current XO REST API does not expose. The call will likely fail."
+
 
         $params = @{}
 
@@ -59,3 +62,4 @@ function Set-XoVdi
         }
     }
 }
+
