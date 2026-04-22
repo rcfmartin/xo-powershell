@@ -6,13 +6,11 @@ function Set-XoUser
     .SYNOPSIS
         Update a Xen Orchestra user.
     .DESCRIPTION
-        Edits an existing user via PATCH /users/{id}. Any combination of Name, Password, Permission, or Preferences may be supplied; omitted fields are left unchanged.
+        Edits an existing user via PATCH /users/{id}. Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged. When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
     .PARAMETER UserId
         The UUID of the user to update.
-    .PARAMETER Name
-        New name for the user.
-    .PARAMETER Password
-        New password for the user (plain-text).
+    .PARAMETER Credential
+        PSCredential holding the new user name and password to assign. The UserName is sent as 'name' and the password is sent in the request body.
     .PARAMETER Permission
         New permission level: 'none', 'viewer', or 'admin'.
     .PARAMETER Preferences
@@ -20,7 +18,7 @@ function Set-XoUser
     .EXAMPLE
         Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
     .EXAMPLE
-        Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Password "newPa55"
+        Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -30,10 +28,8 @@ function Set-XoUser
         [string]$UserId,
 
         [Parameter()]
-        [string]$Name,
-
-        [Parameter()]
-        [string]$Password,
+        [ValidateNotNull()]
+        [pscredential]$Credential,
 
         [Parameter()]
         [ValidateSet("none", "viewer", "admin")]
@@ -54,8 +50,11 @@ function Set-XoUser
     process
     {
         $params = @{}
-        if ($PSBoundParameters.ContainsKey("Name"))        { $params["name"]        = $Name }
-        if ($PSBoundParameters.ContainsKey("Password"))    { $params["password"]    = $Password }
+        if ($PSBoundParameters.ContainsKey("Credential"))
+        {
+            $params["name"]     = $Credential.UserName
+            $params["password"] = $Credential.GetNetworkCredential().Password
+        }
         if ($PSBoundParameters.ContainsKey("Permission"))  { $params["permission"]  = $Permission }
         if ($PSBoundParameters.ContainsKey("Preferences")) { $params["preferences"] = $Preferences }
 
