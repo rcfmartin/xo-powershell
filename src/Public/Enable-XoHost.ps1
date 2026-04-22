@@ -4,13 +4,15 @@ function Enable-XoHost
 {
     <#
     .SYNOPSIS
-        enable one or more hosts.
+        Enable one or more Xen Orchestra hosts.
     .DESCRIPTION
-        enable the specified Xen Orchestra hosts. Returns a task object that can be used to monitor the operation.
+        Marks the host as enabled so the pool scheduler will place new VMs on it.
     .PARAMETER HostUuid
-        The UUID(s) of the host to act on.
+        The UUID(s) of the host to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Enable-XoHost -HostUuid "00000000-0000-0000-0000-000000000000"
+        Enable-XoHost -HostUuid "<uuid>"
+    .EXAMPLE
+        Enable-XoHost -HostUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Low")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Enable-XoHost
         }
     }
 }
+
