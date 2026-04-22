@@ -4,13 +4,15 @@ function Connect-XoServer
 {
     <#
     .SYNOPSIS
-        connect one or more servers.
+        Connect one or more Xen Orchestra XO servers.
     .DESCRIPTION
-        connect the specified Xen Orchestra servers. Returns a task object that can be used to monitor the operation.
+        Establishes the XAPI connection for the registered XO server. Returns a task object.
     .PARAMETER ServerUuid
-        The UUID(s) of the server to act on.
+        The UUID(s) of the XO server to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Connect-XoServer -ServerUuid "00000000-0000-0000-0000-000000000000"
+        Connect-XoServer -ServerUuid "<uuid>"
+    .EXAMPLE
+        Connect-XoServer -ServerUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Low")]
     [OutputType("XoPowershell.Task")]
@@ -42,3 +44,4 @@ function Connect-XoServer
         }
     }
 }
+
