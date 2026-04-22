@@ -4,19 +4,19 @@ function Set-XoVmSnapshotTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a vmsnapshot.
+        Attach or detach a single tag on a Xen Orchestra VM snapshot.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra vmsnapshot. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified VM snapshot using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER VmSnapshotUuid
-        The UUID of the vmsnapshot to tag.
+        The UUID of the VM snapshot to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoVmSnapshotTag -VmSnapshotUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoVmSnapshotTag -VmSnapshotUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoVmSnapshotTag -VmSnapshotUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoVmSnapshotTag -VmSnapshotUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoVmSnapshotTag
         }
     }
 }
+
