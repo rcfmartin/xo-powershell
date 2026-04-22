@@ -14,7 +14,7 @@ function New-XoVdi
     .PARAMETER SizeBytes
         Virtual size of the VDI, in bytes.
     .PARAMETER Description
-        Optional description.
+        Optional name_description for the new VDI.
     .EXAMPLE
         New-XoVdi -SrUuid "<sr>" -Name "scratch" -SizeBytes 10737418240
     #>
