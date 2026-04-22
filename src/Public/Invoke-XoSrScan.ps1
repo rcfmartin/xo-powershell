@@ -4,13 +4,15 @@ function Invoke-XoSrScan
 {
     <#
     .SYNOPSIS
-        scan one or more srs.
+        Rescan one or more Xen Orchestra SRs.
     .DESCRIPTION
-        scan the specified Xen Orchestra srs. Returns a task object that can be used to monitor the operation.
+        Forces XAPI to rescan the SR. Reconciles newly appeared or disappeared VDIs with the database.
     .PARAMETER SrUuid
-        The UUID(s) of the sr to act on.
+        The UUID(s) of the SR to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Invoke-XoSrScan -SrUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoSrScan -SrUuid "<uuid>"
+    .EXAMPLE
+        Invoke-XoSrScan -SrUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Low")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Invoke-XoSrScan
         }
     }
 }
+
