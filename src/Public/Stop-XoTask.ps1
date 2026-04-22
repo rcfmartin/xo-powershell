@@ -4,13 +4,15 @@ function Stop-XoTask
 {
     <#
     .SYNOPSIS
-        Abort a running task.
+        Abort one or more running Xen Orchestra tasks.
     .DESCRIPTION
-        Abort the specified Xen Orchestra task(s).
+        POSTs to /tasks/{id}/actions/abort to request cancellation of the specified task. Some XAPI tasks cannot be aborted; those will return an error. Aborting a task can leave partial state behind (e.g. a half-migrated VM) - use with care.
     .PARAMETER TaskId
-        The ID(s) of the task(s) to abort.
+        The ID(s) of the task(s) to abort. Accepts pipeline input by property name.
     .EXAMPLE
         Stop-XoTask -TaskId "0m8k2zkzi"
+    .EXAMPLE
+        Get-XoTask -Status pending | Stop-XoTask
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -39,3 +41,4 @@ function Stop-XoTask
         }
     }
 }
+
