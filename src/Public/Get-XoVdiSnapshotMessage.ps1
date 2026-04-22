@@ -4,13 +4,15 @@ function Get-XoVdiSnapshotMessage
 {
     <#
     .SYNOPSIS
-        List messages for a VdiSnapshot.
+        Get messages scoped to a specific VDI snapshot.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra VdiSnapshot.
+        Retrieves messages attached to the specified Xen Orchestra VDI snapshot. Accepts one or more VDI snapshot UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VdiSnapshotUuid
-        The UUID of the VdiSnapshot whose messages to retrieve.
+        The UUID(s) of the VDI snapshot whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVdiSnapshotMessage -VdiSnapshotUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVdiSnapshot | Get-XoVdiSnapshotMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVdiSnapshotMessage
         }
     }
 }
+
