@@ -4,17 +4,19 @@ function Get-XoBackupJobMetadata
 {
     <#
     .SYNOPSIS
-        List or query backup/jobs/metadata.
+        List or query Xen Orchestra metadata backup jobs.
     .DESCRIPTION
-        Get Xen Orchestra backup/jobs/metadata by ID or list existing entries.
+        Retrieves metadata backup jobs - jobs that back up XO/XCP-ng metadata rather than VM disks. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupJobId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER BackupJobId
-        The ID(s) of the BackupJob to retrieve.
+        One or more IDs of the metadata backup jobs to retrieve. When omitted, the cmdlet enumerates metadata backup jobs using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of metadata backup jobs to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoBackupJobMetadata
+    .EXAMPLE
+        Get-XoBackupJobMetadata -BackupJobId "<id>"
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     [CmdletBinding(DefaultParameterSetName = "Filter")]
@@ -73,3 +75,4 @@ function Get-XoBackupJobMetadata
         }
     }
 }
+
