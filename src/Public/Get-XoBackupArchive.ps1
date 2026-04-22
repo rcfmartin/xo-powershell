@@ -4,17 +4,19 @@ function Get-XoBackupArchive
 {
     <#
     .SYNOPSIS
-        List or query backup-archives.
+        List or query Xen Orchestra backup archives.
     .DESCRIPTION
-        Get Xen Orchestra backup-archives by ID or list existing entries.
+        Retrieves Xen Orchestra backup archives - restorable snapshots stored in a backup repository. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupArchiveId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER BackupArchiveId
-        The ID(s) of the BackupArchive to retrieve.
+        One or more IDs of the backup archives to retrieve. When omitted, the cmdlet enumerates backup archives using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of backup archives to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoBackupArchive
+        Get-XoBackupArchive -Filter 'type:xo-vm-backup'
+    .EXAMPLE
+        Get-XoBackupArchive -BackupArchiveId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.BackupArchive")]
@@ -65,3 +67,4 @@ function Get-XoBackupArchive
         }
     }
 }
+
