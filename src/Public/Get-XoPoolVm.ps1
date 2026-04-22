@@ -6,7 +6,7 @@ function Get-XoPoolVm
     .SYNOPSIS
         Get VMs scoped to a specific pool.
     .DESCRIPTION
-        Retrieves VMs attached to the specified Xen Orchestra pool. Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
+        Returns the VMs that belong to the specified pool(s). The XO REST API does not expose a dedicated GET /pools/{id}/vms endpoint (only POST for imports), so this cmdlet delegates to Get-XoVm with a $pool filter. Accepts one or more pool UUIDs and pipeline input by property name.
     .PARAMETER PoolUuid
         The UUID(s) of the pool whose VMs should be returned. Accepts pipeline input by property name.
     .EXAMPLE
@@ -28,18 +28,13 @@ function Get-XoPoolVm
         {
             throw "Not connected to Xen Orchestra. Call Connect-XoSession first."
         }
-
-        $params = @{}
-        $params["fields"] = $script:XO_VM_FIELDS
     }
 
     process
     {
         foreach ($id in $PoolUuid)
         {
-            $uri = "$script:XoHost/rest/v0/pools/$id/vms"
-            (Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params) | ConvertTo-XoVmObject
+            Get-XoVm -PoolUuid $id
         }
     }
 }
-
