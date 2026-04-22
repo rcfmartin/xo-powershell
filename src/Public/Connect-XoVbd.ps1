@@ -4,13 +4,15 @@ function Connect-XoVbd
 {
     <#
     .SYNOPSIS
-        connect one or more vbds.
+        Plug one or more Xen Orchestra VBDs.
     .DESCRIPTION
-        connect the specified Xen Orchestra vbds. Returns a task object that can be used to monitor the operation.
+        Plugs the VBD into its VM so the guest can see the backing VDI (hot-plug if the VM is running). Returns a task.
     .PARAMETER VbdUuid
-        The UUID(s) of the vbd to act on.
+        The UUID(s) of the VBD to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Connect-XoVbd -VbdUuid "00000000-0000-0000-0000-000000000000"
+        Connect-XoVbd -VbdUuid "<uuid>"
+    .EXAMPLE
+        Connect-XoVbd -VbdUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Connect-XoVbd
         }
     }
 }
+
