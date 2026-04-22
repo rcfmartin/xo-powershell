@@ -43,7 +43,7 @@
                 </TableRowEntries>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>ID</Label>
+                        <Label>VmSnapshotUuid</Label>
                         <Width>36</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
