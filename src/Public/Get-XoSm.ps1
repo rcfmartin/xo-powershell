@@ -4,17 +4,19 @@ function Get-XoSm
 {
     <#
     .SYNOPSIS
-        List or query sms.
+        List or query Xen Orchestra storage managers (SMs).
     .DESCRIPTION
-        Get Xen Orchestra sms by ID or list existing entries.
+        Retrieves XAPI storage manager plugins installed on pool hosts. Each SM corresponds to a supported SR type (ext, lvm, nfs, ...). When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -SmUuid to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER SmUuid
-        The ID(s) of the Sm to retrieve.
+        One or more IDs of the storage managers (SMs) to retrieve. When omitted, the cmdlet enumerates storage managers (SMs) using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of storage managers (SMs) to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoSm -SmUuid '812b59e1-2682-43ef-acd4-808d3551b907'
+        Get-XoSm | Sort-Object -Property SM_type
+    .EXAMPLE
+        Get-XoSm -SmUuid "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Sm")]
@@ -72,3 +74,4 @@ function Get-XoSm
         }
     }
 }
+
