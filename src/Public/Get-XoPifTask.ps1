@@ -4,13 +4,15 @@ function Get-XoPifTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Pif.
+        Get tasks scoped to a specific PIF.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Pif.
+        Retrieves tasks attached to the specified Xen Orchestra PIF. Accepts one or more PIF UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER PifUuid
-        The UUID of the Pif whose tasks to retrieve.
+        The UUID(s) of the PIF whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoPifTask -PifUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoPif | Get-XoPifTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoPifTask
         }
     }
 }
+
