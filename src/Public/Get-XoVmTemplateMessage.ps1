@@ -4,13 +4,15 @@ function Get-XoVmTemplateMessage
 {
     <#
     .SYNOPSIS
-        List messages for a VmTemplate.
+        Get messages scoped to a specific VM template.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra VmTemplate.
+        Retrieves messages attached to the specified Xen Orchestra VM template. Accepts one or more VM template UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmTemplateUuid
-        The UUID of the VmTemplate whose messages to retrieve.
+        The UUID(s) of the VM template whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmTemplateMessage -VmTemplateUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmTemplate | Get-XoVmTemplateMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoVmTemplateMessage
         }
     }
 }
+
