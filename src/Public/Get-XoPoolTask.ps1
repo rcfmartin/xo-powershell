@@ -4,13 +4,15 @@ function Get-XoPoolTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Pool.
+        Get tasks scoped to a specific pool.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Pool.
+        Retrieves tasks attached to the specified Xen Orchestra pool. Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER PoolUuid
-        The UUID of the Pool whose tasks to retrieve.
+        The UUID(s) of the pool whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoPoolTask -PoolUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoPoolTask -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
+    .EXAMPLE
+        Get-XoPool | Get-XoPoolTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoPoolTask
         }
     }
 }
+
