@@ -4,13 +4,15 @@ function Disconnect-XoVbd
 {
     <#
     .SYNOPSIS
-        disconnect one or more vbds.
+        Unplug one or more Xen Orchestra VBDs.
     .DESCRIPTION
-        disconnect the specified Xen Orchestra vbds. Returns a task object that can be used to monitor the operation.
+        Unplugs the VBD from its VM. Any guest I/O to the disk is cut off.
     .PARAMETER VbdUuid
-        The UUID(s) of the vbd to act on.
+        The UUID(s) of the VBD to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Disconnect-XoVbd -VbdUuid "00000000-0000-0000-0000-000000000000"
+        Disconnect-XoVbd -VbdUuid "<uuid>"
+    .EXAMPLE
+        Disconnect-XoVbd -VbdUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Disconnect-XoVbd
         }
     }
 }
+
