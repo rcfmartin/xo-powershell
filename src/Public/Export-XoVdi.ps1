@@ -47,10 +47,9 @@ function Export-XoVdi
         {
             try
             {
-                $uri = "$script:XoHost/rest/v0/vdis/$VdiUuid/export"
-                $params = @{ format = $Format }
-
-                Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params -OutFile $OutFile
+                # swagger-canonical path: /vdis/{id}.{format}
+                $uri = "$script:XoHost/rest/v0/vdis/$VdiUuid.$Format"
+                Invoke-RestMethod -Uri $uri @script:XoRestParameters -OutFile $OutFile
 
                 if ($PassThru)
                 {
