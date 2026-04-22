@@ -4,13 +4,15 @@ function Get-XoNetworkTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Network.
+        Get tasks scoped to a specific network.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Network.
+        Retrieves tasks attached to the specified Xen Orchestra network. Accepts one or more network UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER NetworkUuid
-        The UUID of the Network whose tasks to retrieve.
+        The UUID(s) of the network whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoNetworkTask -NetworkUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoNetwork | Get-XoNetworkTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoNetworkTask
         }
     }
 }
+
