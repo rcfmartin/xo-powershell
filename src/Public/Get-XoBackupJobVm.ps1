@@ -4,17 +4,19 @@ function Get-XoBackupJobVm
 {
     <#
     .SYNOPSIS
-        List or query backup/jobs/vm.
+        List or query Xen Orchestra VM backup jobs.
     .DESCRIPTION
-        Get Xen Orchestra backup/jobs/vm by ID or list existing entries.
+        Retrieves VM backup jobs - the jobs that snapshot and archive VMs to a backup repository. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupJobId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER BackupJobId
-        The ID(s) of the BackupJob to retrieve.
+        One or more IDs of the VM backup jobs to retrieve. When omitted, the cmdlet enumerates VM backup jobs using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of VM backup jobs to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoBackupJobVm
+    .EXAMPLE
+        Get-XoBackupJobVm -BackupJobId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.BackupJob")]
@@ -66,3 +68,4 @@ function Get-XoBackupJobVm
         }
     }
 }
+
