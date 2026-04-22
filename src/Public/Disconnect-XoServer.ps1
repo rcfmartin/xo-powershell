@@ -4,13 +4,15 @@ function Disconnect-XoServer
 {
     <#
     .SYNOPSIS
-        disconnect one or more servers.
+        Disconnect one or more Xen Orchestra XO servers.
     .DESCRIPTION
-        disconnect the specified Xen Orchestra servers. Returns a task object that can be used to monitor the operation.
+        Drops the XAPI connection for the registered XO server. The server stays registered but its pool stops syncing until reconnected.
     .PARAMETER ServerUuid
-        The UUID(s) of the server to act on.
+        The UUID(s) of the XO server to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Disconnect-XoServer -ServerUuid "00000000-0000-0000-0000-000000000000"
+        Disconnect-XoServer -ServerUuid "<uuid>"
+    .EXAMPLE
+        Disconnect-XoServer -ServerUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -42,3 +44,4 @@ function Disconnect-XoServer
         }
     }
 }
+
