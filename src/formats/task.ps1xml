@@ -35,7 +35,7 @@
                 </TableRowEntries>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>ID</Label>
+                        <Label>TaskId</Label>
                         <Width>12</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
