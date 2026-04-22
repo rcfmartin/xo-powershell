@@ -4,11 +4,13 @@ function Get-XoDashboard
 {
     <#
     .SYNOPSIS
-        Get the dashboard resource.
+        Get the Xen Orchestra global dashboard summary.
     .DESCRIPTION
-        Retrieve the Xen Orchestra dashboard resource.
+        Retrieves the global dashboard object exposed at /dashboard: aggregate counters (nHosts, nPools), resource overview (cpus, memory, storage), pool connectivity status, and repository totals. Useful for a one-shot health snapshot of the XO deployment.
     .EXAMPLE
         Get-XoDashboard
+    .EXAMPLE
+        (Get-XoDashboard).resourcesOverview
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Dashboard")]
@@ -25,3 +27,4 @@ function Get-XoDashboard
         ConvertTo-XoDashboardObject (Invoke-RestMethod -Uri $uri @script:XoRestParameters)
     }
 }
+
