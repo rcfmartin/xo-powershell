@@ -50,10 +50,9 @@ function Export-XoVdiSnapshot
         {
             try
             {
-                $uri = "$script:XoHost/rest/v0/vdi-snapshots/$VdiSnapshotUuid/export"
-                $params = @{ format = $Format }
-
-                Invoke-RestMethod -Uri $uri @script:XoRestParameters -Body $params -OutFile $resolvedPath
+                # swagger-canonical path: /vdi-snapshots/{id}.{format}
+                $uri = "$script:XoHost/rest/v0/vdi-snapshots/$VdiSnapshotUuid.$Format"
+                Invoke-RestMethod -Uri $uri @script:XoRestParameters -OutFile $resolvedPath
 
                 if ($PassThru)
                 {
