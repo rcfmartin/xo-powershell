@@ -4,13 +4,15 @@ function Disable-XoHost
 {
     <#
     .SYNOPSIS
-        disable one or more hosts.
+        Disable one or more Xen Orchestra hosts.
     .DESCRIPTION
-        disable the specified Xen Orchestra hosts. Returns a task object that can be used to monitor the operation.
+        Marks the host as disabled so the pool scheduler stops placing new VMs on it. Existing VMs keep running until migrated or shut down.
     .PARAMETER HostUuid
-        The UUID(s) of the host to act on.
+        The UUID(s) of the host to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Disable-XoHost -HostUuid "00000000-0000-0000-0000-000000000000"
+        Disable-XoHost -HostUuid "<uuid>"
+    .EXAMPLE
+        Disable-XoHost -HostUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Disable-XoHost
         }
     }
 }
+
