@@ -4,17 +4,19 @@ function Get-XoPci
 {
     <#
     .SYNOPSIS
-        List or query pcis.
+        List or query Xen Orchestra PCI devices.
     .DESCRIPTION
-        Get Xen Orchestra pcis by ID or list existing entries.
+        Retrieves PCI devices visible to pool hosts. Useful for discovering devices available for passthrough. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -PciUuid to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER PciUuid
-        The ID(s) of the Pci to retrieve.
+        One or more IDs of the PCI devices to retrieve. When omitted, the cmdlet enumerates PCI devices using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of PCI devices to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoPci
+        Get-XoPci -Limit 0
+    .EXAMPLE
+        Get-XoPci -PciUuid "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Pci")]
@@ -66,3 +68,4 @@ function Get-XoPci
         }
     }
 }
+
