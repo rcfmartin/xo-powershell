@@ -66,13 +66,35 @@ function New-XoVdi
         $uri = "$script:XoHost/rest/v0/vdis"
         $response = Invoke-RestMethod -Uri $uri -Method Post @script:XoRestParameters -ContentType "application/json" -Body $bodyBytes
 
+        $newId = $null
         if ($response -is [string] -and $response -match '\/rest\/v0\/vdis\/([0-9a-f-]+)')
         {
-            Get-XoVdi -VdiUuid $matches[1]
+            $newId = $matches[1]
         }
         elseif ($response -and $response.PSObject.Properties.Name -contains 'id')
         {
-            Get-XoVdi -VdiUuid $response.id
+            $newId = $response.id
+        }
+
+        if ($newId)
+        {
+            # XO may take a moment to publish the new VDI via GET, so fall back to a
+            # lightweight object if the follow-up lookup fails.
+            try
+            {
+                Get-XoVdi -VdiUuid $newId -ErrorAction Stop
+            }
+            catch
+            {
+                Write-Verbose "Get-XoVdi failed after create ($_); returning a stub."
+                [PSCustomObject]@{
+                    PSTypeName = 'XoPowershell.Vdi'
+                    VdiUuid    = $newId
+                    Name       = $Name
+                    SrUuid     = $SrUuid
+                    Size       = $SizeBytes
+                }
+            }
         }
         else
         {
