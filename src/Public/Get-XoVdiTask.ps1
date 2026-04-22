@@ -4,13 +4,15 @@ function Get-XoVdiTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Vdi.
+        Get tasks scoped to a specific VDI.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Vdi.
+        Retrieves tasks attached to the specified Xen Orchestra VDI. Accepts one or more VDI UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VdiUuid
-        The UUID of the Vdi whose tasks to retrieve.
+        The UUID(s) of the VDI whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVdiTask -VdiUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVdi | Get-XoVdiTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoVdiTask
         }
     }
 }
+
