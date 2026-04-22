@@ -43,7 +43,7 @@
                 </TableRowEntries>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>ID</Label>
+                        <Label>VmTemplateUuid</Label>
                         <Width>36</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
