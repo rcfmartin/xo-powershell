@@ -17,14 +17,15 @@ Get-XoSrVdi [-SrUuid] <String[]> [-ProgressAction <ActionPreference>] [<CommonPa
 ```
 
 ## DESCRIPTION
-Retrieves virtual disks (VDIs) attached to the specified Xen Orchestra storage repository.
-Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
+Returns the VDIs that live on the specified storage repository.
+The XO REST API does not expose a dedicated GET /srs/{id}/vdis endpoint (only POST for VDI uploads), so this cmdlet delegates to Get-XoVdi with the $SR filter.
+Accepts one or more SR UUIDs and pipeline input by property name.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoSrVdi -SrUuid "00000000-0000-0000-0000-000000000000"
+Get-XoSrVdi -SrUuid "c787b75c-3e0d-70fa-d0c3-cbfd382d7e33"
 ```
 
 ### EXAMPLE 2

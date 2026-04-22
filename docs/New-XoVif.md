@@ -5,39 +5,32 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# New-XoVif
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Create a new Xen Orchestra VIF attaching a VM to a network.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-XoVif [-VmUuid] <String> [-NetworkUuid] <String> [-Mac <String>] [-ProgressAction <ActionPreference>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /vifs to add a new virtual network interface to the specified VM on the specified network.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -NetworkUuid "<network>"
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -VmUuid
+The UUID of the VM to attach the VIF to.
 
 ```yaml
 Type: String
@@ -51,42 +44,27 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -NetworkUuid
+The UUID of the network to connect the VIF to.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Preferences
-Hashtable of preference key/values to store on the user.
+### -Mac
+Optional MAC address.
+If omitted, XO generates one.
 
 ```yaml
-Type: Hashtable
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -150,6 +128,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Vif
 ## NOTES
 
 ## RELATED LINKS

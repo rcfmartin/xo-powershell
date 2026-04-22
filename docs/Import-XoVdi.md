@@ -5,39 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# Import-XoVdi
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Import content into an existing VDI.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Import-XoVdi [-VdiUuid] <String> [-Format] <String> [-InFile] <String> [-ProgressAction <ActionPreference>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls PUT /vdis/{id}.{format} to upload raw VDI content (raw or vhd) to a pre-existing VDI.
+Use New-XoVdi first to create an empty VDI of the correct size.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -Format vhd -InFile "./disk.vhd"
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -VdiUuid
+The UUID of the target VDI.
 
 ```yaml
 Type: String
@@ -51,47 +45,31 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -Format
+Upload format: 'raw' or 'vhd'.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Preferences
-Hashtable of preference key/values to store on the user.
+### -InFile
+Path to the file to upload.
 
 ```yaml
-Type: Hashtable
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

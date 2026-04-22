@@ -5,56 +5,34 @@ online version:
 schema: 2.0.0
 ---
 
-# New-XoUser
+# Clear-XoTask
 
 ## SYNOPSIS
-Create a new Xen Orchestra user.
+Delete all Xen Orchestra tasks (bulk cleanup).
 
 ## SYNTAX
 
 ```
-New-XoUser [-Credential] <PSCredential> [-Permission <String>] [-ProgressAction <ActionPreference>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Clear-XoTask [[-Filter] <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a new user via POST /users.
-The name and password are supplied together as a PSCredential so the password never has to sit in a plain-text variable.
-Permission defaults to 'none' (read-only).
+Issues DELETE /tasks.
+Used to purge the task log.
+Typically invoked with -Filter to scope to completed/failed tasks only; check the XO REST documentation for the exact filter semantics supported on this endpoint.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-New-XoUser -Credential (Get-Credential) -Permission viewer
-```
-
-### EXAMPLE 2
-```
-$cred = [pscredential]::new("alice@example.com", (ConvertTo-SecureString "s3cret" -AsPlainText -Force))
-New-XoUser -Credential $cred
+Clear-XoTask -Filter 'status:success'
 ```
 
 ## PARAMETERS
 
-### -Credential
-PSCredential whose UserName becomes the XO user name and whose Password is sent to XO as the initial password.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-Permission level for the new user: 'none', 'viewer' (read-only), or 'admin'.
-Defaults to 'none'.
+### -Filter
+Optional filter expression forwarded to the server.
 
 ```yaml
 Type: String
@@ -62,7 +40,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -121,7 +99,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### XoPowershell.User
 ## NOTES
 
 ## RELATED LINKS

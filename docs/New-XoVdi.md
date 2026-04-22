@@ -5,39 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# New-XoVdi
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Create a new Xen Orchestra VDI on a storage repository.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
+New-XoVdi [-SrUuid] <String> [-Name] <String> [-SizeBytes] <Int64> [-Description <String>]
  [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /vdis to create an empty VDI of the specified size on the given SR.
+Returns the created VDI (resolved via Get-XoVdi) or the raw server response.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -Name "scratch" -SizeBytes 10737418240
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -SrUuid
+The UUID of the SR to create the VDI on.
 
 ```yaml
 Type: String
@@ -51,42 +45,41 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -Name
+Name label for the new VDI.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Preferences
-Hashtable of preference key/values to store on the user.
+### -SizeBytes
+Virtual size of the VDI, in bytes.
 
 ```yaml
-Type: Hashtable
+Type: Int64
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Description
+Optional name_description for the new VDI.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -150,6 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Vdi
 ## NOTES
 
 ## RELATED LINKS

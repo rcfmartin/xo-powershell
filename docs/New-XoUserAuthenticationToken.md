@@ -5,39 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# New-XoUserAuthenticationToken
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Create a new API authentication token for a user.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-XoUserAuthenticationToken [-UserId] <String> [-Description <String>] [-ClientId <String>]
+ [-ExpiresIn <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /users/{id}/authentication_tokens to mint a new XO API token.
+The token value is returned once; store it securely.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -Description "ci pipeline" -ExpiresIn "30 days"
 ```
 
 ## PARAMETERS
 
 ### -UserId
-The UUID of the user to update.
+The UUID of the user the token is minted for.
 
 ```yaml
 Type: String
@@ -51,24 +45,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -Description
+Human-readable description of what the token is for.
 
 ```yaml
 Type: String
@@ -82,11 +60,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Preferences
-Hashtable of preference key/values to store on the user.
+### -ClientId
+Optional stable client identifier to associate with the token.
 
 ```yaml
-Type: Hashtable
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExpiresIn
+Optional expiration expressed as an XO duration string (e.g.
+'1 hour', '30 days').
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 

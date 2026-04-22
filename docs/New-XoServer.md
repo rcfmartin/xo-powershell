@@ -5,39 +5,34 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# New-XoServer
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Register a new XCP-ng/XenServer pool master with Xen Orchestra.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
+New-XoServer [-HostName] <String> [-Credential] <PSCredential> [-Label <String>] [-AllowUnauthorized]
  [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /servers to add a pool master.
+The credentials are supplied as a PSCredential so the password is not exposed in plain text.
+Label and connection flags are optional; host/username/password are mandatory.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+New-XoServer -Host "192.168.1.10" -Credential (Get-Credential root) -Label "lab pool"
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -HostName
+The IP address or hostname of the pool master to register.
 
 ```yaml
 Type: String
@@ -47,28 +42,27 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
+PSCredential with the XCP-ng root (or equivalent) username and password.
 
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -Label
+Optional friendly label shown in the XO UI.
 
 ```yaml
 Type: String
@@ -82,17 +76,17 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Preferences
-Hashtable of preference key/values to store on the user.
+### -AllowUnauthorized
+Accept self-signed certificates when connecting to the pool master.
 
 ```yaml
-Type: Hashtable
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -150,6 +144,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Server
 ## NOTES
 
 ## RELATED LINKS

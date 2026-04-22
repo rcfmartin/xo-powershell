@@ -5,39 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-XoPoolVm
+# Remove-XoTask
 
 ## SYNOPSIS
-Get VMs scoped to a specific pool.
+Delete one or more Xen Orchestra tasks.
 
 ## SYNTAX
 
 ```
-Get-XoPoolVm [-PoolUuid] <String[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Remove-XoTask [-TaskId] <String[]> [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns the VMs that belong to the specified pool(s).
-The XO REST API does not expose a dedicated GET /pools/{id}/vms endpoint (only POST for imports), so this cmdlet delegates to Get-XoVm with a $pool filter.
-Accepts one or more pool UUIDs and pipeline input by property name.
+Issues DELETE /tasks/{id}.
+Accepts multiple IDs and pipeline input by property name.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoPoolVm -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
-```
-
-### EXAMPLE 2
-```
-Get-XoPool | Get-XoPoolVm
+"
 ```
 
 ## PARAMETERS
 
-### -PoolUuid
-The UUID(s) of the pool whose VMs should be returned.
-Accepts pipeline input by property name.
+### -TaskId
+The ID(s) of the task(s) to delete.
 
 ```yaml
 Type: String[]
@@ -48,6 +42,37 @@ Required: True
 Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -73,7 +98,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### XoPowershell.Vm
 ## NOTES
 
 ## RELATED LINKS

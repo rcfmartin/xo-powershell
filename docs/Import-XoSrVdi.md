@@ -5,39 +5,34 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# Import-XoSrVdi
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Import a VDI file into a Xen Orchestra storage repository.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Import-XoSrVdi [-SrUuid] <String> [-InFile] <String> [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /srs/{id}/vdis with the file contents as an application/octet-stream body.
+XO creates a VDI on the target SR and streams the uploaded content into it.
+Returns a task object that can be passed to Wait-XoTask.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -InFile "./disk.vhd"
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -SrUuid
+The UUID of the SR to import the VDI into.
 
 ```yaml
 Type: String
@@ -51,47 +46,16 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -InFile
+Path to the VDI file on disk (raw or vhd).
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Preferences
-Hashtable of preference key/values to store on the user.
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -150,6 +114,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Task
 ## NOTES
 
 ## RELATED LINKS

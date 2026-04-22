@@ -5,39 +5,33 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# New-XoVbd
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Create a new Xen Orchestra VBD linking a VDI to a VM.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
+New-XoVbd [-VmUuid] <String> [-VdiUuid] <String> [-Bootable] [-Mode <String>]
  [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Calls POST /vbds to attach a VDI to a VM.
+The resulting VBD controls whether the VM boots from the VDI and whether it is read-only or read/write.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
-```
-
-### EXAMPLE 2
-```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+" -VdiUuid "<vdi>" -Bootable
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -VmUuid
+The UUID of the VM to attach the VDI to.
 
 ```yaml
 Type: String
@@ -51,24 +45,38 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
+### -VdiUuid
+The UUID of the VDI to attach.
 
 ```yaml
-Type: PSCredential
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Bootable
+Mark the VBD as bootable.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
+### -Mode
+Access mode: 'RW' (read/write, default) or 'RO' (read-only).
 
 ```yaml
 Type: String
@@ -77,22 +85,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Preferences
-Hashtable of preference key/values to store on the user.
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
+Default value: RW
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -150,6 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Vbd
 ## NOTES
 
 ## RELATED LINKS

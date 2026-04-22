@@ -5,42 +5,42 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-XoUser
+# Remove-XoVm
 
 ## SYNOPSIS
-Update a Xen Orchestra user.
+Delete one or more Xen Orchestra VMs.
 
 ## SYNTAX
 
 ```
-Set-XoUser [-UserId] <String> [-Credential <PSCredential>] [-Permission <String>] [-Preferences <Hashtable>]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-XoVm [-VmUuid] <String[]> [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Edits an existing user via PATCH /users/{id}.
-Any combination of Credential, Permission, or Preferences may be supplied; omitted fields are left unchanged.
-When Credential is supplied, both the user name and password are sent (XO treats them as a pair on update).
+Issues DELETE /vms/{id}.
+The VM must be shut down before it can be deleted.
+Associated VDIs are destroyed along with the VM unless detached first.
+Accepts multiple UUIDs and pipeline input by property name.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Permission admin
+Remove-XoVm -VmUuid "613f541c-4bed-fc77-7ca8-2db6b68f079c"
 ```
 
 ### EXAMPLE 2
 ```
-Set-XoUser -UserId "722d17b9-699b-49d2-8193-be1ac573d3de" -Credential (Get-Credential)
+Get-XoVm -PowerState Halted | Where-Object Name -like 'tmp-*' | Remove-XoVm
 ```
 
 ## PARAMETERS
 
-### -UserId
-The UUID of the user to update.
+### -VmUuid
+The UUID(s) of the VM(s) to delete.
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -48,52 +48,6 @@ Required: True
 Position: 1
 Default value: None
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Credential
-PSCredential holding the new user name and password to assign.
-The UserName is sent as 'name' and the password is sent in the request body.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permission
-New permission level: 'none', 'viewer', or 'admin'.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Preferences
-Hashtable of preference key/values to store on the user.
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
