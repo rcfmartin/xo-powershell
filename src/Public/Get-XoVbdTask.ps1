@@ -4,13 +4,15 @@ function Get-XoVbdTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Vbd.
+        Get tasks scoped to a specific VBD.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Vbd.
+        Retrieves tasks attached to the specified Xen Orchestra VBD. Accepts one or more VBD UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VbdUuid
-        The UUID of the Vbd whose tasks to retrieve.
+        The UUID(s) of the VBD whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVbdTask -VbdUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVbd | Get-XoVbdTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoVbdTask
         }
     }
 }
+
