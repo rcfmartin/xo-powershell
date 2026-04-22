@@ -4,17 +4,19 @@ function Get-XoPgpu
 {
     <#
     .SYNOPSIS
-        List or query pgpus.
+        List or query Xen Orchestra physical GPUs (PGPUs).
     .DESCRIPTION
-        Get Xen Orchestra pgpus by ID or list existing entries.
+        Retrieves physical GPUs attached to pool hosts, including their GPU group membership and dom0 access status. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -PgpuUuid to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER PgpuUuid
-        The ID(s) of the Pgpu to retrieve.
+        One or more IDs of the physical GPUs (PGPUs) to retrieve. When omitted, the cmdlet enumerates physical GPUs (PGPUs) using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of physical GPUs (PGPUs) to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoPgpu
+    .EXAMPLE
+        Get-XoPgpu -PgpuUuid "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Pgpu")]
@@ -66,3 +68,4 @@ function Get-XoPgpu
         }
     }
 }
+
