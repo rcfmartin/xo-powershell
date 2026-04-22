@@ -4,13 +4,15 @@ function Get-XoVmControllerAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a VmController.
+        Get alarms scoped to a specific VM controller.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra VmController.
+        Retrieves alarms attached to the specified Xen Orchestra VM controller. Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmControllerUuid
-        The UUID of the VmController whose alarms to retrieve.
+        The UUID(s) of the VM controller whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmControllerAlarm -VmControllerUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmController | Get-XoVmControllerAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoVmControllerAlarm
         }
     }
 }
+
