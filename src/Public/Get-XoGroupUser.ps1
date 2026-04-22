@@ -4,13 +4,15 @@ function Get-XoGroupUser
 {
     <#
     .SYNOPSIS
-        List users for a Group.
+        Get user scoped to a specific group.
     .DESCRIPTION
-        Retrieve users associated with a specific Xen Orchestra Group.
+        Retrieves user attached to the specified Xen Orchestra group. Accepts one or more group UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER GroupId
-        The UUID of the Group whose users to retrieve.
+        The UUID(s) of the group whose user should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoGroupUser -GroupId "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoGroup | Get-XoGroupUser
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.User")]
@@ -40,3 +42,4 @@ function Get-XoGroupUser
         }
     }
 }
+
