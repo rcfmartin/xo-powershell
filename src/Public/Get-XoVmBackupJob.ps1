@@ -4,13 +4,15 @@ function Get-XoVmBackupJob
 {
     <#
     .SYNOPSIS
-        List backup-jobs for a Vm.
+        Get backup jobs scoped to a specific VM.
     .DESCRIPTION
-        Retrieve backup-jobs associated with a specific Xen Orchestra Vm.
+        Retrieves backup jobs attached to the specified Xen Orchestra VM. Accepts one or more VM UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmUuid
-        The UUID of the Vm whose backup-jobs to retrieve.
+        The UUID(s) of the VM whose backup jobs should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoVmBackupJob -VmUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoVmBackupJob -VmUuid "613f541c-4bed-fc77-7ca8-2db6b68f079c"
+    .EXAMPLE
+        Get-XoVm | Get-XoVmBackupJob
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.BackupJob")]
@@ -40,3 +42,4 @@ function Get-XoVmBackupJob
         }
     }
 }
+
