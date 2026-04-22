@@ -4,19 +4,19 @@ function Set-XoVdiSnapshotTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a vdisnapshot.
+        Attach or detach a single tag on a Xen Orchestra VDI snapshot.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra vdisnapshot. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified VDI snapshot using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER VdiSnapshotUuid
-        The UUID of the vdisnapshot to tag.
+        The UUID of the VDI snapshot to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoVdiSnapshotTag -VdiSnapshotUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoVdiSnapshotTag -VdiSnapshotUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoVdiSnapshotTag -VdiSnapshotUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoVdiSnapshotTag -VdiSnapshotUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoVdiSnapshotTag
         }
     }
 }
+
