@@ -7,7 +7,7 @@ function New-XoServer
         Register a new XCP-ng/XenServer pool master with Xen Orchestra.
     .DESCRIPTION
         Calls POST /servers to add a pool master. The credentials are supplied as a PSCredential so the password is not exposed in plain text. Label and connection flags are optional; host/username/password are mandatory.
-    .PARAMETER Host
+    .PARAMETER HostName
         The IP address or hostname of the pool master to register.
     .PARAMETER Credential
         PSCredential with the XCP-ng root (or equivalent) username and password.
@@ -23,8 +23,7 @@ function New-XoServer
     param (
         [Parameter(Mandatory, Position = 0)]
         [ValidateNotNullOrEmpty()]
-        [Alias("HostName")]
-        [string]$Host,
+        [string]$HostName,
 
         [Parameter(Mandatory, Position = 1)]
         [ValidateNotNull()]
@@ -58,9 +57,12 @@ function New-XoServer
             password          = $Credential.GetNetworkCredential().Password
             allowUnauthorized = [bool]$AllowUnauthorized
         }
-        if ($PSBoundParameters.ContainsKey("Label")) { $body["label"] = $Label }
+        if ($PSBoundParameters.ContainsKey("Label"))
+        {
+            $body["label"] = $Label
+        }
 
-        $bodyJson  = ConvertTo-Json -InputObject $body -Depth 5 -Compress
+        $bodyJson = ConvertTo-Json -InputObject $body -Depth 5 -Compress
         $bodyBytes = [System.Text.Encoding]::UTF8.GetBytes($bodyJson)
 
         $uri = "$script:XoHost/rest/v0/servers"
