@@ -4,13 +4,15 @@ function Invoke-XoSrForget
 {
     <#
     .SYNOPSIS
-        forget one or more srs.
+        Forget one or more Xen Orchestra SRs.
     .DESCRIPTION
-        forget the specified Xen Orchestra srs. Returns a task object that can be used to monitor the operation.
+        Detaches the SR from the pool without destroying the underlying storage (the data and VDIs remain on the remote; they can be re-introduced later).
     .PARAMETER SrUuid
-        The UUID(s) of the sr to act on.
+        The UUID(s) of the SR to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Invoke-XoSrForget -SrUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoSrForget -SrUuid "<uuid>"
+    .EXAMPLE
+        Invoke-XoSrForget -SrUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "High")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Invoke-XoSrForget
         }
     }
 }
+
