@@ -4,13 +4,15 @@ function Get-XoServerTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Server.
+        Get tasks scoped to a specific XO server.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Server.
+        Retrieves tasks attached to the specified Xen Orchestra XO server. Accepts one or more XO server UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER ServerUuid
-        The UUID of the Server whose tasks to retrieve.
+        The UUID(s) of the XO server whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoServerTask -ServerUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoServer | Get-XoServerTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoServerTask
         }
     }
 }
+
