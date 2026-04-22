@@ -4,17 +4,19 @@ function Get-XoBackupLog
 {
     <#
     .SYNOPSIS
-        List or query backup-logs.
+        List or query Xen Orchestra backup logs.
     .DESCRIPTION
-        Get Xen Orchestra backup-logs by ID or list existing entries.
+        Retrieves run logs for Xen Orchestra backup jobs. Each log captures the status, start time, and nested tasks of one backup run. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupLogId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER BackupLogId
-        The ID(s) of the BackupLog to retrieve.
+        One or more IDs of the backup logs to retrieve. When omitted, the cmdlet enumerates backup logs using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of backup logs to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoBackupLog
+        Get-XoBackupLog -Filter 'status:failure'
+    .EXAMPLE
+        Get-XoBackupLog -BackupLogId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.BackupLog")]
@@ -65,3 +67,4 @@ function Get-XoBackupLog
         }
     }
 }
+
