@@ -39,8 +39,11 @@ function Set-XoPif
         [Parameter()]
         [string[]]$Tags
     )
-    process
-    {
+    process {
+    # NOTE: the current Xen Orchestra REST API does not expose a PATCH endpoint at /pifs/{id}.
+    # This cmdlet is kept for backwards compatibility but will fail against modern XO releases.
+    Write-Warning "Set-XoPif targets PATCH /pifs/{id}, which the current XO REST API does not expose. The call will likely fail."
+
 
         $params = @{}
 
@@ -68,3 +71,4 @@ function Set-XoPif
         }
     }
 }
+
