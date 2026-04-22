@@ -6,26 +6,23 @@ function New-XoUser
     .SYNOPSIS
         Create a new Xen Orchestra user.
     .DESCRIPTION
-        Creates a new user via POST /users. Requires a name and password; permission defaults to 'none' (read-only).
-    .PARAMETER Name
-        The name (typically email) of the new user.
-    .PARAMETER Password
-        The plain-text password for the new user. Passed as-is to the XO REST endpoint.
+        Creates a new user via POST /users. The name and password are supplied together as a PSCredential so the password never has to sit in a plain-text variable. Permission defaults to 'none' (read-only).
+    .PARAMETER Credential
+        PSCredential whose UserName becomes the XO user name and whose Password is sent to XO as the initial password.
     .PARAMETER Permission
         Permission level for the new user: 'none', 'viewer' (read-only), or 'admin'. Defaults to 'none'.
     .EXAMPLE
-        New-XoUser -Name "alice@example.com" -Password "s3cret" -Permission viewer
+        New-XoUser -Credential (Get-Credential) -Permission viewer
+    .EXAMPLE
+        $cred = [pscredential]::new("alice@example.com", (ConvertTo-SecureString "s3cret" -AsPlainText -Force))
+        New-XoUser -Credential $cred
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.User")]
     param (
         [Parameter(Mandatory, Position = 0)]
-        [ValidateNotNullOrEmpty()]
-        [string]$Name,
-
-        [Parameter(Mandatory, Position = 1)]
-        [ValidateNotNullOrEmpty()]
-        [string]$Password,
+        [ValidateNotNull()]
+        [pscredential]$Credential,
 
         [Parameter()]
         [ValidateSet("none", "viewer", "admin")]
@@ -42,14 +39,15 @@ function New-XoUser
 
     process
     {
-        if (-not $PSCmdlet.ShouldProcess($Name, "create user"))
+        $userName = $Credential.UserName
+        if (-not $PSCmdlet.ShouldProcess($userName, "create user"))
         {
             return
         }
 
         $params = @{
-            name       = $Name
-            password   = $Password
+            name       = $userName
+            password   = $Credential.GetNetworkCredential().Password
             permission = $Permission
         }
         $bodyJson  = ConvertTo-Json -InputObject $params -Depth 5 -Compress
