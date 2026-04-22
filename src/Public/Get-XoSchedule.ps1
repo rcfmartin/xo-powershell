@@ -69,9 +69,5 @@ function Get-XoSchedule
             # the parentheses forces the resulting array to unpack, don't remove them!
             (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/schedules" @script:XoRestParameters -Body $params) | ConvertTo-XoScheduleObject
         }
-        elseif ($PSCmdlet.ParameterSetName -eq "PoolUuid")
-        {
-            (Invoke-RestMethod -Uri "$script:XoHost/rest/v0/pools/$PoolUuid/schedules" @script:XoRestParameters -Body $params) | ConvertTo-XoScheduleObject
-        }
     }
 }
