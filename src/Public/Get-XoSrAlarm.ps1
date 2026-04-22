@@ -4,13 +4,15 @@ function Get-XoSrAlarm
 {
     <#
     .SYNOPSIS
-        List alarms for a Sr.
+        Get alarms scoped to a specific storage repository.
     .DESCRIPTION
-        Retrieve alarms associated with a specific Xen Orchestra Sr.
+        Retrieves alarms attached to the specified Xen Orchestra storage repository. Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER SrUuid
-        The UUID of the Sr whose alarms to retrieve.
+        The UUID(s) of the storage repository whose alarms should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoSrAlarm -SrUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoSr | Get-XoSrAlarm
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Alarm")]
@@ -40,3 +42,4 @@ function Get-XoSrAlarm
         }
     }
 }
+
