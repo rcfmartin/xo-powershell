@@ -4,13 +4,15 @@ function Get-XoVmControllerTask
 {
     <#
     .SYNOPSIS
-        List tasks for a VmController.
+        Get tasks scoped to a specific VM controller.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra VmController.
+        Retrieves tasks attached to the specified Xen Orchestra VM controller. Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmControllerUuid
-        The UUID of the VmController whose tasks to retrieve.
+        The UUID(s) of the VM controller whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmControllerTask -VmControllerUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmController | Get-XoVmControllerTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoVmControllerTask
         }
     }
 }
+
