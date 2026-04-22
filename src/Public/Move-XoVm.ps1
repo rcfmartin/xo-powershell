@@ -4,15 +4,15 @@ function Move-XoVm
 {
     <#
     .SYNOPSIS
-        Migrate a VM to another host.
+        Live-migrate a Xen Orchestra VM to another host.
     .DESCRIPTION
-        Migrate the specified VM to a different host. Pass the destination via -Parameters.
+        Triggers a live VM migration. The destination host UUID (and optionally migration network / storage) must be provided via -Parameters. See /rest/v0/docs/#/vms/MigrateVm for the expected body. Returns a task object.
     .PARAMETER VmUuid
-        The UUID of the vm to act on.
+        The UUID of the VM to act on.
     .PARAMETER Parameters
-        Hashtable of parameters to pass in the action body. See the Xen Orchestra REST API docs for required fields.
+        Hashtable of action body parameters. See the linked XO REST documentation for the expected fields.
     .EXAMPLE
-        Move-XoVm -VmUuid "00000000-0000-0000-0000-000000000000"
+        Move-XoVm -VmUuid "<uuid>" -Parameters @{ }
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -46,3 +46,4 @@ function Move-XoVm
         }
     }
 }
+
