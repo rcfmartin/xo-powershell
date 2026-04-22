@@ -4,13 +4,15 @@ function Get-XoPoolStat
 {
     <#
     .SYNOPSIS
-        List stats for a Pool.
+        Get performance statistics scoped to a specific pool.
     .DESCRIPTION
-        Retrieve stats associated with a specific Xen Orchestra Pool.
+        Retrieves performance statistics attached to the specified Xen Orchestra pool. Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER PoolUuid
-        The UUID of the Pool whose stats to retrieve.
+        The UUID(s) of the pool whose performance statistics should be returned. Accepts pipeline input by property name.
     .EXAMPLE
-        Get-XoPoolStat -PoolUuid "00000000-0000-0000-0000-000000000000"
+        Get-XoPoolStat -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
+    .EXAMPLE
+        Get-XoPool | Get-XoPoolStat
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Stat")]
@@ -40,3 +42,4 @@ function Get-XoPoolStat
         }
     }
 }
+
