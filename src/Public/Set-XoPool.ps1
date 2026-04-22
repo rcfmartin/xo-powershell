@@ -39,8 +39,11 @@ function Set-XoPool
         [Parameter()]
         [string[]]$Tags
     )
-    process
-    {
+    process {
+    # NOTE: the current Xen Orchestra REST API does not expose a PATCH endpoint at /pools/{id}.
+    # This cmdlet is kept for backwards compatibility but will fail against modern XO releases.
+    Write-Warning "Set-XoPool targets PATCH /pools/{id}, which the current XO REST API does not expose. The call will likely fail."
+
 
         $params = @{}
 
@@ -68,3 +71,4 @@ function Set-XoPool
         }
     }
 }
+
