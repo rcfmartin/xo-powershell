@@ -4,17 +4,19 @@ function Get-XoBackupRepository
 {
     <#
     .SYNOPSIS
-        List or query backup-repositories.
+        List or query Xen Orchestra backup repositories.
     .DESCRIPTION
-        Get Xen Orchestra backup-repositories by ID or list existing entries.
+        Retrieves backup repositories (remotes) configured in Xen Orchestra - the destinations where backup archives are stored. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupRepositoryId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER BackupRepositoryId
-        The ID(s) of the BackupRepository to retrieve.
+        One or more IDs of the backup repositories to retrieve. When omitted, the cmdlet enumerates backup repositories using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of backup repositories to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoBackupRepository
+        Get-XoBackupRepository | Where-Object enabled
+    .EXAMPLE
+        Get-XoBackupRepository -BackupRepositoryId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.BackupRepository")]
@@ -66,3 +68,4 @@ function Get-XoBackupRepository
         }
     }
 }
+
