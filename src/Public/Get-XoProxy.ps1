@@ -4,17 +4,19 @@ function Get-XoProxy
 {
     <#
     .SYNOPSIS
-        List or query proxies.
+        List or query Xen Orchestra XO proxies.
     .DESCRIPTION
-        Get Xen Orchestra proxies by ID or list existing entries.
+        Retrieves Xen Orchestra proxies - lightweight VMs that relay backup/migration traffic between XO and a pool. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -ProxyId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER ProxyId
-        The ID(s) of the Proxy to retrieve.
+        One or more IDs of the XO proxies to retrieve. When omitted, the cmdlet enumerates XO proxies using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of XO proxies to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
         Get-XoProxy
+    .EXAMPLE
+        Get-XoProxy -ProxyId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Proxy")]
@@ -66,3 +68,4 @@ function Get-XoProxy
         }
     }
 }
+
