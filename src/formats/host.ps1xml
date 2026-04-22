@@ -39,7 +39,7 @@
                 </TableRowEntries>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>ID</Label>
+                        <Label>HostUuid</Label>
                         <Width>36</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
