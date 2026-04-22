@@ -4,19 +4,19 @@ function Export-XoVmSnapshot
 {
     <#
     .SYNOPSIS
-        Export a VmSnapshot in the specified format.
+        Export a Xen Orchestra VM snapshot to a local file.
     .DESCRIPTION
-        Export a VmSnapshot from Xen Orchestra. Downloads the content to a local file.
+        Downloads the specified VM snapshot in either xva (XenServer native) or ova format. The download is streamed to -OutFile; nothing is returned unless -PassThru is specified. For large VM snapshots the export can take a while - consider running it as a background job.
     .PARAMETER VmSnapshotUuid
-        The UUID of the VmSnapshot to export.
+        The UUID of the VM snapshot to export.
     .PARAMETER Format
-        The format to export the VmSnapshot in.
+        Export format: 'xva' (XenServer native, fastest) or 'ova' (portable OVF).
     .PARAMETER OutFile
-        The path to save the exported content to.
+        Local path to write the exported file to. Parent directory must exist.
     .PARAMETER PassThru
-        Return the exported file as a FileInfo object.
+        Return the written file as a FileInfo object.
     .EXAMPLE
-        Export-XoVmSnapshot -VmSnapshotUuid "00000000-0000-0000-0000-000000000000" -Format xva -OutFile "./export.xva"
+        Export-XoVmSnapshot -VmSnapshotUuid "<uuid>" -Format xva -OutFile "./export.xva"
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param (
@@ -65,3 +65,4 @@ function Export-XoVmSnapshot
         }
     }
 }
+
