@@ -4,13 +4,15 @@ function Invoke-XoVmPause
 {
     <#
     .SYNOPSIS
-        pause one or more vms.
+        Pause one or more Xen Orchestra VMs.
     .DESCRIPTION
-        pause the specified Xen Orchestra vms. Returns a task object that can be used to monitor the operation.
+        Freezes CPU execution of the VM without saving RAM state. Use Invoke-XoVmUnpause to resume. Not to be confused with Suspend-XoVm, which writes memory to disk.
     .PARAMETER VmUuid
-        The UUID(s) of the vm to act on.
+        The UUID(s) of the VM to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Invoke-XoVmPause -VmUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoVmPause -VmUuid "<uuid>"
+    .EXAMPLE
+        Invoke-XoVmPause -VmUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Invoke-XoVmPause
         }
     }
 }
+
