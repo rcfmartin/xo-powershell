@@ -4,17 +4,19 @@ function Get-XoRestoreJobLog
 {
     <#
     .SYNOPSIS
-        List or query restore/logs.
+        List or query Xen Orchestra restore logs.
     .DESCRIPTION
-        Get Xen Orchestra restore/logs by ID or list existing entries.
+        Retrieves restore logs via the /restore/logs endpoint (alias of Get-XoRestoreLog using the alternative path). When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -RestoreLogId to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER RestoreLogId
-        The ID(s) of the RestoreLog to retrieve.
+        One or more IDs of the restore logs to retrieve. When omitted, the cmdlet enumerates restore logs using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of restore logs to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoRestoreJobLog
+        Get-XoRestoreJobLog -Limit 50
+    .EXAMPLE
+        Get-XoRestoreJobLog -RestoreLogId "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.RestoreLog")]
@@ -65,3 +67,4 @@ function Get-XoRestoreJobLog
         }
     }
 }
+
