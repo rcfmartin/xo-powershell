@@ -4,19 +4,19 @@ function Export-XoVm
 {
     <#
     .SYNOPSIS
-        Export a Vm in the specified format.
+        Export a Xen Orchestra VM to a local file.
     .DESCRIPTION
-        Export a Vm from Xen Orchestra. Downloads the content to a local file.
+        Downloads the specified VM in either xva (XenServer native) or ova format. The download is streamed to -OutFile; nothing is returned unless -PassThru is specified. For large VMs the export can take a while - consider running it as a background job.
     .PARAMETER VmUuid
-        The UUID of the Vm to export.
+        The UUID of the VM to export.
     .PARAMETER Format
-        The format to export the Vm in.
+        Export format: 'xva' (XenServer native, fastest) or 'ova' (portable OVF).
     .PARAMETER OutFile
-        The path to save the exported content to.
+        Local path to write the exported file to. Parent directory must exist.
     .PARAMETER PassThru
-        Return the exported file as a FileInfo object.
+        Return the written file as a FileInfo object.
     .EXAMPLE
-        Export-XoVm -VmUuid "00000000-0000-0000-0000-000000000000" -Format xva -OutFile "./export.xva"
+        Export-XoVm -VmUuid "<uuid>" -Format xva -OutFile "./export.xva"
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param (
@@ -65,3 +65,4 @@ function Export-XoVm
         }
     }
 }
+
