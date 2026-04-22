@@ -4,13 +4,15 @@ function Invoke-XoSrReclaimSpace
 {
     <#
     .SYNOPSIS
-        reclaim space one or more srs.
+        Reclaim space on one or more Xen Orchestra SRs.
     .DESCRIPTION
-        reclaim space the specified Xen Orchestra srs. Returns a task object that can be used to monitor the operation.
+        Triggers space reclamation (TRIM/UNMAP) on the SR. Useful on thin-provisioned storage to return freed blocks.
     .PARAMETER SrUuid
-        The UUID(s) of the sr to act on.
+        The UUID(s) of the SR to act on. Accepts pipeline input by property name.
     .EXAMPLE
-        Invoke-XoSrReclaimSpace -SrUuid "00000000-0000-0000-0000-000000000000"
+        Invoke-XoSrReclaimSpace -SrUuid "<uuid>"
+    .EXAMPLE
+        Invoke-XoSrReclaimSpace -SrUuid "<uuid>" | Wait-XoTask -PassThru
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     [OutputType("XoPowershell.Task")]
@@ -43,3 +45,4 @@ function Invoke-XoSrReclaimSpace
         }
     }
 }
+
