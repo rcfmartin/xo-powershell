@@ -4,13 +4,15 @@ function Get-XoVmTemplateVdi
 {
     <#
     .SYNOPSIS
-        List vdis for a VmTemplate.
+        Get virtual disks (VDIs) scoped to a specific VM template.
     .DESCRIPTION
-        Retrieve vdis associated with a specific Xen Orchestra VmTemplate.
+        Retrieves virtual disks (VDIs) attached to the specified Xen Orchestra VM template. Accepts one or more VM template UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER VmTemplateUuid
-        The UUID of the VmTemplate whose vdis to retrieve.
+        The UUID(s) of the VM template whose virtual disks (VDIs) should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoVmTemplateVdi -VmTemplateUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoVmTemplate | Get-XoVmTemplateVdi
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Vdi")]
@@ -40,3 +42,4 @@ function Get-XoVmTemplateVdi
         }
     }
 }
+
