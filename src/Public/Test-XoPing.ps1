@@ -4,12 +4,11 @@ function Test-XoPing
 {
     <#
     .SYNOPSIS
-        Ping the Xen Orchestra REST API.
+        Test the reachability of the Xen Orchestra REST API.
     .DESCRIPTION
-        Test reachability of the Xen Orchestra REST API by hitting the /ping endpoint.
-        Returns $true if the endpoint responds successfully, $false otherwise.
+        Sends a GET to the /ping endpoint using the current session credentials. Returns $true on success (2xx) or $false on any failure (network error, auth error, non-2xx). Does not throw. Useful for quick health probes in monitoring scripts.
     .EXAMPLE
-        Test-XoPing
+        if (-not (Test-XoPing)) { throw "XO API unreachable" }
     #>
     [CmdletBinding()]
     [OutputType([bool])]
@@ -31,3 +30,4 @@ function Test-XoPing
         return $false
     }
 }
+
