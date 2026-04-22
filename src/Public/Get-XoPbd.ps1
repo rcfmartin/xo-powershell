@@ -4,17 +4,19 @@ function Get-XoPbd
 {
     <#
     .SYNOPSIS
-        List or query pbds.
+        List or query Xen Orchestra PBDs.
     .DESCRIPTION
-        Get Xen Orchestra pbds by ID or list existing entries.
+        Retrieves physical block devices (PBDs). A PBD is the XAPI object that connects a host to a storage repository. When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -PbdUuid to fetch specific entries or -Filter / -Limit to scope a list query.
     .PARAMETER PbdUuid
-        The ID(s) of the Pbd to retrieve.
+        One or more IDs of the PBDs to retrieve. When omitted, the cmdlet enumerates PBDs using Filter and Limit.
     .PARAMETER Filter
-        Custom filter expression for the query.
+        XO filter expression applied server-side (same syntax as the REST `filter` query parameter, e.g. `status:success`).
     .PARAMETER Limit
-        Maximum number of results to return.
+        Maximum number of PBDs to return when listing. Defaults to the session limit set by Connect-XoSession or Set-XoSession.
     .EXAMPLE
-        Get-XoPbd
+        Get-XoPbd | Where-Object attached -eq $false
+    .EXAMPLE
+        Get-XoPbd -PbdUuid "<id>"
     #>
     [CmdletBinding(DefaultParameterSetName = "Filter")]
     [OutputType("XoPowershell.Pbd")]
@@ -66,3 +68,4 @@ function Get-XoPbd
         }
     }
 }
+
