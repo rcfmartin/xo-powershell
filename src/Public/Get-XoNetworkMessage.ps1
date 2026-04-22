@@ -4,13 +4,15 @@ function Get-XoNetworkMessage
 {
     <#
     .SYNOPSIS
-        List messages for a Network.
+        Get messages scoped to a specific network.
     .DESCRIPTION
-        Retrieve messages associated with a specific Xen Orchestra Network.
+        Retrieves messages attached to the specified Xen Orchestra network. Accepts one or more network UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER NetworkUuid
-        The UUID of the Network whose messages to retrieve.
+        The UUID(s) of the network whose messages should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoNetworkMessage -NetworkUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoNetwork | Get-XoNetworkMessage
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Message")]
@@ -40,3 +42,4 @@ function Get-XoNetworkMessage
         }
     }
 }
+
