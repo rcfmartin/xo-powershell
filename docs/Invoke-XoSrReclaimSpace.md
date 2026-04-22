@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-XoSrReclaimSpace
 
 ## SYNOPSIS
-reclaim space one or more srs.
+Reclaim space on one or more Xen Orchestra SRs.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Invoke-XoSrReclaimSpace [-SrUuid] <String[]> [-ProgressAction <ActionPreference>
 ```
 
 ## DESCRIPTION
-reclaim space the specified Xen Orchestra srs.
-Returns a task object that can be used to monitor the operation.
+Triggers space reclamation (TRIM/UNMAP) on the SR.
+Useful on thin-provisioned storage to return freed blocks.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Invoke-XoSrReclaimSpace -SrUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -SrUuid
-The UUID(s) of the sr to act on.
+The UUID(s) of the SR to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

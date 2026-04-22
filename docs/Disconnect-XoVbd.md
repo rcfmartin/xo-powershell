@@ -8,7 +8,7 @@ schema: 2.0.0
 # Disconnect-XoVbd
 
 ## SYNOPSIS
-disconnect one or more vbds.
+Unplug one or more Xen Orchestra VBDs.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Disconnect-XoVbd [-VbdUuid] <String[]> [-ProgressAction <ActionPreference>] [-Wh
 ```
 
 ## DESCRIPTION
-disconnect the specified Xen Orchestra vbds.
-Returns a task object that can be used to monitor the operation.
+Unplugs the VBD from its VM.
+Any guest I/O to the disk is cut off.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Disconnect-XoVbd -VbdUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -VbdUuid
-The UUID(s) of the vbd to act on.
+The UUID(s) of the VBD to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

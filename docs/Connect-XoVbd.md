@@ -8,7 +8,7 @@ schema: 2.0.0
 # Connect-XoVbd
 
 ## SYNOPSIS
-connect one or more vbds.
+Plug one or more Xen Orchestra VBDs.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Connect-XoVbd [-VbdUuid] <String[]> [-ProgressAction <ActionPreference>] [-WhatI
 ```
 
 ## DESCRIPTION
-connect the specified Xen Orchestra vbds.
-Returns a task object that can be used to monitor the operation.
+Plugs the VBD into its VM so the guest can see the backing VDI (hot-plug if the VM is running).
+Returns a task.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Connect-XoVbd -VbdUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -VbdUuid
-The UUID(s) of the vbd to act on.
+The UUID(s) of the VBD to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

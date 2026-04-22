@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoUser
 
 ## SYNOPSIS
-List or query users.
+List or query Xen Orchestra users.
 
 ## SYNTAX
 
@@ -23,19 +23,26 @@ Get-XoUser [-UserId] <String[]> [-ProgressAction <ActionPreference>] [<CommonPar
 ```
 
 ## DESCRIPTION
-Get Xen Orchestra users by ID or list existing entries.
+Retrieves Xen Orchestra users, including their permission level, email and group membership.
+When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -UserId to fetch specific entries or -Filter / -Limit to scope a list query.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoUser
+Get-XoUser | Where-Object permission -eq 'admin'
+```
+
+### EXAMPLE 2
+```
+"
 ```
 
 ## PARAMETERS
 
 ### -UserId
-The ID(s) of the User to retrieve.
+One or more IDs of the users to retrieve.
+When omitted, the cmdlet enumerates users using Filter and Limit.
 
 ```yaml
 Type: String[]
@@ -50,7 +57,8 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-Custom filter expression for the query.
+XO filter expression applied server-side (same syntax as the REST \`filter\` query parameter, e.g.
+\`status:success\`).
 
 ```yaml
 Type: String
@@ -65,7 +73,8 @@ Accept wildcard characters: False
 ```
 
 ### -Limit
-Maximum number of results to return.
+Maximum number of users to return when listing.
+Defaults to the session limit set by Connect-XoSession or Set-XoSession.
 
 ```yaml
 Type: Int32

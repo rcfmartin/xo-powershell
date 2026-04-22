@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-XoVdiTag
 
 ## SYNOPSIS
-Add or remove a tag on a vdi.
+Attach or detach a single tag on a Xen Orchestra VDI.
 
 ## SYNTAX
 
@@ -18,25 +18,26 @@ Set-XoVdiTag [-VdiUuid] <String> [-Tag] <String> [-Remove] [-ProgressAction <Act
 ```
 
 ## DESCRIPTION
-Attach a single tag to a specific Xen Orchestra vdi.
-Use -Remove to detach the tag instead.
+Manages individual tags on the specified VDI using the /tags/{tag} endpoint.
+By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE).
+Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoVdiTag -VdiUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+" -Tag "production"
 ```
 
 ### EXAMPLE 2
 ```
-Set-XoVdiTag -VdiUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+" -Tag "production" -Remove
 ```
 
 ## PARAMETERS
 
 ### -VdiUuid
-The UUID of the vdi to tag.
+The UUID of the VDI to tag.
 
 ```yaml
 Type: String
@@ -66,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-Remove the tag instead of adding it.
+Detach the tag instead of attaching it.
 
 ```yaml
 Type: SwitchParameter

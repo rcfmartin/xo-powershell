@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoGroupUser
 
 ## SYNOPSIS
-List users for a Group.
+Get user scoped to a specific group.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoGroupUser [-GroupId] <String[]> [-ProgressAction <ActionPreference>] [<Com
 ```
 
 ## DESCRIPTION
-Retrieve users associated with a specific Xen Orchestra Group.
+Retrieves user attached to the specified Xen Orchestra group.
+Accepts one or more group UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve users associated with a specific Xen Orchestra Group.
 Get-XoGroupUser -GroupId "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoGroup | Get-XoGroupUser
+```
+
 ## PARAMETERS
 
 ### -GroupId
-The UUID of the Group whose users to retrieve.
+The UUID(s) of the group whose user should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

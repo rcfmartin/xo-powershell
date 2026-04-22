@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVifMessage
 
 ## SYNOPSIS
-List messages for a Vif.
+Get messages scoped to a specific VIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVifMessage [-VifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra Vif.
+Retrieves messages attached to the specified Xen Orchestra VIF.
+Accepts one or more VIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra Vif.
 Get-XoVifMessage -VifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVif | Get-XoVifMessage
+```
+
 ## PARAMETERS
 
 ### -VifUuid
-The UUID of the Vif whose messages to retrieve.
+The UUID(s) of the VIF whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

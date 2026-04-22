@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoPifAlarm
 
 ## SYNOPSIS
-List alarms for a Pif.
+Get alarms scoped to a specific PIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoPifAlarm [-PifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Pif.
+Retrieves alarms attached to the specified Xen Orchestra PIF.
+Accepts one or more PIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Pif.
 Get-XoPifAlarm -PifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoPif | Get-XoPifAlarm
+```
+
 ## PARAMETERS
 
 ### -PifUuid
-The UUID of the Pif whose alarms to retrieve.
+The UUID(s) of the PIF whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

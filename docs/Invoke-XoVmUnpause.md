@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-XoVmUnpause
 
 ## SYNOPSIS
-unpause one or more vms.
+Unpause one or more Xen Orchestra VMs.
 
 ## SYNTAX
 
@@ -18,20 +18,25 @@ Invoke-XoVmUnpause [-VmUuid] <String[]> [-ProgressAction <ActionPreference>] [-W
 ```
 
 ## DESCRIPTION
-unpause the specified Xen Orchestra vms.
-Returns a task object that can be used to monitor the operation.
+Resumes CPU execution of a paused VM (previously paused with Invoke-XoVmPause).
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Invoke-XoVmUnpause -VmUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -VmUuid
-The UUID(s) of the vm to act on.
+The UUID(s) of the VM to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

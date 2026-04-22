@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmSnapshotMessage
 
 ## SYNOPSIS
-List messages for a VmSnapshot.
+Get messages scoped to a specific VM snapshot.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmSnapshotMessage [-VmSnapshotUuid] <String[]> [-ProgressAction <ActionPre
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra VmSnapshot.
+Retrieves messages attached to the specified Xen Orchestra VM snapshot.
+Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra VmSnapshot.
 Get-XoVmSnapshotMessage -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmSnapshot | Get-XoVmSnapshotMessage
+```
+
 ## PARAMETERS
 
 ### -VmSnapshotUuid
-The UUID of the VmSnapshot whose messages to retrieve.
+The UUID(s) of the VM snapshot whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoHostPatch
 
 ## SYNOPSIS
-List missing_patches for a Host.
+Get missing patches scoped to a specific host.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoHostPatch [-HostUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve missing_patches associated with a specific Xen Orchestra Host.
+Retrieves missing patches attached to the specified Xen Orchestra host.
+Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoHostPatch -HostUuid "00000000-0000-0000-0000-000000000000"
+Get-XoHostPatch -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+```
+
+### EXAMPLE 2
+```
+Get-XoHost | Get-XoHostPatch
 ```
 
 ## PARAMETERS
 
 ### -HostUuid
-The UUID of the Host whose missing_patches to retrieve.
+The UUID(s) of the host whose missing patches should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Connect-XoPbd
 
 ## SYNOPSIS
-plug one or more pbds.
+Plug one or more Xen Orchestra PBDs.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Connect-XoPbd [-PbdUuid] <String[]> [-ProgressAction <ActionPreference>] [-WhatI
 ```
 
 ## DESCRIPTION
-plug the specified Xen Orchestra pbds.
-Returns a task object that can be used to monitor the operation.
+Attaches the PBD to its host, making the underlying SR available.
+Returns a task that can be passed to Wait-XoTask.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Connect-XoPbd -PbdUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -PbdUuid
-The UUID(s) of the pbd to act on.
+The UUID(s) of the PBD to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

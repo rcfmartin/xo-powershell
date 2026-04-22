@@ -8,7 +8,7 @@ schema: 2.0.0
 # Move-XoVm
 
 ## SYNOPSIS
-Migrate a VM to another host.
+Live-migrate a Xen Orchestra VM to another host.
 
 ## SYNTAX
 
@@ -18,20 +18,22 @@ Move-XoVm [-VmUuid] <String> [-Parameters <Hashtable>] [-ProgressAction <ActionP
 ```
 
 ## DESCRIPTION
-Migrate the specified VM to a different host.
-Pass the destination via -Parameters.
+Triggers a live VM migration.
+The destination host UUID (and optionally migration network / storage) must be provided via -Parameters.
+See /rest/v0/docs/#/vms/MigrateVm for the expected body.
+Returns a task object.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Move-XoVm -VmUuid "00000000-0000-0000-0000-000000000000"
+" -Parameters @{ }
 ```
 
 ## PARAMETERS
 
 ### -VmUuid
-The UUID of the vm to act on.
+The UUID of the VM to act on.
 
 ```yaml
 Type: String
@@ -46,8 +48,8 @@ Accept wildcard characters: False
 ```
 
 ### -Parameters
-Hashtable of parameters to pass in the action body.
-See the Xen Orchestra REST API docs for required fields.
+Hashtable of action body parameters.
+See the linked XO REST documentation for the expected fields.
 
 ```yaml
 Type: Hashtable

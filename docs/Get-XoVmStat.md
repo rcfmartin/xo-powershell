@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmStat
 
 ## SYNOPSIS
-List stats for a Vm.
+Get performance statistics scoped to a specific VM.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoVmStat [-VmUuid] <String[]> [-ProgressAction <ActionPreference>] [<CommonP
 ```
 
 ## DESCRIPTION
-Retrieve stats associated with a specific Xen Orchestra Vm.
+Retrieves performance statistics attached to the specified Xen Orchestra VM.
+Accepts one or more VM UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoVmStat -VmUuid "00000000-0000-0000-0000-000000000000"
+Get-XoVmStat -VmUuid "613f541c-4bed-fc77-7ca8-2db6b68f079c"
+```
+
+### EXAMPLE 2
+```
+Get-XoVm | Get-XoVmStat
 ```
 
 ## PARAMETERS
 
 ### -VmUuid
-The UUID of the Vm whose stats to retrieve.
+The UUID(s) of the VM whose performance statistics should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmSnapshotAlarm
 
 ## SYNOPSIS
-List alarms for a VmSnapshot.
+Get alarms scoped to a specific VM snapshot.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmSnapshotAlarm [-VmSnapshotUuid] <String[]> [-ProgressAction <ActionPrefe
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra VmSnapshot.
+Retrieves alarms attached to the specified Xen Orchestra VM snapshot.
+Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra VmSnapshot.
 Get-XoVmSnapshotAlarm -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmSnapshot | Get-XoVmSnapshotAlarm
+```
+
 ## PARAMETERS
 
 ### -VmSnapshotUuid
-The UUID of the VmSnapshot whose alarms to retrieve.
+The UUID(s) of the VM snapshot whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

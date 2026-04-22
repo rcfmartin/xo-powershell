@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVifTask
 
 ## SYNOPSIS
-List tasks for a Vif.
+Get tasks scoped to a specific VIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVifTask [-VifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Commo
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Vif.
+Retrieves tasks attached to the specified Xen Orchestra VIF.
+Accepts one or more VIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra Vif.
 Get-XoVifTask -VifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVif | Get-XoVifTask
+```
+
 ## PARAMETERS
 
 ### -VifUuid
-The UUID of the Vif whose tasks to retrieve.
+The UUID(s) of the VIF whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

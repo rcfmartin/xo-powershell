@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoSrVdi
 
 ## SYNOPSIS
-List vdis for a Sr.
+Get virtual disks (VDIs) scoped to a specific storage repository.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoSrVdi [-SrUuid] <String[]> [-ProgressAction <ActionPreference>] [<CommonPa
 ```
 
 ## DESCRIPTION
-Retrieve vdis associated with a specific Xen Orchestra Sr.
+Retrieves virtual disks (VDIs) attached to the specified Xen Orchestra storage repository.
+Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve vdis associated with a specific Xen Orchestra Sr.
 Get-XoSrVdi -SrUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoSr | Get-XoSrVdi
+```
+
 ## PARAMETERS
 
 ### -SrUuid
-The UUID of the Sr whose vdis to retrieve.
+The UUID(s) of the storage repository whose virtual disks (VDIs) should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

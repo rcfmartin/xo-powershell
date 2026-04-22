@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoHostAlarm
 
 ## SYNOPSIS
-List alarms for a Host.
+Get alarms scoped to a specific host.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoHostAlarm [-HostUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Host.
+Retrieves alarms attached to the specified Xen Orchestra host.
+Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoHostAlarm -HostUuid "00000000-0000-0000-0000-000000000000"
+Get-XoHostAlarm -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+```
+
+### EXAMPLE 2
+```
+Get-XoHost | Get-XoHostAlarm
 ```
 
 ## PARAMETERS
 
 ### -HostUuid
-The UUID of the Host whose alarms to retrieve.
+The UUID(s) of the host whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

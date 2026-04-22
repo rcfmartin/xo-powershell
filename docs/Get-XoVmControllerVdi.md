@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmControllerVdi
 
 ## SYNOPSIS
-List vdis for a VmController.
+Get virtual disks (VDIs) scoped to a specific VM controller.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmControllerVdi [-VmControllerUuid] <String[]> [-ProgressAction <ActionPre
 ```
 
 ## DESCRIPTION
-Retrieve vdis associated with a specific Xen Orchestra VmController.
+Retrieves virtual disks (VDIs) attached to the specified Xen Orchestra VM controller.
+Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve vdis associated with a specific Xen Orchestra VmController.
 Get-XoVmControllerVdi -VmControllerUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmController | Get-XoVmControllerVdi
+```
+
 ## PARAMETERS
 
 ### -VmControllerUuid
-The UUID of the VmController whose vdis to retrieve.
+The UUID(s) of the VM controller whose virtual disks (VDIs) should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

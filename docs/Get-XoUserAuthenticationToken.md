@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoUserAuthenticationToken
 
 ## SYNOPSIS
-List user authentication tokens.
+List authentication tokens for the current user or a specific user.
 
 ## SYNTAX
 
@@ -23,7 +23,9 @@ Get-XoUserAuthenticationToken [-UserId] <String[]> [-ProgressAction <ActionPrefe
 ```
 
 ## DESCRIPTION
-Retrieve authentication tokens for a specific user or the currently authenticated caller.
+Retrieves the API authentication tokens owned by a user (or the caller, if no -UserId is given).
+Each token includes the client id, description, creation/expiration timestamps and most recent use.
+Useful for auditing long-lived tokens created via xo-cli.
 
 ## EXAMPLES
 
@@ -34,14 +36,15 @@ Get-XoUserAuthenticationToken
 
 ### EXAMPLE 2
 ```
-Get-XoUserAuthenticationToken -UserId "722d17b9-699b-49d2-8193-be1ac573d3de"
+Get-XoUserAuthenticationToken -UserId '722d17b9-699b-49d2-8193-be1ac573d3de'
 ```
 
 ## PARAMETERS
 
 ### -UserId
-The ID of the user whose tokens to retrieve.
-If omitted, returns the caller's own tokens.
+Optional user UUID.
+When supplied, returns tokens belonging to that user.
+When omitted, returns the caller's own tokens via /users/authentication_tokens.
 
 ```yaml
 Type: String[]

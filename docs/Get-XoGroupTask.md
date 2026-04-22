@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoGroupTask
 
 ## SYNOPSIS
-List tasks for a Group.
+Get tasks scoped to a specific group.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoGroupTask [-GroupId] <String[]> [-ProgressAction <ActionPreference>] [<Com
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Group.
+Retrieves tasks attached to the specified Xen Orchestra group.
+Accepts one or more group UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra Group.
 Get-XoGroupTask -GroupId "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoGroup | Get-XoGroupTask
+```
+
 ## PARAMETERS
 
 ### -GroupId
-The UUID of the Group whose tasks to retrieve.
+The UUID(s) of the group whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

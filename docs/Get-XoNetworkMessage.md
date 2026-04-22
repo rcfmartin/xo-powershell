@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoNetworkMessage
 
 ## SYNOPSIS
-List messages for a Network.
+Get messages scoped to a specific network.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoNetworkMessage [-NetworkUuid] <String[]> [-ProgressAction <ActionPreferenc
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra Network.
+Retrieves messages attached to the specified Xen Orchestra network.
+Accepts one or more network UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra Network.
 Get-XoNetworkMessage -NetworkUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoNetwork | Get-XoNetworkMessage
+```
+
 ## PARAMETERS
 
 ### -NetworkUuid
-The UUID of the Network whose messages to retrieve.
+The UUID(s) of the network whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

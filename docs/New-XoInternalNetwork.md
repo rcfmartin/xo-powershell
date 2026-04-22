@@ -5,34 +5,38 @@ online version:
 schema: 2.0.0
 ---
 
-# Export-XoVmTemplate
+# New-XoInternalNetwork
 
 ## SYNOPSIS
-Export a Xen Orchestra VM template to a local file.
+Create a new internal network on a Xen Orchestra pool.
 
 ## SYNTAX
 
 ```
-Export-XoVmTemplate [-VmTemplateUuid] <String> -Format <String> -OutFile <String> [-PassThru]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-XoInternalNetwork [-PoolUuid] <String> [-Name] <String> [-Description <String>]
+ [-AdditionalParameters <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Downloads the specified VM template in either xva (XenServer native) or ova format.
-The download is streamed to -OutFile; nothing is returned unless -PassThru is specified.
-For large VM templates the export can take a while - consider running it as a background job.
+Creates an internal (host-local, no external uplink) network on the specified
+pool.
+Thin wrapper around the internal Invoke-XoPoolAction -Action
+create_internal_network helper.
+Returns a task object that can be passed to
+Wait-XoTask to monitor completion.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-" -Format xva -OutFile "./export.xva"
+New-XoInternalNetwork -PoolUuid $pool.PoolUuid -Name "private-lab"
 ```
 
 ## PARAMETERS
 
-### -VmTemplateUuid
-The UUID of the VM template to export.
+### -PoolUuid
+The UUID of the pool to create the internal network on.
 
 ```yaml
 Type: String
@@ -46,8 +50,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Format
-Export format: 'xva' (XenServer native, fastest) or 'ova' (portable OVF).
+### -Name
+The name of the new internal network.
 
 ```yaml
 Type: String
@@ -55,39 +59,41 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -OutFile
-Local path to write the exported file to.
-Parent directory must exist.
+### -Description
+Optional description of the new internal network.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PassThru
-Return the written file as a FileInfo object.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AdditionalParameters
+Optional hashtable of extra body parameters to merge into the
+create_internal_network action payload.
+Values here override the dedicated
+parameters above.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -145,6 +151,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Task
 ## NOTES
 
 ## RELATED LINKS

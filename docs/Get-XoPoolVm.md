@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoPoolVm
 
 ## SYNOPSIS
-List vms for a Pool.
+Get VMs scoped to a specific pool.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoPoolVm [-PoolUuid] <String[]> [-ProgressAction <ActionPreference>] [<Commo
 ```
 
 ## DESCRIPTION
-Retrieve vms associated with a specific Xen Orchestra Pool.
+Retrieves VMs attached to the specified Xen Orchestra pool.
+Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoPoolVm -PoolUuid "00000000-0000-0000-0000-000000000000"
+Get-XoPoolVm -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
+```
+
+### EXAMPLE 2
+```
+Get-XoPool | Get-XoPoolVm
 ```
 
 ## PARAMETERS
 
 ### -PoolUuid
-The UUID of the Pool whose vms to retrieve.
+The UUID(s) of the pool whose VMs should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

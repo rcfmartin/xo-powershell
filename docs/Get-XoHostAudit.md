@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoHostAudit
 
 ## SYNOPSIS
-Download the host audit log.
+Download the audit log for a Xen Orchestra host.
 
 ## SYNTAX
 
@@ -18,13 +18,20 @@ Get-XoHostAudit [-HostUuid] <String> [-OutFile <String>] [-ProgressAction <Actio
 ```
 
 ## DESCRIPTION
-Download the plain-text audit log for a specific host.
+Downloads the plain-text XAPI audit log from /hosts/{id}/audit.txt.
+When -OutFile is supplied the file is written to disk; otherwise the content is returned as a string.
+Useful for compliance reporting and forensic investigation.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoHostAudit -HostUuid "00000000-0000-0000-0000-000000000000" -OutFile "./output.bin"
+Get-XoHostAudit -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907" -OutFile "./host-audit.txt"
+```
+
+### EXAMPLE 2
+```
+Get-XoHost | ForEach-Object { Get-XoHostAudit -HostUuid $_.HostUuid -OutFile "./audit-$($_.Name).txt" }
 ```
 
 ## PARAMETERS
@@ -46,7 +53,7 @@ Accept wildcard characters: False
 
 ### -OutFile
 Path to save the downloaded content to.
-If omitted, content is returned.
+If omitted, content is returned as a string.
 
 ```yaml
 Type: String

@@ -18,14 +18,16 @@ Invoke-XoHostManagementReconfigure [-HostUuid] <String> [-Parameters <Hashtable>
 ```
 
 ## DESCRIPTION
-Reconfigure the management network of the specified host.
-Provide the new address via -Parameters.
+Points the host management interface at a different network/PIF.
+Pass the target as -Parameters (e.g.
+\`\`@{ pif = \<pif-uuid\> }\`\`).
+Returns a task.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Invoke-XoHostManagementReconfigure -HostUuid "00000000-0000-0000-0000-000000000000"
+" -Parameters @{ }
 ```
 
 ## PARAMETERS
@@ -46,8 +48,8 @@ Accept wildcard characters: False
 ```
 
 ### -Parameters
-Hashtable of parameters to pass in the action body.
-See the Xen Orchestra REST API docs for required fields.
+Hashtable of action body parameters.
+See the linked XO REST documentation for the expected fields.
 
 ```yaml
 Type: Hashtable

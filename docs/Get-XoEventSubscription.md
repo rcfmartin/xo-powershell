@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoEventSubscription
 
 ## SYNOPSIS
-List or query event subscriptions.
+List or query subscriptions for a specific Xen Orchestra event.
 
 ## SYNTAX
 
@@ -24,13 +24,20 @@ Get-XoEventSubscription [-EventId] <String> [-SubscriptionId <String>] [-Progres
 ```
 
 ## DESCRIPTION
-Retrieve subscriptions registered for a specific Xen Orchestra event.
+Retrieves webhook/API subscriptions attached to a given event.
+A subscription describes where and how Xen Orchestra should notify an external endpoint when the event fires.
+Supply -SubscriptionId to fetch a single subscription.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoEventSubscription -EventId "event-id"
+Get-XoEventSubscription -EventId 'vm-started'
+```
+
+### EXAMPLE 2
+```
+Get-XoEventSubscription -EventId 'vm-started' -SubscriptionId 'sub-123'
 ```
 
 ## PARAMETERS
@@ -51,7 +58,7 @@ Accept wildcard characters: False
 ```
 
 ### -SubscriptionId
-The ID of a specific subscription to retrieve.
+Optional ID of a specific subscription to retrieve instead of listing them all.
 
 ```yaml
 Type: String

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Disconnect-XoPbd
 
 ## SYNOPSIS
-unplug one or more pbds.
+Unplug one or more Xen Orchestra PBDs.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Disconnect-XoPbd [-PbdUuid] <String[]> [-ProgressAction <ActionPreference>] [-Wh
 ```
 
 ## DESCRIPTION
-unplug the specified Xen Orchestra pbds.
-Returns a task object that can be used to monitor the operation.
+Detaches the PBD from its host, taking the SR offline on that host.
+All VMs/VDIs using the SR from this host must be detached or migrated first.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Disconnect-XoPbd -PbdUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -PbdUuid
-The UUID(s) of the pbd to act on.
+The UUID(s) of the PBD to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

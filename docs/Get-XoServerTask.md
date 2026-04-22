@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoServerTask
 
 ## SYNOPSIS
-List tasks for a Server.
+Get tasks scoped to a specific XO server.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoServerTask [-ServerUuid] <String[]> [-ProgressAction <ActionPreference>] [
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Server.
+Retrieves tasks attached to the specified Xen Orchestra XO server.
+Accepts one or more XO server UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra Server.
 Get-XoServerTask -ServerUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoServer | Get-XoServerTask
+```
+
 ## PARAMETERS
 
 ### -ServerUuid
-The UUID of the Server whose tasks to retrieve.
+The UUID(s) of the XO server whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

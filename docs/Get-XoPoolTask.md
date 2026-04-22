@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoPoolTask
 
 ## SYNOPSIS
-List tasks for a Pool.
+Get tasks scoped to a specific pool.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoPoolTask [-PoolUuid] <String[]> [-ProgressAction <ActionPreference>] [<Com
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Pool.
+Retrieves tasks attached to the specified Xen Orchestra pool.
+Accepts one or more pool UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoPoolTask -PoolUuid "00000000-0000-0000-0000-000000000000"
+Get-XoPoolTask -PoolUuid "b7569d99-30f8-178a-7d94-801de3e29b5b"
+```
+
+### EXAMPLE 2
+```
+Get-XoPool | Get-XoPoolTask
 ```
 
 ## PARAMETERS
 
 ### -PoolUuid
-The UUID of the Pool whose tasks to retrieve.
+The UUID(s) of the pool whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

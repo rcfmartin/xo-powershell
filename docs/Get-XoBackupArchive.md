@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoBackupArchive
 
 ## SYNOPSIS
-List or query backup-archives.
+List or query Xen Orchestra backup archives.
 
 ## SYNTAX
 
@@ -24,19 +24,26 @@ Get-XoBackupArchive [-BackupArchiveId] <String[]> [-ProgressAction <ActionPrefer
 ```
 
 ## DESCRIPTION
-Get Xen Orchestra backup-archives by ID or list existing entries.
+Retrieves Xen Orchestra backup archives - restorable snapshots stored in a backup repository.
+When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupArchiveId to fetch specific entries or -Filter / -Limit to scope a list query.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoBackupArchive
+Get-XoBackupArchive -Filter 'type:xo-vm-backup'
+```
+
+### EXAMPLE 2
+```
+"
 ```
 
 ## PARAMETERS
 
 ### -BackupArchiveId
-The ID(s) of the BackupArchive to retrieve.
+One or more IDs of the backup archives to retrieve.
+When omitted, the cmdlet enumerates backup archives using Filter and Limit.
 
 ```yaml
 Type: String[]
@@ -51,7 +58,8 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-Custom filter expression for the query.
+XO filter expression applied server-side (same syntax as the REST \`filter\` query parameter, e.g.
+\`status:success\`).
 
 ```yaml
 Type: String
@@ -66,7 +74,8 @@ Accept wildcard characters: False
 ```
 
 ### -Limit
-Maximum number of results to return.
+Maximum number of backup archives to return when listing.
+Defaults to the session limit set by Connect-XoSession or Set-XoSession.
 
 ```yaml
 Type: Int32

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmControllerAlarm
 
 ## SYNOPSIS
-List alarms for a VmController.
+Get alarms scoped to a specific VM controller.
 
 ## SYNTAX
 
@@ -18,7 +18,8 @@ Get-XoVmControllerAlarm [-VmControllerUuid] <String[]> [-ProgressAction <ActionP
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra VmController.
+Retrieves alarms attached to the specified Xen Orchestra VM controller.
+Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -27,10 +28,16 @@ Retrieve alarms associated with a specific Xen Orchestra VmController.
 Get-XoVmControllerAlarm -VmControllerUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmController | Get-XoVmControllerAlarm
+```
+
 ## PARAMETERS
 
 ### -VmControllerUuid
-The UUID of the VmController whose alarms to retrieve.
+The UUID(s) of the VM controller whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

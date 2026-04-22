@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoSrAlarm
 
 ## SYNOPSIS
-List alarms for a Sr.
+Get alarms scoped to a specific storage repository.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoSrAlarm [-SrUuid] <String[]> [-ProgressAction <ActionPreference>] [<Common
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Sr.
+Retrieves alarms attached to the specified Xen Orchestra storage repository.
+Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Sr.
 Get-XoSrAlarm -SrUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoSr | Get-XoSrAlarm
+```
+
 ## PARAMETERS
 
 ### -SrUuid
-The UUID of the Sr whose alarms to retrieve.
+The UUID(s) of the storage repository whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

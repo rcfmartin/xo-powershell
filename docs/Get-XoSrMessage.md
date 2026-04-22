@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoSrMessage
 
 ## SYNOPSIS
-List messages for a Sr.
+Get messages scoped to a specific storage repository.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoSrMessage [-SrUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra Sr.
+Retrieves messages attached to the specified Xen Orchestra storage repository.
+Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra Sr.
 Get-XoSrMessage -SrUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoSr | Get-XoSrMessage
+```
+
 ## PARAMETERS
 
 ### -SrUuid
-The UUID of the Sr whose messages to retrieve.
+The UUID(s) of the storage repository whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

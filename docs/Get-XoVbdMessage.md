@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVbdMessage
 
 ## SYNOPSIS
-List messages for a Vbd.
+Get messages scoped to a specific VBD.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVbdMessage [-VbdUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra Vbd.
+Retrieves messages attached to the specified Xen Orchestra VBD.
+Accepts one or more VBD UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra Vbd.
 Get-XoVbdMessage -VbdUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVbd | Get-XoVbdMessage
+```
+
 ## PARAMETERS
 
 ### -VbdUuid
-The UUID of the Vbd whose messages to retrieve.
+The UUID(s) of the VBD whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

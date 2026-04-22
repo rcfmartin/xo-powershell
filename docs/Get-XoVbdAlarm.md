@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVbdAlarm
 
 ## SYNOPSIS
-List alarms for a Vbd.
+Get alarms scoped to a specific VBD.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVbdAlarm [-VbdUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Vbd.
+Retrieves alarms attached to the specified Xen Orchestra VBD.
+Accepts one or more VBD UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Vbd.
 Get-XoVbdAlarm -VbdUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVbd | Get-XoVbdAlarm
+```
+
 ## PARAMETERS
 
 ### -VbdUuid
-The UUID of the Vbd whose alarms to retrieve.
+The UUID(s) of the VBD whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

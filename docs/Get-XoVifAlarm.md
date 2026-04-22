@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVifAlarm
 
 ## SYNOPSIS
-List alarms for a Vif.
+Get alarms scoped to a specific VIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVifAlarm [-VifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Vif.
+Retrieves alarms attached to the specified Xen Orchestra VIF.
+Accepts one or more VIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Vif.
 Get-XoVifAlarm -VifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVif | Get-XoVifAlarm
+```
+
 ## PARAMETERS
 
 ### -VifUuid
-The UUID of the Vif whose alarms to retrieve.
+The UUID(s) of the VIF whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

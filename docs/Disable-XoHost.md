@@ -8,7 +8,7 @@ schema: 2.0.0
 # Disable-XoHost
 
 ## SYNOPSIS
-disable one or more hosts.
+Disable one or more Xen Orchestra hosts.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Disable-XoHost [-HostUuid] <String[]> [-ProgressAction <ActionPreference>] [-Wha
 ```
 
 ## DESCRIPTION
-disable the specified Xen Orchestra hosts.
-Returns a task object that can be used to monitor the operation.
+Marks the host as disabled so the pool scheduler stops placing new VMs on it.
+Existing VMs keep running until migrated or shut down.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Disable-XoHost -HostUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -HostUuid
 The UUID(s) of the host to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

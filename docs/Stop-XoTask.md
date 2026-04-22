@@ -8,7 +8,7 @@ schema: 2.0.0
 # Stop-XoTask
 
 ## SYNOPSIS
-Abort a running task.
+Abort one or more running Xen Orchestra tasks.
 
 ## SYNTAX
 
@@ -17,7 +17,10 @@ Stop-XoTask [-TaskId] <String[]> [-ProgressAction <ActionPreference>] [-WhatIf] 
 ```
 
 ## DESCRIPTION
-Abort the specified Xen Orchestra task(s).
+POSTs to /tasks/{id}/actions/abort to request cancellation of the specified task.
+Some XAPI tasks cannot be aborted; those will return an error.
+Aborting a task can leave partial state behind (e.g.
+a half-migrated VM) - use with care.
 
 ## EXAMPLES
 
@@ -26,10 +29,16 @@ Abort the specified Xen Orchestra task(s).
 Stop-XoTask -TaskId "0m8k2zkzi"
 ```
 
+### EXAMPLE 2
+```
+Get-XoTask -Status pending | Stop-XoTask
+```
+
 ## PARAMETERS
 
 ### -TaskId
 The ID(s) of the task(s) to abort.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoEvent
 
 ## SYNOPSIS
-List events.
+List Xen Orchestra events.
 
 ## SYNTAX
 
@@ -17,19 +17,28 @@ Get-XoEvent [[-Filter] <String>] [[-Limit] <Int32>] [-ProgressAction <ActionPref
 ```
 
 ## DESCRIPTION
-Retrieve Xen Orchestra events with optional filter and limit.
+Retrieves entries from the Xen Orchestra event log.
+Events represent system-level occurrences (object changes, connection events, user actions).
+Useful for audit/troubleshooting.
+Supports XO filter expressions and paging.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoEvent
+Get-XoEvent -Limit 100
+```
+
+### EXAMPLE 2
+```
+Get-XoEvent -Filter 'type:connection-lost'
 ```
 
 ## PARAMETERS
 
 ### -Filter
-Custom filter expression for the query.
+XO filter expression applied server-side (e.g.
+\`type:host\`).
 
 ```yaml
 Type: String
@@ -44,7 +53,8 @@ Accept wildcard characters: False
 ```
 
 ### -Limit
-Maximum number of results to return.
+Maximum number of events to return.
+Defaults to the session limit.
 
 ```yaml
 Type: Int32

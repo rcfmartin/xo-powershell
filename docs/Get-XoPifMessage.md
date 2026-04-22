@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoPifMessage
 
 ## SYNOPSIS
-List messages for a Pif.
+Get messages scoped to a specific PIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoPifMessage [-PifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra Pif.
+Retrieves messages attached to the specified Xen Orchestra PIF.
+Accepts one or more PIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve messages associated with a specific Xen Orchestra Pif.
 Get-XoPifMessage -PifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoPif | Get-XoPifMessage
+```
+
 ## PARAMETERS
 
 ### -PifUuid
-The UUID of the Pif whose messages to retrieve.
+The UUID(s) of the PIF whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

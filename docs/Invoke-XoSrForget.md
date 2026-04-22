@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-XoSrForget
 
 ## SYNOPSIS
-forget one or more srs.
+Forget one or more Xen Orchestra SRs.
 
 ## SYNTAX
 
@@ -18,20 +18,25 @@ Invoke-XoSrForget [-SrUuid] <String[]> [-ProgressAction <ActionPreference>] [-Wh
 ```
 
 ## DESCRIPTION
-forget the specified Xen Orchestra srs.
-Returns a task object that can be used to monitor the operation.
+Detaches the SR from the pool without destroying the underlying storage (the data and VDIs remain on the remote; they can be re-introduced later).
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Invoke-XoSrForget -SrUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -SrUuid
-The UUID(s) of the sr to act on.
+The UUID(s) of the SR to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

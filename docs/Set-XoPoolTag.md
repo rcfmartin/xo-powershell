@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-XoPoolTag
 
 ## SYNOPSIS
-Add or remove a tag on a pool.
+Attach or detach a single tag on a Xen Orchestra pool.
 
 ## SYNTAX
 
@@ -18,19 +18,20 @@ Set-XoPoolTag [-PoolUuid] <String> [-Tag] <String> [-Remove] [-ProgressAction <A
 ```
 
 ## DESCRIPTION
-Attach a single tag to a specific Xen Orchestra pool.
-Use -Remove to detach the tag instead.
+Manages individual tags on the specified pool using the /tags/{tag} endpoint.
+By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE).
+Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoPoolTag -PoolUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+" -Tag "production"
 ```
 
 ### EXAMPLE 2
 ```
-Set-XoPoolTag -PoolUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+" -Tag "production" -Remove
 ```
 
 ## PARAMETERS
@@ -66,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-Remove the tag instead of adding it.
+Detach the tag instead of attaching it.
 
 ```yaml
 Type: SwitchParameter

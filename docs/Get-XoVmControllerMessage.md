@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmControllerMessage
 
 ## SYNOPSIS
-List messages for a VmController.
+Get messages scoped to a specific VM controller.
 
 ## SYNTAX
 
@@ -18,7 +18,8 @@ Get-XoVmControllerMessage [-VmControllerUuid] <String[]> [-ProgressAction <Actio
 ```
 
 ## DESCRIPTION
-Retrieve messages associated with a specific Xen Orchestra VmController.
+Retrieves messages attached to the specified Xen Orchestra VM controller.
+Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -27,10 +28,16 @@ Retrieve messages associated with a specific Xen Orchestra VmController.
 Get-XoVmControllerMessage -VmControllerUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmController | Get-XoVmControllerMessage
+```
+
 ## PARAMETERS
 
 ### -VmControllerUuid
-The UUID of the VmController whose messages to retrieve.
+The UUID(s) of the VM controller whose messages should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

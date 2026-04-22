@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoNetworkAlarm
 
 ## SYNOPSIS
-List alarms for a Network.
+Get alarms scoped to a specific network.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoNetworkAlarm [-NetworkUuid] <String[]> [-ProgressAction <ActionPreference>
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Network.
+Retrieves alarms attached to the specified Xen Orchestra network.
+Accepts one or more network UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Network.
 Get-XoNetworkAlarm -NetworkUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoNetwork | Get-XoNetworkAlarm
+```
+
 ## PARAMETERS
 
 ### -NetworkUuid
-The UUID of the Network whose alarms to retrieve.
+The UUID(s) of the network whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

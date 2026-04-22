@@ -5,34 +5,36 @@ online version:
 schema: 2.0.0
 ---
 
-# Export-XoVmTemplate
+# Invoke-XoPoolManagementReconfigure
 
 ## SYNOPSIS
-Export a Xen Orchestra VM template to a local file.
+Reconfigure the management network of a Xen Orchestra pool.
 
 ## SYNTAX
 
 ```
-Export-XoVmTemplate [-VmTemplateUuid] <String> -Format <String> -OutFile <String> [-PassThru]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Invoke-XoPoolManagementReconfigure [-PoolUuid] <String> [-NetworkUuid] <String>
+ [-AdditionalParameters <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Downloads the specified VM template in either xva (XenServer native) or ova format.
-The download is streamed to -OutFile; nothing is returned unless -PassThru is specified.
-For large VM templates the export can take a while - consider running it as a background job.
+Points the pool's management interface at a different network.
+Thin wrapper
+around the internal Invoke-XoPoolAction -Action management_reconfigure helper.
+Returns a task object that can be passed to Wait-XoTask to monitor completion.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-" -Format xva -OutFile "./export.xva"
+Invoke-XoPoolManagementReconfigure -PoolUuid $pool.PoolUuid -NetworkUuid $net.NetworkUuid
 ```
 
 ## PARAMETERS
 
-### -VmTemplateUuid
-The UUID of the VM template to export.
+### -PoolUuid
+The UUID of the pool whose management network is being reconfigured.
 
 ```yaml
 Type: String
@@ -46,8 +48,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Format
-Export format: 'xva' (XenServer native, fastest) or 'ova' (portable OVF).
+### -NetworkUuid
+The UUID of the network to use as the new management network.
 
 ```yaml
 Type: String
@@ -55,39 +57,25 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -OutFile
-Local path to write the exported file to.
-Parent directory must exist.
+### -AdditionalParameters
+Optional hashtable of extra body parameters to merge into the
+management_reconfigure action payload.
+Values here override NetworkUuid.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PassThru
-Return the written file as a FileInfo object.
-
-```yaml
-Type: SwitchParameter
+Type: Hashtable
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -145,6 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Task
 ## NOTES
 
 ## RELATED LINKS

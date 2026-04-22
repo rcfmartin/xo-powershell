@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmControllerTask
 
 ## SYNOPSIS
-List tasks for a VmController.
+Get tasks scoped to a specific VM controller.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmControllerTask [-VmControllerUuid] <String[]> [-ProgressAction <ActionPr
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra VmController.
+Retrieves tasks attached to the specified Xen Orchestra VM controller.
+Accepts one or more VM controller UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra VmController.
 Get-XoVmControllerTask -VmControllerUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmController | Get-XoVmControllerTask
+```
+
 ## PARAMETERS
 
 ### -VmControllerUuid
-The UUID of the VmController whose tasks to retrieve.
+The UUID(s) of the VM controller whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

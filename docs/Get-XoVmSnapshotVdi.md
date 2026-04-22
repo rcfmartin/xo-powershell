@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmSnapshotVdi
 
 ## SYNOPSIS
-List vdis for a VmSnapshot.
+Get virtual disks (VDIs) scoped to a specific VM snapshot.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmSnapshotVdi [-VmSnapshotUuid] <String[]> [-ProgressAction <ActionPrefere
 ```
 
 ## DESCRIPTION
-Retrieve vdis associated with a specific Xen Orchestra VmSnapshot.
+Retrieves virtual disks (VDIs) attached to the specified Xen Orchestra VM snapshot.
+Accepts one or more VM snapshot UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve vdis associated with a specific Xen Orchestra VmSnapshot.
 Get-XoVmSnapshotVdi -VmSnapshotUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmSnapshot | Get-XoVmSnapshotVdi
+```
+
 ## PARAMETERS
 
 ### -VmSnapshotUuid
-The UUID of the VmSnapshot whose vdis to retrieve.
+The UUID(s) of the VM snapshot whose virtual disks (VDIs) should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

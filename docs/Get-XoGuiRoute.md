@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoGuiRoute
 
 ## SYNOPSIS
-Get the gui-routes resource.
+Get the Xen Orchestra GUI route table.
 
 ## SYNTAX
 
@@ -17,7 +17,9 @@ Get-XoGuiRoute [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieve the Xen Orchestra gui-routes resource.
+Retrieves the /gui-routes resource which maps GUI generation names (e.g.
+xo5, xo6) to their URL prefixes.
+This is mainly useful for tooling that needs to construct GUI deep links.
 
 ## EXAMPLES
 

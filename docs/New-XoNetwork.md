@@ -5,34 +5,37 @@ online version:
 schema: 2.0.0
 ---
 
-# Export-XoVmTemplate
+# New-XoNetwork
 
 ## SYNOPSIS
-Export a Xen Orchestra VM template to a local file.
+Create a new network on a Xen Orchestra pool.
 
 ## SYNTAX
 
 ```
-Export-XoVmTemplate [-VmTemplateUuid] <String> -Format <String> -OutFile <String> [-PassThru]
- [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-XoNetwork [-PoolUuid] <String> [-Name] <String> [-Description <String>] [-PifUuid <String>] [-Vlan <Int32>]
+ [-AdditionalParameters <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Downloads the specified VM template in either xva (XenServer native) or ova format.
-The download is streamed to -OutFile; nothing is returned unless -PassThru is specified.
-For large VM templates the export can take a while - consider running it as a background job.
+Creates a regular network on the specified pool.
+Thin wrapper around the
+internal Invoke-XoPoolAction -Action create_network helper.
+Returns a task
+object that can be passed to Wait-XoTask to monitor completion.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-" -Format xva -OutFile "./export.xva"
+New-XoNetwork -PoolUuid $pool.PoolUuid -Name "frontend" -PifUuid $pif.PifUuid -Vlan 100
 ```
 
 ## PARAMETERS
 
-### -VmTemplateUuid
-The UUID of the VM template to export.
+### -PoolUuid
+The UUID of the pool to create the network on.
 
 ```yaml
 Type: String
@@ -46,8 +49,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Format
-Export format: 'xva' (XenServer native, fastest) or 'ova' (portable OVF).
+### -Name
+The name of the new network.
 
 ```yaml
 Type: String
@@ -55,39 +58,71 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -OutFile
-Local path to write the exported file to.
-Parent directory must exist.
+### -Description
+Optional description of the new network.
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -PassThru
-Return the written file as a FileInfo object.
-
-```yaml
-Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PifUuid
+Optional UUID of the PIF to attach the network to.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Vlan
+Optional VLAN id for the new network.
+Use 0 for untagged.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AdditionalParameters
+Optional hashtable of extra body parameters to merge into the create_network
+action payload.
+Values here override the dedicated parameters above.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -145,6 +180,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### XoPowershell.Task
 ## NOTES
 
 ## RELATED LINKS

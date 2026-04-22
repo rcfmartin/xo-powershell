@@ -8,7 +8,7 @@ schema: 2.0.0
 # Resume-XoVm
 
 ## SYNOPSIS
-resume one or more vms.
+Resume one or more Xen Orchestra VMs.
 
 ## SYNTAX
 
@@ -17,20 +17,25 @@ Resume-XoVm [-VmUuid] <String[]> [-ProgressAction <ActionPreference>] [-WhatIf] 
 ```
 
 ## DESCRIPTION
-resume the specified Xen Orchestra vms.
-Returns a task object that can be used to monitor the operation.
+Resumes a suspended VM, restoring its memory from disk and returning it to the Running state.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Resume-XoVm -VmUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -VmUuid
-The UUID(s) of the vm to act on.
+The UUID(s) of the VM to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

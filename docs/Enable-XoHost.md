@@ -8,7 +8,7 @@ schema: 2.0.0
 # Enable-XoHost
 
 ## SYNOPSIS
-enable one or more hosts.
+Enable one or more Xen Orchestra hosts.
 
 ## SYNTAX
 
@@ -18,20 +18,25 @@ Enable-XoHost [-HostUuid] <String[]> [-ProgressAction <ActionPreference>] [-What
 ```
 
 ## DESCRIPTION
-enable the specified Xen Orchestra hosts.
-Returns a task object that can be used to monitor the operation.
+Marks the host as enabled so the pool scheduler will place new VMs on it.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Enable-XoHost -HostUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -HostUuid
 The UUID(s) of the host to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Move-XoVdi
 
 ## SYNOPSIS
-Migrate a VDI to another SR.
+Migrate a Xen Orchestra VDI to another storage repository.
 
 ## SYNTAX
 
@@ -18,20 +18,22 @@ Move-XoVdi [-VdiUuid] <String> [-Parameters <Hashtable>] [-ProgressAction <Actio
 ```
 
 ## DESCRIPTION
-Migrate the specified VDI to a different storage repository.
-Pass the destination SR via -Parameters.
+Triggers a live VDI migration to a different SR.
+The destination SR UUID must be provided via -Parameters (e.g.
+\`\`@{ sr_id = \<uuid\> }\`\`); see the XO REST docs at /rest/v0/docs/#/vdis/MigrateVdi for the full schema.
+Returns a task object.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Move-XoVdi -VdiUuid "00000000-0000-0000-0000-000000000000"
+" -Parameters @{ }
 ```
 
 ## PARAMETERS
 
 ### -VdiUuid
-The UUID of the vdi to act on.
+The UUID of the VDI to act on.
 
 ```yaml
 Type: String
@@ -46,8 +48,8 @@ Accept wildcard characters: False
 ```
 
 ### -Parameters
-Hashtable of parameters to pass in the action body.
-See the Xen Orchestra REST API docs for required fields.
+Hashtable of action body parameters.
+See the linked XO REST documentation for the expected fields.
 
 ```yaml
 Type: Hashtable

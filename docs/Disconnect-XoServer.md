@@ -8,7 +8,7 @@ schema: 2.0.0
 # Disconnect-XoServer
 
 ## SYNOPSIS
-disconnect one or more servers.
+Disconnect one or more Xen Orchestra XO servers.
 
 ## SYNTAX
 
@@ -18,20 +18,26 @@ Disconnect-XoServer [-ServerUuid] <String[]> [-ProgressAction <ActionPreference>
 ```
 
 ## DESCRIPTION
-disconnect the specified Xen Orchestra servers.
-Returns a task object that can be used to monitor the operation.
+Drops the XAPI connection for the registered XO server.
+The server stays registered but its pool stops syncing until reconnected.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Disconnect-XoServer -ServerUuid "00000000-0000-0000-0000-000000000000"
+"
+```
+
+### EXAMPLE 2
+```
+" | Wait-XoTask -PassThru
 ```
 
 ## PARAMETERS
 
 ### -ServerUuid
-The UUID(s) of the server to act on.
+The UUID(s) of the XO server to act on.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVdiAlarm
 
 ## SYNOPSIS
-List alarms for a Vdi.
+Get alarms scoped to a specific VDI.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVdiAlarm [-VdiUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra Vdi.
+Retrieves alarms attached to the specified Xen Orchestra VDI.
+Accepts one or more VDI UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra Vdi.
 Get-XoVdiAlarm -VdiUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVdi | Get-XoVdiAlarm
+```
+
 ## PARAMETERS
 
 ### -VdiUuid
-The UUID of the Vdi whose alarms to retrieve.
+The UUID(s) of the VDI whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

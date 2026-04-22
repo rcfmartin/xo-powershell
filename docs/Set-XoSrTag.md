@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-XoSrTag
 
 ## SYNOPSIS
-Add or remove a tag on a sr.
+Attach or detach a single tag on a Xen Orchestra storage repository.
 
 ## SYNTAX
 
@@ -18,25 +18,26 @@ Set-XoSrTag [-SrUuid] <String> [-Tag] <String> [-Remove] [-ProgressAction <Actio
 ```
 
 ## DESCRIPTION
-Attach a single tag to a specific Xen Orchestra sr.
-Use -Remove to detach the tag instead.
+Manages individual tags on the specified storage repository using the /tags/{tag} endpoint.
+By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE).
+Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoSrTag -SrUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+" -Tag "production"
 ```
 
 ### EXAMPLE 2
 ```
-Set-XoSrTag -SrUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+" -Tag "production" -Remove
 ```
 
 ## PARAMETERS
 
 ### -SrUuid
-The UUID of the sr to tag.
+The UUID of the storage repository to tag.
 
 ```yaml
 Type: String
@@ -66,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-Remove the tag instead of adding it.
+Detach the tag instead of attaching it.
 
 ```yaml
 Type: SwitchParameter

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoGroup
 
 ## SYNOPSIS
-List or query groups.
+List or query Xen Orchestra groups.
 
 ## SYNTAX
 
@@ -23,7 +23,9 @@ Get-XoGroup [-GroupId] <String[]> [-ProgressAction <ActionPreference>] [<CommonP
 ```
 
 ## DESCRIPTION
-Get Xen Orchestra groups by ID or list existing entries.
+Retrieves user groups configured in Xen Orchestra.
+Groups are used to grant permissions to collections of users.
+When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -GroupId to fetch specific entries or -Filter / -Limit to scope a list query.
 
 ## EXAMPLES
 
@@ -32,10 +34,16 @@ Get Xen Orchestra groups by ID or list existing entries.
 Get-XoGroup
 ```
 
+### EXAMPLE 2
+```
+"
+```
+
 ## PARAMETERS
 
 ### -GroupId
-The ID(s) of the Group to retrieve.
+One or more IDs of the groups to retrieve.
+When omitted, the cmdlet enumerates groups using Filter and Limit.
 
 ```yaml
 Type: String[]
@@ -50,7 +58,8 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-Custom filter expression for the query.
+XO filter expression applied server-side (same syntax as the REST \`filter\` query parameter, e.g.
+\`status:success\`).
 
 ```yaml
 Type: String
@@ -65,7 +74,8 @@ Accept wildcard characters: False
 ```
 
 ### -Limit
-Maximum number of results to return.
+Maximum number of groups to return when listing.
+Defaults to the session limit set by Connect-XoSession or Set-XoSession.
 
 ```yaml
 Type: Int32

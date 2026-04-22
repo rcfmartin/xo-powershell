@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmTemplateTask
 
 ## SYNOPSIS
-List tasks for a VmTemplate.
+Get tasks scoped to a specific VM template.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmTemplateTask [-VmTemplateUuid] <String[]> [-ProgressAction <ActionPrefer
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra VmTemplate.
+Retrieves tasks attached to the specified Xen Orchestra VM template.
+Accepts one or more VM template UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra VmTemplate.
 Get-XoVmTemplateTask -VmTemplateUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmTemplate | Get-XoVmTemplateTask
+```
+
 ## PARAMETERS
 
 ### -VmTemplateUuid
-The UUID of the VmTemplate whose tasks to retrieve.
+The UUID(s) of the VM template whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

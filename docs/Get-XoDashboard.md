@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoDashboard
 
 ## SYNOPSIS
-Get the dashboard resource.
+Get the Xen Orchestra global dashboard summary.
 
 ## SYNTAX
 
@@ -17,13 +17,19 @@ Get-XoDashboard [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieve the Xen Orchestra dashboard resource.
+Retrieves the global dashboard object exposed at /dashboard: aggregate counters (nHosts, nPools), resource overview (cpus, memory, storage), pool connectivity status, and repository totals.
+Useful for a one-shot health snapshot of the XO deployment.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 Get-XoDashboard
+```
+
+### EXAMPLE 2
+```
+(Get-XoDashboard).resourcesOverview
 ```
 
 ## PARAMETERS

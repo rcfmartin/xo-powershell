@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVdiSnapshotTask
 
 ## SYNOPSIS
-List tasks for a VdiSnapshot.
+Get tasks scoped to a specific VDI snapshot.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVdiSnapshotTask [-VdiSnapshotUuid] <String[]> [-ProgressAction <ActionPref
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra VdiSnapshot.
+Retrieves tasks attached to the specified Xen Orchestra VDI snapshot.
+Accepts one or more VDI snapshot UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra VdiSnapshot.
 Get-XoVdiSnapshotTask -VdiSnapshotUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVdiSnapshot | Get-XoVdiSnapshotTask
+```
+
 ## PARAMETERS
 
 ### -VdiSnapshotUuid
-The UUID of the VdiSnapshot whose tasks to retrieve.
+The UUID(s) of the VDI snapshot whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

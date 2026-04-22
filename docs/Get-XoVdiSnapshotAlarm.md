@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVdiSnapshotAlarm
 
 ## SYNOPSIS
-List alarms for a VdiSnapshot.
+Get alarms scoped to a specific VDI snapshot.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVdiSnapshotAlarm [-VdiSnapshotUuid] <String[]> [-ProgressAction <ActionPre
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra VdiSnapshot.
+Retrieves alarms attached to the specified Xen Orchestra VDI snapshot.
+Accepts one or more VDI snapshot UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra VdiSnapshot.
 Get-XoVdiSnapshotAlarm -VdiSnapshotUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVdiSnapshot | Get-XoVdiSnapshotAlarm
+```
+
 ## PARAMETERS
 
 ### -VdiSnapshotUuid
-The UUID of the VdiSnapshot whose alarms to retrieve.
+The UUID(s) of the VDI snapshot whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

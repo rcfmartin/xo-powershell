@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmTemplateAlarm
 
 ## SYNOPSIS
-List alarms for a VmTemplate.
+Get alarms scoped to a specific VM template.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVmTemplateAlarm [-VmTemplateUuid] <String[]> [-ProgressAction <ActionPrefe
 ```
 
 ## DESCRIPTION
-Retrieve alarms associated with a specific Xen Orchestra VmTemplate.
+Retrieves alarms attached to the specified Xen Orchestra VM template.
+Accepts one or more VM template UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve alarms associated with a specific Xen Orchestra VmTemplate.
 Get-XoVmTemplateAlarm -VmTemplateUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVmTemplate | Get-XoVmTemplateAlarm
+```
+
 ## PARAMETERS
 
 ### -VmTemplateUuid
-The UUID of the VmTemplate whose alarms to retrieve.
+The UUID(s) of the VM template whose alarms should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

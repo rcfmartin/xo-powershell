@@ -8,7 +8,7 @@ schema: 2.0.0
 # Set-XoVmTemplateTag
 
 ## SYNOPSIS
-Add or remove a tag on a vmtemplate.
+Attach or detach a single tag on a Xen Orchestra VM template.
 
 ## SYNTAX
 
@@ -18,25 +18,26 @@ Set-XoVmTemplateTag [-VmTemplateUuid] <String> [-Tag] <String> [-Remove] [-Progr
 ```
 
 ## DESCRIPTION
-Attach a single tag to a specific Xen Orchestra vmtemplate.
-Use -Remove to detach the tag instead.
+Manages individual tags on the specified VM template using the /tags/{tag} endpoint.
+By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE).
+Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-XoVmTemplateTag -VmTemplateUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+" -Tag "production"
 ```
 
 ### EXAMPLE 2
 ```
-Set-XoVmTemplateTag -VmTemplateUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+" -Tag "production" -Remove
 ```
 
 ## PARAMETERS
 
 ### -VmTemplateUuid
-The UUID of the vmtemplate to tag.
+The UUID of the VM template to tag.
 
 ```yaml
 Type: String
@@ -66,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Remove
-Remove the tag instead of adding it.
+Detach the tag instead of attaching it.
 
 ```yaml
 Type: SwitchParameter

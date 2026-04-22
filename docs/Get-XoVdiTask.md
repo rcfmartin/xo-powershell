@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVdiTask
 
 ## SYNOPSIS
-List tasks for a Vdi.
+Get tasks scoped to a specific VDI.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoVdiTask [-VdiUuid] <String[]> [-ProgressAction <ActionPreference>] [<Commo
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Vdi.
+Retrieves tasks attached to the specified Xen Orchestra VDI.
+Accepts one or more VDI UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra Vdi.
 Get-XoVdiTask -VdiUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoVdi | Get-XoVdiTask
+```
+
 ## PARAMETERS
 
 ### -VdiUuid
-The UUID of the Vdi whose tasks to retrieve.
+The UUID(s) of the VDI whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

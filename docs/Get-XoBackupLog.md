@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoBackupLog
 
 ## SYNOPSIS
-List or query backup-logs.
+List or query Xen Orchestra backup logs.
 
 ## SYNTAX
 
@@ -23,19 +23,27 @@ Get-XoBackupLog [-BackupLogId] <String[]> [-ProgressAction <ActionPreference>] [
 ```
 
 ## DESCRIPTION
-Get Xen Orchestra backup-logs by ID or list existing entries.
+Retrieves run logs for Xen Orchestra backup jobs.
+Each log captures the status, start time, and nested tasks of one backup run.
+When called without parameters the cmdlet returns up to the session-wide limit (see Set-XoSession); supply -BackupLogId to fetch specific entries or -Filter / -Limit to scope a list query.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoBackupLog
+Get-XoBackupLog -Filter 'status:failure'
+```
+
+### EXAMPLE 2
+```
+"
 ```
 
 ## PARAMETERS
 
 ### -BackupLogId
-The ID(s) of the BackupLog to retrieve.
+One or more IDs of the backup logs to retrieve.
+When omitted, the cmdlet enumerates backup logs using Filter and Limit.
 
 ```yaml
 Type: String[]
@@ -50,7 +58,8 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-Custom filter expression for the query.
+XO filter expression applied server-side (same syntax as the REST \`filter\` query parameter, e.g.
+\`status:success\`).
 
 ```yaml
 Type: String
@@ -65,7 +74,8 @@ Accept wildcard characters: False
 ```
 
 ### -Limit
-Maximum number of results to return.
+Maximum number of backup logs to return when listing.
+Defaults to the session limit set by Connect-XoSession or Set-XoSession.
 
 ```yaml
 Type: Int32

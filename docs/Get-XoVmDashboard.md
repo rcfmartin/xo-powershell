@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoVmDashboard
 
 ## SYNOPSIS
-List dashboard for a Vm.
+Get dashboard summary scoped to a specific VM.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoVmDashboard [-VmUuid] <String[]> [-ProgressAction <ActionPreference>] [<Co
 ```
 
 ## DESCRIPTION
-Retrieve dashboard associated with a specific Xen Orchestra Vm.
+Retrieves dashboard summary attached to the specified Xen Orchestra VM.
+Accepts one or more VM UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoVmDashboard -VmUuid "00000000-0000-0000-0000-000000000000"
+Get-XoVmDashboard -VmUuid "613f541c-4bed-fc77-7ca8-2db6b68f079c"
+```
+
+### EXAMPLE 2
+```
+Get-XoVm | Get-XoVmDashboard
 ```
 
 ## PARAMETERS
 
 ### -VmUuid
-The UUID of the Vm whose dashboard to retrieve.
+The UUID(s) of the VM whose dashboard summary should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoPifTask
 
 ## SYNOPSIS
-List tasks for a Pif.
+Get tasks scoped to a specific PIF.
 
 ## SYNTAX
 
@@ -17,7 +17,8 @@ Get-XoPifTask [-PifUuid] <String[]> [-ProgressAction <ActionPreference>] [<Commo
 ```
 
 ## DESCRIPTION
-Retrieve tasks associated with a specific Xen Orchestra Pif.
+Retrieves tasks attached to the specified Xen Orchestra PIF.
+Accepts one or more PIF UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
@@ -26,10 +27,16 @@ Retrieve tasks associated with a specific Xen Orchestra Pif.
 Get-XoPifTask -PifUuid "00000000-0000-0000-0000-000000000000"
 ```
 
+### EXAMPLE 2
+```
+Get-XoPif | Get-XoPifTask
+```
+
 ## PARAMETERS
 
 ### -PifUuid
-The UUID of the Pif whose tasks to retrieve.
+The UUID(s) of the PIF whose tasks should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-XoHostSmt
 
 ## SYNOPSIS
-List smt for a Host.
+Get SMT status scoped to a specific host.
 
 ## SYNTAX
 
@@ -17,19 +17,26 @@ Get-XoHostSmt [-HostUuid] <String[]> [-ProgressAction <ActionPreference>] [<Comm
 ```
 
 ## DESCRIPTION
-Retrieve smt associated with a specific Xen Orchestra Host.
+Retrieves SMT status attached to the specified Xen Orchestra host.
+Accepts one or more host UUIDs; each is queried independently and the combined results are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-XoHostSmt -HostUuid "00000000-0000-0000-0000-000000000000"
+Get-XoHostSmt -HostUuid "812b59e1-2682-43ef-acd4-808d3551b907"
+```
+
+### EXAMPLE 2
+```
+Get-XoHost | Get-XoHostSmt
 ```
 
 ## PARAMETERS
 
 ### -HostUuid
-The UUID of the Host whose smt to retrieve.
+The UUID(s) of the host whose SMT status should be returned.
+Accepts pipeline input by property name.
 
 ```yaml
 Type: String[]
