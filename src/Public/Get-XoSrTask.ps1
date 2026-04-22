@@ -4,13 +4,15 @@ function Get-XoSrTask
 {
     <#
     .SYNOPSIS
-        List tasks for a Sr.
+        Get tasks scoped to a specific storage repository.
     .DESCRIPTION
-        Retrieve tasks associated with a specific Xen Orchestra Sr.
+        Retrieves tasks attached to the specified Xen Orchestra storage repository. Accepts one or more storage repository UUIDs; each is queried independently and the combined results are returned.
     .PARAMETER SrUuid
-        The UUID of the Sr whose tasks to retrieve.
+        The UUID(s) of the storage repository whose tasks should be returned. Accepts pipeline input by property name.
     .EXAMPLE
         Get-XoSrTask -SrUuid "00000000-0000-0000-0000-000000000000"
+    .EXAMPLE
+        Get-XoSr | Get-XoSrTask
     #>
     [CmdletBinding()]
     [OutputType("XoPowershell.Task")]
@@ -40,3 +42,4 @@ function Get-XoSrTask
         }
     }
 }
+
