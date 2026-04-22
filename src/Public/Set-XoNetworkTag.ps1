@@ -4,19 +4,19 @@ function Set-XoNetworkTag
 {
     <#
     .SYNOPSIS
-        Add or remove a tag on a network.
+        Attach or detach a single tag on a Xen Orchestra network.
     .DESCRIPTION
-        Attach a single tag to a specific Xen Orchestra network. Use -Remove to detach the tag instead.
+        Manages individual tags on the specified network using the /tags/{tag} endpoint. By default the tag is added (HTTP PUT); pass -Remove to detach it (HTTP DELETE). Unlike Set-Xo* cmdlets, this does not replace the full tag list - only the single tag is modified.
     .PARAMETER NetworkUuid
         The UUID of the network to tag.
     .PARAMETER Tag
         The tag value to add or remove.
     .PARAMETER Remove
-        Remove the tag instead of adding it.
+        Detach the tag instead of attaching it.
     .EXAMPLE
-        Set-XoNetworkTag -NetworkUuid "00000000-0000-0000-0000-000000000000" -Tag "production"
+        Set-XoNetworkTag -NetworkUuid "<uuid>" -Tag "production"
     .EXAMPLE
-        Set-XoNetworkTag -NetworkUuid "00000000-0000-0000-0000-000000000000" -Tag "production" -Remove
+        Set-XoNetworkTag -NetworkUuid "<uuid>" -Tag "production" -Remove
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = "Medium")]
     param (
@@ -50,3 +50,4 @@ function Set-XoNetworkTag
         }
     }
 }
+
